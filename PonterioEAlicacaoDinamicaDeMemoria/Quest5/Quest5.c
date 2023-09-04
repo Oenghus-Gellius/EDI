@@ -36,6 +36,7 @@ int *funcRealoca(int *vetorDados, int *capacidade){
     return vetRealocado;
 }
 
+//funçaõ saida de dados do vetor alocado
 void funcSaidaDados(int *vetorDados, int count){
     int i;
     for (i = 0; i < count; i++)
@@ -100,11 +101,12 @@ int main(){
     //laço de repetiçaõ para a entrada de datos, zero sai.
     } while (enterDate !=0);
 
+    //funçaõ saida de dados do vetor alocado
     funcSaidaDados(vetorDados,count);
 
     //abrindo ou criando um arquivo para armazenamento 
     FILE *arquivo;
-    arquivo - fopen("dados.txt","rb+");
+    arquivo = fopen("dados.txt","rb+");
         if (arquivo==NULL)
     {
         printf("\nArquivo inexistent, abrinco um novo.\n");

@@ -15,54 +15,65 @@ repita este procedimento de expandir dinamicamente com mais 10 valores o vetor a
 mesmo estiver cheio. Assim o vetor irá ser “expandido” de 10 em 10 valores. Usar a função
 malloc para alocar memória de forma dinâmica.
 */
-
 #include <stdio.h>
 #include <stdlib.h>
 #define TAM_VETOR 10
 
-//função de criação dinamica de um vetor, retornar ponterio do vetor;
-int *funcCostruction(int capacidade){
-    int *vetorDados;
-    vetorDados = (int*)malloc(capacidade*sizeof(int));
-
-    if (vetorDados == NULL)
+//funçaõ construtora do vetor dinamico de dados 
+int *funcConstruct(int capacidade){
+    int *vetorCosntruido;
+    vetorCosntruido=(int*)malloc(capacidade * sizeof(int));
+    if (vetorCosntruido == NULL)
     {
-        printf("Falhei miseravelmente em gerar um vetor Dinamico");
+        printf("\nfalha na alocação do vetor dinamico");
     }
-    return vetorDados;
+    else
+    {
+        printf("\nVetor alocado com sucesso!");
+    }
+    return vetorCosntruido;
 }
 
-//funçaõ de realocação
-int *funcReallocVetor(int *vetorDados, int *capacidade){
-    int *vetRealocado;
-    *capacidade=*capacidade+TAM_VETOR;
-    vetRealocado=(int*)realloc(vetorDados,*capacidade*sizeof(int));
-    return vetRealocado;
-}
-
-void funcSaidaDados(int *vetorDados,int contDados){
+//função que expande o vetor
+int *funcExpasionVet(int *vetorDados, int *capacidade, int count){
+    int *vetNovo;
     int i;
+    int tamVetBase=*capacidade;
+    *capacidade=*capacidade+TAM_VETOR;
+    vetNovo=funcConstruct(*capacidade);
 
-    for (i = 0; i < contDados; i++)
+    //prenchedo o novo vetor com o conteudo do antigo;
+    for (i = 0; i < tamVetBase; i++)
+    {
+        vetNovo[i]=vetorDados[i];
+    }
+    return vetNovo;
+}
+
+//funçaõ saida de dados do vetor alocado
+void funcSaidaDados(int *vetorDados, int count){
+    int i;
+    for (i = 0; i < count; i++)
     {
         printf("Vetor[%d]=%d\t",i,vetorDados[i]);
     }
     printf("\n");
-    }
+}
 
-void funcPassandoArq(FILE *arquivo, int *vetorDados,int contDados){
-    rewind(arquivo);
+//função passando dados do vetorDianmico para o arquivo
+void funcCopyDadosParaAquivo(FILE *arquivo,int *vetorDados,int count){
     int i;
-    for (i = 0; i < contDados; i++)
+    rewind(arquivo);
+    for (i = 0; i < count; i++)
     {
         fwrite(&vetorDados[i],sizeof(int),1,arquivo);
     }
 }
 
-// Chama a função para desalocar o vetor
-void funcDestroyVetor(int **vetorDados){
+//função para desalocar o vetor dinamico
+void funcDestroyer(int **vetorDados){
     free(vetorDados);
-    *vetorDados=NULL;
+    *vetorDados = NULL;
 }
 
 //Função imprimindo o arquivo
@@ -78,61 +89,55 @@ void funcSaidaArq(FILE *arquivo){
 }
 
 int main(){
-    int *vetorDados=NULL;
-    int dadosEntrada;
-    int contDados;
-    int capacidade=TAM_VETOR;
-    contDados=0;
+    int entradaDados;
+    int *vetorDados;
+    int capacidade = TAM_VETOR;
+    int count=0;
 
-    do
-    {
-        printf("\nEntre com os dados.:");
-        scanf("%d",&dadosEntrada);
-        if (dadosEntrada!=0)
+     do
+     {
+        printf("\nEntre com o dado.:");
+        scanf("%d",&entradaDados);
+
+        if (entradaDados != 0)
         {
-            if (contDados==0)
+            if (count == 0)
             {
-                vetorDados=funcCostruction(capacidade);
+                vetorDados=funcConstruct(capacidade);
             }
-            if (contDados == capacidade)
+            if (count==capacidade)
             {
-                vetorDados=funcReallocVetor(vetorDados, &capacidade);
+                vetorDados=funcExpasionVet(vetorDados, &capacidade, count);
             }
-            vetorDados[contDados]=dadosEntrada;//colocando os dados no vetor?
-            contDados++;
+            vetorDados[count]=entradaDados;
+            count++;
         }
-        
-    //entrada de dados dinaico, saida = 0;       
-    } while (dadosEntrada!=0);
+        //entrada de dados
+     } while (entradaDados != 0);
 
-    //Função saida de dados
-    funcSaidaDados(vetorDados,contDados);
+    //funçaõ saida de dados do vetor alocado
+     funcSaidaDados(vetorDados, count);
 
+     //abrindo ou criando um arquivo para armazenamento 
     FILE *arquivo;
-    arquivo=fopen("dados.txt","rb+");
-    if (arquivo==NULL)
+    arquivo = fopen("dados.txt","rb+");
+        if (arquivo==NULL)
     {
         printf("\nArquivo inexistent, abrinco um novo.\n");
         arquivo=fopen("dados.txt","wb+");
     }
-    //Função para receber no arquivo os valores que estão no vetor dinamico
-    funcPassandoArq(arquivo, vetorDados, contDados);
 
-    funcDestroyVetor(&vetorDados);
-
-    if (vetorDados==NULL)
-    {
-        printf("Memoria desalocada com sucesso!!\n");
-    }
-    else
-    {
-        printf("ERRRO na desalocação de memoria.\n");
-    }
+    //função passando dados do vetorDianmico para o arquivo
+    funcCopyDadosParaAquivo(arquivo, vetorDados, count);
+     
+    //função para desalocar o vetor dinamico
+    funcDestroyer(&vetorDados);
 
     //Função imprimindo o arquivo
     funcSaidaArq(arquivo);
 
-    fclose (arquivo);
+    //fechando o arquivo
+    fclose(arquivo);
 
     return EXIT_SUCCESS;
 }
