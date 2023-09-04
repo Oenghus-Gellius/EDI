@@ -1,5 +1,8 @@
 //arquivo de implementação
 
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 #include "Quest2.h"
 
 // Implementação da função para gerar aleatoriamente o vetor

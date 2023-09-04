@@ -21,7 +21,7 @@ malloc para alocar memória de forma dinâmica.
 #define TAM_VETOR 10
 
 //função de criação dinamica de um vetor, retornar ponterio do vetor;
-int *funcCostruction(int capacidade,int *contador){
+int *funcCostruction(int capacidade){
     int *vetorDados;
     vetorDados = (int*)malloc(capacidade*sizeof(int));
 
@@ -37,49 +37,45 @@ int *funcReallocVetor(int *vetorDados, int *capacidade){
     int *vetRealocado;
     *capacidade=*capacidade+TAM_VETOR;
     vetRealocado=(int*)realloc(vetorDados,*capacidade*sizeof(int));
-
-    if (vetRealocado == NULL)
-    {
-        printf("Falhei miseravelmente em realocar o vetor Dinamico");
-    }
     return vetRealocado;
 }
 
-    void funcSaidaDados(int *vetorDados,int contDados){
-        int i;
-        for (i = 0; i < contDados; i++)
-        {
-            printf("Vetor[%d]=%d\t",i,vetorDados[i]);
-        }
-        printf("\n");
+void funcSaidaDados(int *vetorDados,int contDados){
+    int i;
+
+    for (i = 0; i < contDados; i++)
+    {
+        printf("Vetor[%d]=%d\t",i,vetorDados[i]);
+    }
+    printf("\n");
     }
 
-    void funcPassandoArq(FILE *arquivo, int *vetorDados,int contDados){
-        rewind(arquivo);
-        int i;
-        for (i = 0; i < contDados; i++)
-        {
-            fwrite(&vetorDados[i],sizeof(int),1,arquivo);
-        }
+void funcPassandoArq(FILE *arquivo, int *vetorDados,int contDados){
+    rewind(arquivo);
+    int i;
+    for (i = 0; i < contDados; i++)
+    {
+        fwrite(&vetorDados[i],sizeof(int),1,arquivo);
     }
+}
 
-    // Chama a função para desalocar o vetor
-    void funcDestroyVetor(int **vetorDados){
-        free(vetorDados);
-        *vetorDados=NULL;
-    }
+// Chama a função para desalocar o vetor
+void funcDestroyVetor(int **vetorDados){
+    free(vetorDados);
+    *vetorDados=NULL;
+}
 
-    //Função imprimindo o arquivo
-    void funcSaidaArq(FILE *arquivo){
-        int valor,i=0;
-        rewind(arquivo);
-        while (fread(&valor,sizeof(valor),1,arquivo)==1)
-        {
-            printf("vetor[%d]=%d\t",i,valor);
-            i++;
-        }
-        printf("\n");
+//Função imprimindo o arquivo
+void funcSaidaArq(FILE *arquivo){
+    int valor,i=0;
+    rewind(arquivo);
+    while (fread(&valor,sizeof(valor),1,arquivo)==1)
+    {
+        printf("vetor[%d]=%d\t",i,valor);
+        i++;
     }
+    printf("\n");
+}
 
 int main(){
     int *vetorDados=NULL;
@@ -96,7 +92,7 @@ int main(){
         {
             if (contDados==0)
             {
-                vetorDados=funcCostruction(capacidade, &contDados);
+                vetorDados=funcCostruction(capacidade);
             }
             if (contDados == capacidade)
             {
