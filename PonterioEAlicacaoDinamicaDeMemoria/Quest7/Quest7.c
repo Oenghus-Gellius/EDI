@@ -150,7 +150,8 @@ void funcSaidaDados(TCadastro *vetCadastro, TDatNasc *vetDatNasc, int count){
 //função passando dados do vetorDianmico para o arquivo
 void funcCopyDadosParaAquivo(FILE *arquivo, TCadastro *vetCadastro, TDatNasc *vetDatNasc, int count){
     int i;
-    rewind(arquivo);
+    
+    fseek(arquivo, 0, SEEK_END); // Posiciona o ponteiro no final do arquivo
     for (i = 0; i < count; i++)
     {
         fwrite(&vetCadastro[i], sizeof(TCadastro), 1, arquivo);
