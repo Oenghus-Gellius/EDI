@@ -11,3 +11,11 @@ irá conter o endereço de mais uma tabela de 100 ponteiros, alocada dinamicamen
 abaixo apresenta um esquema de como ficará a estrutura de dados prevista para este editor de
 textos
 */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+
+    return EXIT_SUCCESS;
+}

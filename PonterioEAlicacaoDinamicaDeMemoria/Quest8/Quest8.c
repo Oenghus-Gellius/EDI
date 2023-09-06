@@ -6,3 +6,11 @@ imprima os dados da estrutura. Finalmente, faça a chamada a esta função na fu
 
 Idem a questão acima, mas construa as funções usando referências (&).
 */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+
+    return EXIT_SUCCESS;
+}
