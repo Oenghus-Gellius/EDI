@@ -9,8 +9,10 @@ Idem a questão acima, mas construa as funções usando referências (&).
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 #define TAM_NOME 50
-#define TAM_VETCAD 10
+#define TAM_VETCAD 5
 
 //Estrutora de armazenamento dos dados do cadastro
 typedef struct {
@@ -19,6 +21,7 @@ typedef struct {
     int datNasc;
     int ID;
 }TCadastro;
+
 
 //função alocadora(custrutora) memoria para a estrutura 
 TCadastro funcAllocCad (int tamanho){
@@ -35,39 +38,68 @@ TCadastro funcAllocCad (int tamanho){
 //fazer a função de realocação
 
 //função para fazer o cadastro
-void funcCadastro(TCadastro *vetCadastro, int *capacidade, int ultimaID){
+void funcCadastro(TCadastro *ptrVetAlloc, int *capacidade, int *ultimaID){
     int cpf;
     char nome;
     int dataNasc;
     
-    if (capacidade == ultimaID)
+    do
     {
-        //realocar memoria 
+        if (*capacidade == *ultimaID)
+        {
+            *capacidade = *capacidade + TAM_VETCAD;
+            //realocar memoria 
+        }
+
+        printf("\nCPF.:");
+        scanf("%d",&cpf);
+        if (cpf != 0)//sai do cadastro
+        {
+            printf("\nCADASTRO\n");
+            setbuf(stdin, NULL);
+            printf("\nNome.:");
+            fgets(nome,TAM_NOME,stdin);
+            setbuf(stdin, NULL);
+
+            printf("\nData nascimento.:");
+            scanf("%d",&dataNasc);
+
+            //passar para a memoria alocada para registro dos dados
+            strcpy((ptrVetAlloc[*ultimaID]).nome,nome);
+            (ptrVetAlloc[*ultimaID]).cpf = cpf;
+            (ptrVetAlloc[*ultimaID]).datNasc = dataNasc;
+
+            (*ultimaID)++;
+        }
+
+    } while (cpf != 0);//sai do cadastro
+}
+
+//função de saida de dados
+void funcSaida(TCadastro *ptrVetAlloc, int ultimaID){
+    int i;
+    printf("\nDados Cadastrados\n");
+    for (i = 0; i < ultimaID; i++)
+    {
+        printf("\nNome.:%s", ptrVetAlloc[i].nome);
+        printf("\nCPF.:%s", ptrVetAlloc[i].cpf);
+        printf("\nData nascimento.: %d/%d/%d\n", ptrVetAlloc[i].datNasc);
     }
-    printf("\nCADASTRO\n");
-    setbuf(stdin, NULL);
-    printf("\nNome.:");
-    fgets(nome,TAM_NOME,stdin);
-    setbuf(stdin, NULL);
-    printf("\nCPF.:");
-    scanf("%d",&cpf);
-    printf("\nData nascimento.:");
-    scanf("%d",&dataNasc);
-
-    //passardo para a memoria alocada
     
-   }
-
-
+}
 
 int main(){
-    TCadastro *vetCalloc;
-    int tamanhoVetCad = TAM_VETCAD;
+    TCadastro *ptrVetAlloc;
+    int capacidade;
     int ultimaID = 0;
 
-    *vetCalloc = funcAllocCad (tamanhoVetCad);
+    *ptrVetAlloc = funcAllocCad (capacidade);
+    //ptrVetAlloc = (TCadastro*)calloc(capacidade, sizeof(TCadastro));
 
-    funcCadastro(*vetCadastro ,*capacidade);
+    //função cadastro
+    funcCadastro(ptrVetAlloc, &capacidade, &ultimaID);
+
+    funcSaida(ptrVetAlloc, ultimaID);
 
     return EXIT_SUCCESS;
 }
