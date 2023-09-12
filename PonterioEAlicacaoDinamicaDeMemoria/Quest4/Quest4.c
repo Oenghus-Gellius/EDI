@@ -22,7 +22,7 @@ malloc para alocar memória de forma dinâmica.
 //funçaõ construtora do vetor dinamico de dados 
 int *funcConstruct(int capacidade){
     int *vetorCosntruido;
-    vetorCosntruido=(int*)malloc(capacidade * sizeof(int));
+    vetorCosntruido=(int*)malloc(capacidade * sizeof(unsigned int));
     if (vetorCosntruido == NULL)
     {
         printf("\nfalha na alocação do vetor dinamico");
@@ -35,7 +35,7 @@ int *funcConstruct(int capacidade){
 }
 
 //função que expande o vetor
-int *funcExpasionVet(int *vetorDados, int *capacidade, int count){
+int *funcExpasionVet(int *vetorDados, int *capacidade){
     int *vetNovo;
     int i;
     int tamVetBase=*capacidade;
@@ -107,7 +107,7 @@ int main(){
             }
             if (count==capacidade)
             {
-                vetorDados=funcExpasionVet(vetorDados, &capacidade, count);
+                vetorDados=funcExpasionVet(vetorDados, &capacidade);
             }
             vetorDados[count]=entradaDados;
             count++;
