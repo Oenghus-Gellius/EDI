@@ -1,6 +1,8 @@
 #ifndef LISTA_H_INCLUDED
 #define LISTA_H_INCLUDED
+
 typedef int TChave;
+
 typedef struct{
     TChave chave;
     //demais campos
@@ -20,12 +22,15 @@ typedef struct {
 typedef TLista *lista;
 int *p;
 lista l;
+
 /*Se a lista pode ser criada a mesma é vazia e
 criaLista retorna a lista; caso contrário retorna NULL.
 */
 lista criaLista();
+
 /*A lista l deixa de existir*/
 void terminaLista(lista l);
+
 int insereInicio(lista l, TElemento e);
 int insereFinal(lista l, TElemento e);
 int getTamanho(lista l);

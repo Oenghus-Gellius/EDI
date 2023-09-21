@@ -1,5 +1,5 @@
 /*
-1) Dadas as declarações
+1) Dadas as declarações abaixo
 
 Os campos inicio e fim do tipo TLista apontam, respectivamente, para o primeiro e último
 nodo da lista. O campo next do último nodo da lista aponta para NULL.
@@ -35,3 +35,5 @@ int tamanho;
 }TLista;
 
 typedef TLista *lista;
+
+void funcInvert(lista);
