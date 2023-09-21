@@ -22,6 +22,10 @@ trocar apenas os campos ou usar uma lista auxiliar! Você deverá fazer a manipu
 apontadores para trocar os nodos de posição)
 */
 
+#ifndef QUEST1_H_INCLUDED
+#define QUEST1_H_INCLUDED
+
+
 typedef int TElemento;
 
 typedef struct Nodo{
@@ -36,4 +40,37 @@ int tamanho;
 
 typedef TLista *lista;
 
-void funcInvert(lista);
+//Aloca espaço de memoria para receber os dados
+lista funcCriarLista();
+
+//Destroi o espaço que foi alocado
+void funcDestroy(lista lis);
+
+//Função que incere um elemento no inicio da lista
+int funcIncereInicio(lista lis,TElemento elemento);
+
+//Função que Incere um novo elemento no final
+int funcIncereFinal(lista lis,TElemento elemento);
+
+//retorna o tanhanho da lista
+int FuncGeTtamanho(lista lis)
+
+/*Retorna em *e o valor do elemento da posição posicaoElemento e
+getElemento retorna verdadeiro. Se indice for inválido
+getElemento retorna falso*/
+int funcGetElemento(lista lis, TElemento *elementoPesq, int posicaoElemento);
+
+
+//remove um elemento especifico da lista, passdo 
+int funcRemoveElemento(lista lis, TElemento elementoPesq, TElemento *elemento)
+
+//Inverte a ordem da caideia, apenas mexendo nso ponteiros
+void funcInvert(lista lis);
+
+//Função para ordenar os elementos da lista
+int funcOrdenaElem(lista lis);
+
+//saida de dados
+void funcSaidaDados(lista lis);
+
+#endif // QUEST1_H_INCLUDED

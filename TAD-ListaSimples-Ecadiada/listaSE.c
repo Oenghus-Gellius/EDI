@@ -65,7 +65,6 @@ int getTamanho(lista l){
     return l->tamanho;
 }
 
-
 int getElemento(lista l,TElemento *e, int indice){
     int i;
     TNodo *p;
