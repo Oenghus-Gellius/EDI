@@ -85,6 +85,8 @@ int funcGetTamanho(lista lis) {
     return lis->tamanho;
 }
 
+
+
 /* Retorna em *elementoPesq o valor do elemento da posição posicaoElemento e
    retorna verdadeiro. Se índice for inválido, retorna falso */
 int funcGetElemento(lista lis, TElemento* elementoPesq, int posicaoElemento) {

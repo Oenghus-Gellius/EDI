@@ -53,16 +53,15 @@ int funcIncereInicio(lista lis,TElemento elemento);
 int funcIncereFinal(lista lis,TElemento elemento);
 
 //retorna o tanhanho da lista
-int FuncGeTtamanho(lista lis)
+int FuncGeTtamanho(lista lis);
 
 /*Retorna em *e o valor do elemento da posição posicaoElemento e
 getElemento retorna verdadeiro. Se indice for inválido
 getElemento retorna falso*/
-int funcGetElemento(lista lis, TElemento *elementoPesq, int posicaoElemento);
-
+int funcGetElemento(lista lis, TElemento* elementoPesq, int posicaoElemento);
 
 //remove um elemento especifico da lista, passdo 
-int funcRemoveElemento(lista lis, TElemento elementoPesq, TElemento *elemento)
+int funcRemoveElemento(lista lis, TElemento elementoPesq, TElemento *elemento);
 
 //Inverte a ordem da caideia, apenas mexendo nso ponteiros
 void funcInvert(lista lis);
