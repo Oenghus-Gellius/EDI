@@ -2,10 +2,13 @@
 #include <stdlib.h>
 #include "listaSE.h"
 
+/*
 typedef struct Lista{
     TNodo *inicio,*fim,*cursor;
     int tamanho;
 }TLista;
+
+*/
 
 lista criaLista(){
     lista l =(lista)malloc(sizeof(TLista));
@@ -16,6 +19,7 @@ lista criaLista(){
     }
     return l;
 }
+
 
 void terminaLista(lista l){
     TNodo *p;

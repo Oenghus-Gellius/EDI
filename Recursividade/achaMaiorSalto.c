@@ -61,13 +61,19 @@ int achaMaiorSaltoNoRecursiva(int *vetor, int tamanho){
 
 //achando o maior recursiva
 int achaMaiorSaltoRecursiva(int *vetor, int tamanho, int maiorDiferenca, int indice) {
+    int diferenca;
+
     // Base case: quando atingir o final do vetor
     if (indice == tamanho - 1) {
         return maiorDiferenca;
     }
 
     // Calcula a diferença entre elementos consecutivos
-    int diferenca = abs(vetor[indice] - vetor[indice + 1]);
+    if (vetor[indice] > vetor[indice + 1]) {
+        diferenca = vetor[indice] - vetor[indice + 1];
+    } else {
+        diferenca = vetor[indice + 1] - vetor[indice];
+    }
 
     // Atualiza a maior diferença, se necessário
     if (diferenca > maiorDiferenca) {
