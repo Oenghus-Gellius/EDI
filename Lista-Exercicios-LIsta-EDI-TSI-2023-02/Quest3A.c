@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "Quest3Prova.h"
+#include "Quest3A.h"
 
 // Aloca espaço de memória para receber os dados
 lista criaLista(){
@@ -41,27 +41,44 @@ int insereFinal(lista listaCriada, int infoNew){
     }
 }
 
-void moveMenor(lista listaDesordenada){
-    int menorElemento = NULL;//recebe o primeiro elemto da lista entadeada
-    TNodo *ptr;
-    TNodo *ptrAnt;
-    while (ptr != NULL)
-    {
-        if (menorElemento == NULL)
-        {
-            menorElemento = ptr->info;
+void moveMenor(lista listaDesordenada) {
+     // Verifica se a lista está vazia ou contém apenas um elemento
+    if (listaDesordenada->inicio == NULL || listaDesordenada->inicio->next == NULL) {
+        return; // Nada a fazer
+    }
+
+    TNodo *ptrMenorElemento = listaDesordenada->inicio;
+    TNodo *ptrAntMenor = NULL;
+    TNodo *ptr = listaDesordenada->inicio->next;
+    TNodo *ptrAnt = listaDesordenada->inicio;
+
+    while (ptr != NULL) {
+        if (ptr->info < ptrMenorElemento->info) {
+            ptrMenorElemento = ptr;
+            ptrAntMenor = ptrAnt;
         }
-        if (ptr->info < menorElemento)
-        {
-            /* code */
-        }
-        
+        ptrAnt = ptr;
+        ptr = ptr->next;
     }
     
-    
-    
+    if (ptrMenorElemento != listaDesordenada->inicio) {
+        // Conecta o elemento anterior ao menor elemento ao elemento seguinte ao menor elemento
+        ptrAntMenor->next = ptrMenorElemento->next;
+        // Conecta o menor elemento ao início da lista
+        ptrMenorElemento->next = listaDesordenada->inicio;
+        listaDesordenada->inicio = ptrMenorElemento;
+    }
 
+    // Imprime a lista ordenada
+    printf("\nLista ordenada?!?\n");
+    ptr = listaDesordenada->inicio;
+    while (ptr != NULL) {
+        printf("%d -\t ", ptr->info);
+        ptr = ptr->next;
+    }
+    printf("\n");
 }
+
 
 
 // Destroi o espaço que foi alocado
@@ -78,13 +95,13 @@ void destroyAlloc(lista lista){
 
 //função teste
 void funTest(){
-    lista lista;
+    lista minhaLista;
     int tamanhoLista = 6;
     int i;
     int InfoNew;
 
-    lista = criaLista();
-    if (lista == NULL)
+    minhaLista = criaLista();
+    if (minhaLista == NULL)
     {
         printf("\nErro na criação da lista");
     }
@@ -95,14 +112,16 @@ void funTest(){
         {
             InfoNew = i;
             printf("%d -\t",InfoNew);
-            insereFinal(lista,InfoNew);
+            insereFinal(minhaLista, InfoNew);
         }
         printf("\n");
     }
 
+    moveMenor(minhaLista);
 
-    destroyAlloc(lista);
+    destroyAlloc(minhaLista);
 }
+
 
 
 int main(){

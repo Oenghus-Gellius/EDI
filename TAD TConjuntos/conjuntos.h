@@ -9,3 +9,18 @@ Oprações para:
     - fazer a intersecçao de dois conjuntos;
 Nota.: um conjunto não possui valores repetidos
 */
+
+
+typedef struct conjuntos
+{
+    int* elementos;
+    int tamanho;
+    int capacidade;
+}TConjunto;
+
+//Função para alocar dinamicamente uma lista (vetor) entra o tamanho do vetor
+
+//inserir elementos no conjunto
+
+
+void destroyerConjunto();
