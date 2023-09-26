@@ -22,5 +22,3 @@ typedef struct conjuntos
 
 //inserir elementos no conjunto
 
-
-void destroyerConjunto();
