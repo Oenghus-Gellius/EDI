@@ -11,3 +11,17 @@ reiniciado a partir do próximo soldado, até só restar o soldado ganhador. A c
 ser impressoos nomes dos soldados elimininados, na ordema de eliminação e os nomes dos
 soldados ainda particicipantes do jogo.
 */
+
+
+typedef struct Nodo{
+    char* nome;
+    struct Nodo *next, *ant;
+}TNodo;
+
+typedef struct squad{
+    TNodo *inicio,*cursor;
+    int tamanho, posicaoCorrente;
+}Tsquad;
+
+
+
