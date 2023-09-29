@@ -1,26 +1,11 @@
-/*
-5. Faça um programa que imite um editor de textos. Inicialmente você irá ler os dados digitados pelo
-usuário (linhas de texto) e criar um vetor em memória onde serão armazenados os textos fornecidos
-pelo usuário (texto de 1 até no máximo 50 linhas). O usuário vai escrever o seu texto, terminando por
-uma linha onde ele irá escrever apenas a palavra ‘FIM’, o que determina que ele não deseja mais
-digitar linhas de texto. Sendo assim, o texto final pode ter um número variável de linhas, entre 1 e 50.
-Salvar o conteúdo armazenado na memória neste vetor, em um arquivo texto em disco. Sugestão: use o
-comando “gets” ou “fgets” para ler as linhas de texto digitadas pelo usuário. 
-
-Pretendo fazer da seguinte forma:
-O texto que está sendo digitado va ser armazenado dinamicamente em um vetor, sendo um vetor para cada linha
-e ao chegar a MAX_CATACTERS ele vai alocar a proxima linha até chegar a 50 linhas. Ai vamos alocar uma nova pagina
-
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "Quest5_Paginas_Linhas.h"
 
-#define MAX_LINHA 50
-
-//funçaõ para abrir aquivo para Ediçaõ
+/*
+//funçaõ para abrir aquivo para Edição
 FILE* openArquivoEdition(const char* nomeArquivo){
     FILE* arquivo;
 
@@ -50,7 +35,7 @@ FILE* openArquivoLeitura(const char* nomeArquivo){
     }
     return arquivo;
 }
-
+*/
 //alocando memoria para criar uma pagina usando lista encadeada Simples
 Tpage* createPage(){
     Tpage* firstPage = (Tpage*)malloc(sizeof(Tpage));
@@ -80,123 +65,176 @@ Tpage *newPage(Tpage* page){
         return 0;
     }
     else
-    {
+    {   
         prtPageNodo->nextPag = NULL;
-        //Cria as linhas <===ATENÇÃO
+        page->fim = prtPageNodo;
+        page->nPaginas++;
+
         //se for a primeira pagina
         if (page->inicio == NULL)
         {
             page->inicio = prtPageNodo;
         }
-        else
-        {
-            page->fim->nextPag = prtPageNodo;
-        }
-        page->fim = prtPageNodo;
-        page->nPaginas++;
-        return 1;        
+        return page;        
     }
 }
 
 //Cria uma vetor dinamico para armazenar os caracteres
-TNodo* newLine(Tpage *pageAtual){
+TLinha *vectorLines(Tpage *pageAtual){
+    TLinha *conjLine;
+
     int capacidade = MAX_CARACTERS;
-    TNodo *newLine;
-    if (newLine == NULL)
+
+    conjLine = (TLinha*)malloc(capacidade * sizeof(TLinha));
+
+    if (conjLine == NULL)
     {
         printf("\nErro ao criar linha!!!\n");
         return 0;
     }
     else
     {
-        newLine = (TNodo*)malloc(capacidade * sizeof(TNodo));
-        pageAtual->nLinhas++;
-        
+        pageAtual->nLinhas = 1;
+        return conjLine;
     }
-    return newLine;
+}
+
+int setCursor(Tpage *pagina, int indice){
+    int i;
+    if (indice < 1 || indice > pagina->nPaginas)
+    {
+        return 0;
+    }
+    if (pagina->nPaginas == 1)
+    {
+        pagina->curso = pagina->inicio;
+    }
+    else
+    {
+        pagina->curso = pagina->inicio;
+
+        for (i = 1; i < indice; i++)
+        {
+            if (pagina->curso == NULL)
+            {
+                return 0;
+            }
+            pagina->curso = pagina->curso->nextPag;
+        }
+    }
+    return 1;
 }
 
 //Função para receber o texto digitado e encaixar o texto nas linhas 
 //Função para inserir o texto na pagina atual
-void** editorText(){
-    unsigned char *texto;
-    Tpage *page;
-    TNodo *line;
+void editorText(){
+    char texto[MAX_CARACTERS];
+    int theEnd = 0;
 
-    page = createPage();
-    if (page == NULL)
+    Tpage *ptrpage;
+    TLinha *ptrLine = NULL;
+    
+    ptrpage = createPage();//cria página
+    if (ptrpage == NULL)
     {
-        printf("\nErro ao abrir pagina no editor de texto\n");
-        return 0;
+        printf("\nErro ao criar página no editor de texto\n");
+        return;
     }
     else
     {
-
-        while (texto != "FIM")
+        ptrLine = vectorLines(ptrpage);//cria 50 linhas
+        if (ptrLine == NULL)
         {
-            page
-
-
-            
-
-            //pegar o texto digitado e "encaixar" nas linhas e paginas
+            printf("\nErro ao criar linhas no editor de texto\n");
+            return;
+        }
+        else
+        {
             printf("\nDigite uma linha de texto (ou 'FIM' para encerrar): \n");
-            fgets(texto, sizeof(texto),stdin);
-            setbuf(stdin,NULL);  
-
-            while (/* condition */)
+      
+            while (theEnd != 1)
             {
-                // Verificar se o usuário deseja encerrar
-                if (strcmp(texto, "FIM\n" == 0))
+                // percorre uma página até a linha 50
+                for (int i = 0; i < MAX_LINHA; i++)
                 {
-                    break;
+                    // pegar o texto digitado e "encaixar" nas linhas e páginas
+                    fgets(texto, sizeof(texto), stdin);
+                    
+                    // Limpar o buffer de entrada após a leitura
+                    int c;
+                    while ((c = getchar()) != '\n' && c != EOF);
+                    
+                    // Verificar se o usuário deseja encerrar
+                    if (strcmp(texto, "FIM\n") == 0)
+                    {
+                        theEnd = 1;
+                        break;
+                    } 
+
+                    // Remover a quebra de linha do texto antes de armazená-lo
+                    size_t len = strlen(texto);
+                    if (len > 0 && texto[len - 1] == '\n') 
+                    {
+                        texto[len - 1] = '\0';
+                    }
+                    // Armazenar o texto na página atual e na linha atual
+                    strcpy(ptrLine[i].vetLinhas, texto);
+                    ptrpage->nLinhas++;
+                }
+                if (theEnd == 0)
+                {
+                    ptrpage = newPage(ptrpage);
+                    ptrLine = vectorLines(ptrpage);
                 }
             }
-            
-
-                      
         }
-        
-        
+    }
+}
+
+
+//O objetivo dessa função é imprimir na tela o texto salvo nas linhas e paginas
+void displayPages(Tpage *pageAtual){
+    int Numpage = 1;
+
+    TNodo *pageCorrente;
+    TLinha *ptrLinhaCorrent = NULL;
+    
+    pageCorrente = pageAtual->inicio;
+
+    while (pageCorrente != NULL) {
+
+        for (int i = 0; i < MAX_LINHA; i++)
+        {
+            ptrLinhaCorrent = pageCorrente->linha[i];
+
+            if (ptrLinhaCorrent != NULL)
+            {
+                printf("%s\n",ptrLinhaCorrent->vetLinhas);
+            }
+        }
+        pageCorrente = pageCorrente->nextPag;
+        Numpage++;
     }
 }
     
-
-    
-
-
-
-
-
 /*
+Se der tempo fazer essa função
 void getline(Tpage* text){
 
 }
 
-void getFim(Tpage* text){
 
-}
-
-
-Tpage copyAllocForArq(Tpage* text, FILE* nomeArquivo){
-
-}
 */
-
-//criar uma função para testar o editor de texto
 
 
 int main(){
-    FILE* arqEditor;
+    Tpage *pageAtual;
 
-    const char* nomeDoArquivo = "EditorTexto.txt";
+    pageAtual = createPage();
 
-    arqEditor = openArquivo();
+    editorText();
 
-
-    fclose(arqEditor);
+    displayPages(pageAtual);
 
     return 0;
-    
-
 }

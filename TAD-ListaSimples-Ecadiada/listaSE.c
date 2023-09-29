@@ -1,131 +1,193 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "listaSE.h"
 
-/*
-typedef struct Lista{
-    TNodo *inicio,*fim,*cursor;
-    int tamanho;
-}TLista;
+typedef struct Nodo{
+    TElemento info;
+    struct Nodo *prox;
+}TNodo;
 
-*/
+typedef struct TLista{
+    TNodo *inicio,*fim,*corrente;
+    int tamanho;
+};
 
 lista criaLista(){
-    lista l =(lista)malloc(sizeof(TLista));
+    lista l = (lista)malloc(sizeof(struct TLista));
     if(l!=NULL){
-       l->tamanho=0;
-       l->fim=NULL;
-       l->inicio=NULL;
+        l->inicio=NULL;
+        l->fim=NULL;
+        l->tamanho=0;
     }
     return l;
 }
-
 
 void terminaLista(lista l){
     TNodo *p;
     while(l->inicio!=NULL){
         p=l->inicio;
-        l->inicio = l->inicio->prox;
-        //l->inicio=p->prox;
+        l->inicio = l->inicio->prox;//l->inicio = p->prox;
         free(p);
     }
     free(l);
 }
 
+int pesquisaLista(lista l,TChave ch,TElemento *e){
+    TNodo *p;
+    p=l->inicio;
+    while(p!=NULL){
+        if(p->info.chave==ch){
+            *e=p->info;
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int insereFinal(lista l,TElemento e){
+    TNodo *p= (TNodo*)malloc(sizeof(TNodo));
+    if(p==NULL)
+       return 0;
+    p->info=e;
+    p->prox = NULL;
+    //verificando se a lista está vazia
+    if(l->inicio==NULL)
+      l->inicio = p;
+    else
+      l->fim->prox = p;
+    l->fim=p;
+    l->tamanho++;
+    return 1;
+}
+
+int getElemento(lista l, int posicao, TElemento *e){
+    TNodo *p;
+    int i;
+    if(posicao<1 || posicao>l->tamanho)
+       return 0;
+    p=l->inicio;
+    for(i=1;i<posicao;i++)
+       p=p->prox;
+    *e = p->info;
+    return 1;
+}
+
+int removeElemento(lista l,TChave ch,TElemento *e){
+    TNodo *p,*ant;
+    p=l->inicio;
+    while(p!=NULL){
+        if(p->info.chave==ch){
+           //verificando se é o primeiro nodo
+           if(p==l->inicio)
+              l->inicio=l->inicio->prox;//l->inicio=p->prox;
+           else
+              if(p==l->fim){
+                 l->fim=ant;
+                 l->fim->prox=NULL;
+              }
+              else
+                 ant->prox=p->prox;
+           *e=p->info;
+           free(p);
+           l->tamanho--;
+           return 1;
+        }
+        else{
+            ant=p;
+            p=p->prox;
+        }
+
+    }
+    return 0;
+}
+
+int listaVazia(lista l){
+    /*if(l->inicio==NULL)
+        return 1;
+    else
+        return 0;*/
+    return !l->inicio;    //return !l->inicio==NULL;
+    //return !l->tamanho;
+}
+int listaCheia(lista l){
+    TNodo *p = (TNodo*)malloc(sizeof(TNodo));
+    if(p!=NULL){//if(p)
+       free(p);
+       return 0;
+    }
+    else
+       return 1;
+}
+int tamanhoLista(lista l){
+    return l->tamanho;
+}
+
+
 int insereInicio(lista l, TElemento e){
-    TNodo *p=(TNodo*)malloc(sizeof(TNodo));
+    TNodo *p = (TNodo*)malloc(sizeof(TNodo));
     if(p==NULL)
         return 0;
     else{
         p->info=e;
         p->prox=l->inicio;
-        l->inicio = p;
+        l->inicio=p;
         l->tamanho++;
-        //verificando se é o primeiro nodo da lista
         if(l->tamanho==1)
-            l->fim = p;
+            l->fim=p;
         return 1;
     }
 }
 
-int insereFinal(lista l, TElemento e){
-    TNodo *p=(TNodo*)malloc(sizeof(TNodo));
-    if(p==NULL)
+int inserePosicao(lista l, TElemento e, int indice){
+    TNodo *p,*aux;
+    int i;
+    //verificando se é uma posição válida
+    if(indice<1 || indice >l->tamanho+1)
         return 0;
     else{
-        p->info=e;
-        p->prox=NULL;
-        if(l->inicio==NULL)
-            l->inicio=p;
+        if(indice==1)
+            return insereInicio(l,e);
         else
-            l->fim->prox =p;
-        l->fim = p;
-        l->tamanho++;
+            if(indice == l->tamanho+1)
+                return insereFinal(l,e);
+            else{
+               p=(TNodo*)malloc(sizeof(TNodo));
+               if(p==NULL)
+                  return 0;
+               else{
+                    p->info=e;
+                  aux=l->inicio;
+                  for(i=1;i<indice-1;i++)
+                     aux=aux->prox;
+                  p->prox=aux->prox;
+                  aux->prox=p;
+                  l->tamanho++;
+                  return 1;
+               }
+            }
+    }
+}
+int setCorrente(lista l, int posicao){
+    int i;
+
+    if(posicao<1 || posicao>l->tamanho)
+        return 0;
+    else{
+        l->corrente = l->inicio;
+        for(i=1;i<posicao;i++)
+           l->corrente=l->corrente->prox;
         return 1;
     }
+
 }
 
-int getTamanho(lista l){
-    return l->tamanho;
-}
-
-int getElemento(lista l,TElemento *e, int indice){
-    int i;
-    TNodo *p;
-    //verificando se o índice é válido
-    if(indice<1 ||indice >l->tamanho )
+int getCorrente(lista l,TElemento *e){
+    if(l->corrente==NULL)
         return 0;
-    p=l->inicio;
-    for(i=1;i<indice;i++){
-        p=p->prox;
+    else{
+        *e=l->corrente->info;
+        l->corrente=l->corrente->prox;
+        return 1;
     }
-    *e=p->info;
-    return 1;
-}
-
-int removeElemento(lista l,TChave ch,TElemento *e){
-    TNodo *ptr,*ptrAnt;
-    ptr=l->inicio;
-
-    while(ptr!=NULL){
-        if(ptr->info.chave==ch){
-            //verificando se o nodo a ser removido é o primeiro da lista
-            if(l->inicio ==ptr){
-                l->inicio = l->inicio->prox;//l->inicio = ptr->prox;
-            }
-            else
-                if(l->fim==ptr){
-                   l->fim=ptrAnt;
-                   ptrAnt->prox=NULL;//l->fim->prox=NULL;
-                }
-                else
-                    ptrAnt->prox=ptr->prox;
-
-            *e=ptr->info;
-            free(ptr);
-            l->tamanho--;
-            return 1;
-        }
-        else{
-            ptrAnt = ptr;
-            ptr=ptr->prox;
-        }
-    }
-    return 0;
-}
-
-int buscaElemento(lista l,TChave ch, TElemento *e){
-    TNodo *ptr;
-    ptr=l->inicio;
-
-    while(ptr!=NULL){
-        if(ptr->info.chave==ch){
-            *e=ptr->info;
-            return 1;
-        }
-        else
-            ptr = ptr->prox;
-    }
-
-    return 0;
 }

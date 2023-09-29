@@ -1,47 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "listaSE.h"
 
 int main(){
-    lista li = criaLista();
+    lista l;
     TElemento e;
-    int tam,i;
-    if(li!=NULL){
-
-       for(i=1;i<=5;i++){
+    int i;
+    l= criaLista();
+    if(l!=NULL){
+       for(i=1;i<10;i++){
            e.chave=i;
-           insereFinal(li,e);
+           insereFinal(l,e);
        }
-
-       tam = getTamanho(li);
+       e.chave=300;
+       inserePosicao(l,e,3);
+       setCorrente(l,1);
        printf("\nElementos da Lista\n");
-       for(i=1;i<=tam;i++){
-          getElemento(li,&e,i);
+       while(getCorrente(l,&e)==1){
           printf("%d\n",e.chave);
+          i++;
        }
-
-       if(removeElemento(li,5,&e)==1){
-          printf("\nO Elemento com a chave %d foi removido\n",e.chave);
-          tam = getTamanho(li);
-          printf("\nElementos da Lista Após a Remoção\n");
-          for(i=1;i<=tam;i++){
-             getElemento(li,&e,i);
-             printf("%d\n",e.chave);
-          }
-
-       }
-       else
-          printf("\nChave não encontrada!!!\n");
-
-
-
-      if(buscaElemento(li,5,&e)==1)
-          printf("\nAchou!!\n");
-      else
-          printf("\nEelemento Não Encontrado!!!\n");
-      terminaLista(li);
+       terminaLista(l);
     }
     else
-        printf("\nNão foi possível criar a lista\n");
+       printf("\nErro!!!!!\n");
     return 0;
 }
