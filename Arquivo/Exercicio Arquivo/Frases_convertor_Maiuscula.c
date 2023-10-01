@@ -21,7 +21,7 @@ Faça um programa em C que lê 5 frases de, no máximo, 50 caracteres cada uma
 
  #include <ctype.h>
 
-#define MAX_TAM 50
+#define MAX_TAM_STR 100
 #define MAX_FRASE 2
 
 //destroi vetor simples
@@ -42,7 +42,7 @@ void destroyVetChar(char **vetChar){
 
 //Função para alocar um vetor de caracteres
 char *criarFrase(){
-    char *newFrase =(char*)malloc(MAX_TAM * sizeof(char));
+    char *newFrase =(char*)malloc(MAX_TAM_STR * sizeof(char));
     if (newFrase != NULL)
     {
         return newFrase;
@@ -60,7 +60,7 @@ char **criarVetFrases(){
     {
         for (int i = 0; i < MAX_FRASE; i++)
         {
-            vetFrases[i] = (char*)malloc(MAX_TAM * sizeof(char));
+            vetFrases[i] = (char*)malloc(MAX_TAM_STR * sizeof(char));
             if (vetFrases[i] == NULL)
             {
                 printf("\nErro ao alocar memória para a frase %d!!!\n", i + 1);
@@ -101,6 +101,7 @@ FILE *criarArq(const char *nomeArquivo){
     if (arq == NULL)
     {
         printf("\nErro ao criar o arquivo!!!\n");
+        return NULL;
     }   
     return arq;
 }
@@ -110,7 +111,7 @@ void escreveArqVetChar(FILE *arq, char **frases, int tamanho) {
     while (i < tamanho)
     {
         //fseek(arq, (i) * sizeof(char), SEEK_SET);
-        fwrite(&frases[i], sizeof(char), MAX_TAM, arq);
+        fwrite(&frases[i], sizeof(char), MAX_TAM_STR, arq);
         i++;
     }
 }
@@ -131,7 +132,7 @@ char **lerArq(const char *nomeArquivo){
 
         rewind(arq);
         
-        while (fgets(ptrFrasesVet[i], MAX_TAM, arq) != NULL) {
+        while (fgets(ptrFrasesVet[i], MAX_TAM_STR, arq) != NULL) {
             
             printf("\n%s", ptrFrasesVet[i]);
         }
@@ -144,8 +145,8 @@ char **lerArq(const char *nomeArquivo){
 void app(){
     int i;
 
-    char nArqEnter[MAX_TAM];
-    char nArqSalvo[MAX_TAM];
+    char nArqEnter[MAX_TAM_STR];
+    char nArqSalvo[MAX_TAM_STR];
 
     char *ptrFrase;
     char *ptrMaisc;
@@ -158,7 +159,7 @@ void app(){
     FILE *arq;
 
     printf("\nDigite o nome do arquivo\n");
-    fgets(nArqEnter,MAX_TAM,stdin);
+    fgets(nArqEnter,MAX_TAM_STR,stdin);
     nArqEnter[strcspn(nArqEnter, "\n")] = '\0'; // Remover a quebra de linha
 
     convertMaiuscula(nArqEnter, nArqSalvo);
@@ -175,7 +176,7 @@ void app(){
             return; // Verificação de erro ao alocar memória
         }
         printf("\nInsira A Frase n%d\n",i+1);
-        fgets(ptrFrase, MAX_TAM, stdin);
+        fgets(ptrFrase, MAX_TAM_STR, stdin);
         setbuf(stdin,NULL);
 
         ptrMaisc = criarFrase();
