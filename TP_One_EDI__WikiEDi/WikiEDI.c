@@ -129,6 +129,7 @@ void retiraEnter(char *string){
       string[strlen(string)-1]='\0';
 }
 
+//Função para manipular a string com seu tamanho correto, sem pasasr lixo de memoria
 char *copyString(const char *source) {
     // Aloca memória para a nova string
     char *dest = (char*)malloc(strlen(source) + 1);

@@ -1,0 +1,4 @@
+﻿  WikiEDI.c
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(97,13): warning C4101: 'pagina': variável local não referenciada
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(96,11): warning C4101: 'file': variável local não referenciada
+  EDI_Wiki.vcxproj -> E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\Debug\EDI_Wiki.exe

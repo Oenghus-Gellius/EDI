@@ -1,6 +1,9 @@
 #ifndef WIkIEDI_H_INCLUDED
 #define WIkIEDI_H_INCLUDED
 
+#define MAX_TAM_STR 100
+
+
 /*
 Introdução.:
 
