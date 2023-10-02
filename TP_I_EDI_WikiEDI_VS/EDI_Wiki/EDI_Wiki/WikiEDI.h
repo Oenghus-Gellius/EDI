@@ -46,8 +46,14 @@ typedef struct Pagina {
 // 
 //FUNÇÕES DE MANIPULAÇÃO DE ARQUIVOS-----------------------
 
-//cria uma pagina (se for um colaborador)
-void creatorPage(const char* nomePage);
+//cria uma pagina/arquivo <---Incompleta
+void creatorFilePage(const char* nomePage);
+
+//abre uma pagina existente <---
+void openFilePage(const char* nomePage);
+
+//ler o conteudo de um arquivo/pagina ja criado
+void readFilePage(const char* nomePage);
 
 //FUNÇÕES "FUNCIONAIS"----------------
 

@@ -23,20 +23,19 @@ void creatorFilePage(const char* nomePage) {
 
     if (arqPage == NULL)
     {
-        printf("\nErro ao criar Pagina!!!\n");
+        printf("\nErro ao CRIAR Pagina!!!\n");
         return;
     }
 
     printf("\nCriada Pagina - %s!!!\n", nomePage);
 
     // Inicialize a estrutura Tpagina como necessário
-    pagina.quantidade = 1;
-    pagina.posicaoCorrente = 0;
+    pagina.quantidade = 1;//Controle de quantas paginas existem na Wiki
+    pagina.posicaoCorrente = 0;//posiciona a pagina na lista de paginas
     //pagina.inicio = NULL;
     //pagina.cursor = NULL;
     pagina.teste[0] = '\0';
     strcpy_s(pagina.teste, 50,"TEXTO TESTE DA DESGRAÇA!!!!");
-
 
     // Escreva a estrutura no arquivo
     fwrite(&pagina, sizeof(TPagina), 1, arqPage);
@@ -56,18 +55,18 @@ void creatorFilePage(const char* nomePage) {
     fclose(arqPage);
 }
 
-//abre uma pagina existente <---
-FILE* openFilePage(const char* nomePage) {
+//abre uma pagina existente para leitura e escrita, a partir do inicio<---
+void openFilePage(const char* nomePage) {
     FILE* arqOpen;
     TPagina page;
-    TNodoPage nodoPege;
+    TNodoPage nodoPage;
 
-    fopen_s(&arqOpen, nomePage, "rb");
+    fopen_s(&arqOpen, nomePage, "rb+");
 
     if (arqOpen == NULL)
     {
-        printf("\nErro ao Abrir Pagina!!!\n");
-        return NULL;
+        printf("\nErro ao ABRIR Pagina!!!\n");
+        return;
     }
     else
     {
@@ -77,15 +76,52 @@ FILE* openFilePage(const char* nomePage) {
 
         if (page.quantidade > 0)
         {
-            fread(&nodoPege, sizeof(TNodoPage), 1, arqOpen);
+            fread(&nodoPage, sizeof(TNodoPage), 1, arqOpen);
         }
 
-        printf("\nPagina de %s aberta!!!\n",nodoPege.nomePage);
-        return arqOpen;
+         printf("\nPagina de %s aberta Função OPEN!!!\n",nodoPage.nomePage);
     }
 }
 
+//ler o conteudo de um arquivo/pagina ja criado. Somente LEITURA
+void readFilePage(const char* nomePage) {
+    FILE* arqOpen;
+    TPagina page;
+    TNodoPage nodoPage;
 
+    fopen_s(&arqOpen, nomePage, "rb+");
+
+    if (arqOpen == NULL)
+    {
+        printf("\nErro ao LER Pagina!!!\n");
+        return;
+    }
+    else
+    {
+        rewind(arqOpen);
+
+        fread(&page, sizeof(TPagina), 1, arqOpen);
+
+        if (page.quantidade > 0)
+        {
+            fread(&nodoPage, sizeof(TNodoPage), 1, arqOpen);
+        }
+
+        printf("\nPagina de %s aberta funçaõ LER!!!\n", nodoPage.nomePage);
+    }
+}
+
+//função que vai pegar todas as alterações feitas e reescrever no arquivo
+void writeFilePage(FILE *arqPage) {
+    
+
+
+}
+//Remove uma pagina, essa função vai ser compelxa pq não é só apagar, mas tem que conectar 
+//a sequencias das outras paginas.
+void DestroyerFilePage(const char* nomePage) {
+
+}
 
 //FUNÇÕES "FUNCIONAIS"----------------
 
@@ -98,7 +134,7 @@ void APPTest() {
     FILE* file;
     TPagina pagina;
 
-    printf_s("\nOpção menu\n 1-Criar Pagina\n2-Abrir um arquivo");
+    printf_s("\nOpção menu\n 1-Criar Pagina\n2-Abrir Arquivo\n3-Ler");
     scanf_s("%d", &menu);
     switch (menu)
     {
@@ -108,6 +144,10 @@ void APPTest() {
 
     case 2: //Abrir um arquivo/Pagina da Wiki
         openFilePage(nomePage);
+        break;
+
+    case 3: //Ler uma arquivo/Pagina da wiki
+        readFilePage(nomePage);
         break;
 
     default:
