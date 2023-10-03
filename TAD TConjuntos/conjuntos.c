@@ -23,14 +23,14 @@ TConjunto *criaConjunto(int capacidade){
             return 0;
         }
     }
-    conjuntoCriado->capacidade = capacidade;
+    conjuntoCriado->tamanho = capacidade;
     conjuntoCriado->tamanho = 0;
     return conjuntoCriado;
 }
 
 //inserir elementos no conjunto 
 void setElementos(TConjunto* conjunto, int elemento, int indice){
-    if (indice >= 0 && indice < conjunto->capacidade)
+    if (indice >= 0 && indice < conjunto->tamanho)
     {
         conjunto->elementos[indice] = elemento;
         conjunto->tamanho++;

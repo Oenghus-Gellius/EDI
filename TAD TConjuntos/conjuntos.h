@@ -13,12 +13,18 @@ Nota.: um conjunto não possui valores repetidos
 
 typedef struct conjuntos
 {
-    int* elementos;
-    int tamanho;
-    int capacidade;
+    int *elementos;
+    int tamanho;//capacidade
+    int nElementos;
 }TConjunto;
 
-//Função para alocar dinamicamente uma lista (vetor) entra o tamanho do vetor
+TConjunto *creatorConjunto(int tamanho);
 
-//inserir elementos no conjunto
+void setConjunto(TConjunto *conjunto, int *elementos, int tamanho);
+
+void buscaElemento(TConjunto *conjunto, int buscando);
+
+TConjunto *conjutoIntersection(TConjunto *conjuntoA, TConjunto *conjuntoB);
+
+void SaidaDados(TConjunto *conjunto);
 

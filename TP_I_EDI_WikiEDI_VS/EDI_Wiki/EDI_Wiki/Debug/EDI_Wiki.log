@@ -1,4 +1,11 @@
 ﻿  WikiEDI.c
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(123,13): warning C4101: 'pagina': variável local não referenciada
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(122,11): warning C4101: 'file': variável local não referenciada
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(118,15): warning C4101: 'nodoPage': variável local não referenciada
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(117,13): warning C4101: 'page': variável local não referenciada
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(151,29): warning C4047: '=': 'char' difere em níveis de indireção de 'char [2]'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(173,24): warning C4047: '=': 'char' difere em níveis de indireção de 'char [2]'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(195,51): warning C4029: lista de parâmetros formais declarada diferente da definição
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(224,32): warning C4029: lista de parâmetros formais declarada diferente da definição
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(286,16): warning C4047: 'inicializando': 'TNodoPage *' difere em níveis de indireção de 'int'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(333,13): warning C4101: 'pagina': variável local não referenciada
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(332,11): warning C4101: 'file': variável local não referenciada
   EDI_Wiki.vcxproj -> E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\Debug\EDI_Wiki.exe

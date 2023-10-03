@@ -85,42 +85,7 @@ void writePageArq(FILE *arqPage, TPagina *pageAtual, TNodoPage *nodoPageAtual){/
 
 //FUNÇÕES DE ALOCAÇÃO-----------------------------------
 
-/*
-//Cria uma pagina
-Tpagina CreatorPageWikiAlloc(){
 
-}
-
-//Função que retorna o tamanho do NodoPagina
-int getSize(TPagina *pageAlloc){
-    
-}
-
-//Encontra uma pagina especifica (Encotrar o nodo especifico da pagina)
-int getPage(TPagina *page, TNodoPage nomePage){
-
-}
-
-//Nenhuma pagina criada 
-int NoPages(TPagina *page){
-
-}
-
-//sem espaço para criar pagina
-int fullPages(TPagina *page){
-
-}
-
-//
-int setCursor(TPagina *page, int cursor){
-
-}
-
-//Destrou lista alocada
-void DestroyPageWikiAlloc(TPagina pageWiki){
-
-}
-*/
 //FUNÇÕES "FUNCIONAIS"----------------
 
 //Retira o enter

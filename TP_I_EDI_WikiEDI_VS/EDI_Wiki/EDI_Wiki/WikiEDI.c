@@ -9,7 +9,7 @@
 
 #define MAX_TAM_STR 100
 
-//FUNÇÕES DE MANIPULAÇÃO DE ARQUIVOS-----------------------
+//FUNÇÕES DE MANIPULAÇÃO DE ARQUIVOS--------------------------------------------------
 
 //cria uma pagina/arquivo <---Incompleta
 void creatorFilePage(const char* nomePage) {
@@ -44,7 +44,7 @@ void creatorFilePage(const char* nomePage) {
     {
         //Inicializando a estrutura TNodopage como necessario
         nodoPagina.nomePage[0] = '\0';
-        strcpy_s(nodoPagina.nomePage, 10, "PAGENOME");
+        strcpy_s(nodoPagina.nomePage, 5, nomePage);
         fwrite(&nodoPagina, sizeof(TNodoPage), 1, arqPage);
     }
 
@@ -107,32 +107,153 @@ void readFilePage(const char* nomePage) {
             fread(&nodoPage, sizeof(TNodoPage), 1, arqOpen);
         }
 
-        printf("\nPagina de %s aberta funçaõ LER!!!\n", nodoPage.nomePage);
+        printf("\nPagina de %s aberta pela funçaõ LER!!!\n", nodoPage.nomePage);
     }
 }
 
-//função que vai pegar todas as alterações feitas e reescrever no arquivo
-void writeFilePage(FILE *arqPage) {
-    
+//função que vai pegar todas as alterações feitas na memoria 
+// alocada e reescrever no arquivo Pagina                         <=NÃO TERMINADO
+void writeFilePage(FILE *arqPage, TPagina *pageUpdate) { //<---- Função onde planejo conectar arquivo e meloria alocada
+    TPagina page;
+    TNodoPage nodoPage;
 
 
 }
+
+
+
 //Remove uma pagina, essa função vai ser compelxa pq não é só apagar, mas tem que conectar 
 //a sequencias das outras paginas.
 void DestroyerFilePage(const char* nomePage) {
 
 }
 
-//FUNÇÕES "FUNCIONAIS"----------------
+//FUNÇÕES DE ALOCAÇÃO----------------------------------------------------------------
 
-//Testa o funcionamento das funções e as interações entre elas
-void APPTest() {
+//Função para Alocar a primeira pagina pagina, criar uma pagina na Memoria Alocada
+//NÂO SEI PQ NÂO PODE SER DIRETO EM POR NO FIM OU NO INICIO
+TPagina* firstPageAlloc() {
+
+    TPagina *pageAlloc = (TPagina*)malloc(sizeof(TPagina));
+
+    if (pageAlloc == NULL)
+    {
+        printf("\nMemoria não Alocada para A Pagina\n");
+        return 0;
+    }
+    else
+    {
+        pageAlloc->inicio = NULL;
+        pageAlloc->cursor = NULL;
+
+        pageAlloc->quantidade = 0;
+        pageAlloc->posicaoCorrente = 0;
+        pageAlloc->teste[0] = "\0";//Remover apos finalizar programa
+        return pageAlloc;
+    }
+}
+
+//Criar a primeira Pagina da lista;
+int startPageAlloc(TPagina* page, TNodoPage* info) {
+
+    TNodoPage* nodoPageAlloc = (TNodoPage*)malloc(sizeof(TNodoPage));
+
+    if (page == NULL)
+    {
+        printf("\nErro na alocação de memoria para o Nodo da pagina\n");
+        free(page);
+        return 0;
+    }
+    else
+    {
+        page->quantidade++;//É AQUI QUE A MAGICA ACONTECE!!!!! transfor a "first" em "start"
+
+        //nodoPageAlloc->nomePage[0] = '\0';//Como colocar o nome no arquivo?
+
+        page->teste[0] = "\0";//SÒ PARA TESTER AS FUNÇÔES 
+
+        if (page->quantidade == 1)
+        {
+            nodoPageAlloc->backPage = nodoPageAlloc;
+            nodoPageAlloc->nextPage = nodoPageAlloc;
+        }
+        else
+        {
+            page->inicio->backPage->nextPage = nodoPageAlloc;
+            page->inicio->backPage = nodoPageAlloc;
+
+            nodoPageAlloc->nextPage = page->inicio->nextPage;//Acho que está errado!!!!
+            nodoPageAlloc->backPage = page->inicio->backPage;
+        }
+        page->inicio = nodoPageAlloc;
+
+        return 1;
+    }
+}
+
+//ciar a proxima pagina da lista duplamente encadeada
+int headPageAlloc(TPagina* page, TNodoPage* info) {
+    TNodoPage* nodoPageAlloc;
+
+    char nomePage[5] = "EDI";
+
+    if (fullPageAlloc(page))//checa se tem espaço para alocar
+    {
+        return 0;
+    }
+
+    if (page->inicio == NULL)//Inicia a wiki por ser a primeira pagina
+    {
+        return startPageAlloc(page, info);
+    }
+    else
+    {
+        nodoPageAlloc = (TNodoPage*)malloc(sizeof(TNodoPage));
+
+        nodoPageAlloc->nomePage[4] = nomePage[4];
+        nodoPageAlloc->backPage = page->inicio->backPage;
+        nodoPageAlloc->nextPage = page->inicio;
+        page->inicio->backPage->nextPage = nodoPageAlloc;
+        page->inicio->backPage = nodoPageAlloc;
+        page->quantidade++;
+        return 1;
+    }
+}
+
+//Função que retorna que nãotem pagina alocada
+int noPageAlloc(TPagina *page) {
+    return page->quantidade == 0;
+}
+
+//Função com o objetivo de testar se ha espaço para a proxima pagina
+int fullPageAlloc(TPagina* page) {
+    TNodoPage* ptrTNodoPageAlloc = (TNodoPage*)malloc(sizeof(TNodoPage));
+    if (ptrTNodoPageAlloc == NULL)
+    {
+        printf("\nSem espaço na memoria para Alocar mais uma pagina\n");
+        return 1;
+    }
+    else
+    {
+        free(ptrTNodoPageAlloc);
+        return 0;
+    }
+
+}
+
+//Função que retorna o tamanho/quantidade de Paginas na Wiki
+int sizePageAlloc(TPagina* page) {
+    return page->quantidade;
+}
+
+//FUNÇÕES "FUNCIONAIS"----------------------------------------------------------------
+
+//Menu teste para as funções que manipula o Arquivo
+void menuApp1() {
     const char nomePage[] = "EDI";
     const char texto[] = "Teste da Desgraça!!!!";
-    int menu;//Fazer uma função para o menu
 
-    FILE* file;
-    TPagina pagina;
+    int menu;
 
     printf_s("\nOpção menu\n 1-Criar Pagina\n2-Abrir Arquivo\n3-Ler");
     scanf_s("%d", &menu);
@@ -153,6 +274,67 @@ void APPTest() {
     default:
         break;
     }
+}
+
+//Menu teste para as funções bases que manipulam os dados alocados
+void menuApp2() {
+    const char nomePage[] = "EDI";
+    const char texto[] = "Teste da Desgraça!!!!";
+
+    TPagina *EDI = firstPageAlloc();
+
+    TNodoPage* info = 7;
+
+
+    int menu;
+
+    printf_s("\nOpção menu\n 1-Criar um Pagina da Wiki");
+    scanf_s("%d", &menu);
+    switch (menu)
+    {
+    case 1: //Criar um Pagina da Wiki
+        //Insira o nome da pagina
+        headPageAlloc(EDI, info);
+
+        //srtcpy(EDI->teste, texto);
+
+        //srtcpy(info->nomePage, nomePage);
+
+
+        printf("\nNome da Pagina.: %s\n",info->nomePage);
+
+
+        printf("\nTexto  em Pagina teste.: %s\n", EDI->teste);
+
+
+
+
+
+
+        break;
+
+    case 2: //Abrir um arquivo/Pagina da Wiki
+
+        break;
+
+    case 3: //Ler uma arquivo/Pagina da wiki
+
+        break;
+
+    default:
+        break;
+    }
+
+}
+
+//Testa o funcionamento das funções e as interações entre elas
+void APPTest() {
+    FILE* file;
+    TPagina pagina;
+
+    //menuApp1();
+
+    menuApp2();
 }
 
 int main() {
