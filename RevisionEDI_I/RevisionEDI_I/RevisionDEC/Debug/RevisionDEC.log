@@ -1,0 +1,6 @@
+﻿  RevisionDEC.c
+E:\Funes\GitHub\EDI\RevisionEDI_I\RevisionEDI_I\RevisionDEC\RevisionDEC.c(24,16): warning C4133: 'inicializando': tipos incompatíveis - de 'TList *' para 'TNodoList *'
+E:\Funes\GitHub\EDI\RevisionEDI_I\RevisionEDI_I\RevisionDEC\RevisionDEC.c(54,16): warning C4133: 'inicializando': tipos incompatíveis - de 'TList *' para 'TNodoList *'
+  mainDEC.c
+  Gerando Código...
+  RevisionDEC.vcxproj -> E:\Funes\GitHub\EDI\RevisionEDI_I\RevisionEDI_I\Debug\RevisionDEC.exe

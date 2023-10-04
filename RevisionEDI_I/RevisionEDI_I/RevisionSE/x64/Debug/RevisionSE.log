@@ -1,0 +1,11 @@
+﻿  mainSE.c
+E:\Funes\GitHub\EDI\RevisionEDI_I\RevisionEDI_I\RevisionSE\mainSE.c(28,5): warning C4013: 'printf' indefinido; assumindo extern retornando int
+E:\Funes\GitHub\EDI\RevisionEDI_I\RevisionEDI_I\RevisionSE\mainSE.c(7,15): warning C4101: 'nodeA': variável local não referenciada
+  RevisionSE.c
+E:\Funes\GitHub\EDI\RevisionEDI_I\RevisionEDI_I\RevisionSE\RevisionSE.c(125,16): warning C4129: 'F': sequência de escape de caractere não reconhecida
+E:\Funes\GitHub\EDI\RevisionEDI_I\RevisionEDI_I\RevisionSE\RevisionSE.c(141,23): warning C4047: '=': 'int' difere em níveis de indireção de 'TNodoList *'
+E:\Funes\GitHub\EDI\RevisionEDI_I\RevisionEDI_I\RevisionSE\RevisionSE.c(214,26): warning C4047: '=': 'TList *' difere em níveis de indireção de 'int'
+E:\Funes\GitHub\EDI\RevisionEDI_I\RevisionEDI_I\RevisionSE\RevisionSE.c(221,30): warning C4047: '=': 'TList *' difere em níveis de indireção de 'int'
+  Gerando Código...
+E:\Funes\GitHub\EDI\RevisionEDI_I\RevisionEDI_I\RevisionSE\RevisionSE.c(244): warning C4715: 'putInPositionList': nem todos os caminhos de controle retornam um valor
+  RevisionSE.vcxproj -> E:\Funes\GitHub\EDI\RevisionEDI_I\RevisionEDI_I\x64\Debug\RevisionSE.exe

@@ -1,0 +1,7 @@
+﻿  RevisionDEC.c
+E:\Funes\GitHub\EDI\RevisionEDI_I\RevisionEDI_I\RevisionDEC\RevisionDEC.c(24,16): warning C4133: 'inicializando': tipos incompatíveis - de 'TList *' para 'TNodoList *'
+E:\Funes\GitHub\EDI\RevisionEDI_I\RevisionEDI_I\RevisionDEC\RevisionDEC.c(53,16): warning C4133: 'inicializando': tipos incompatíveis - de 'TList *' para 'TNodoList *'
+  mainDEC.c
+  Gerando Código...
+E:\Funes\GitHub\EDI\RevisionEDI_I\RevisionEDI_I\RevisionDEC\RevisionDEC.c(77): warning C4715: 'putEndList': nem todos os caminhos de controle retornam um valor
+LINK : fatal error LNK1168: não foi possível abrir E:\Funes\GitHub\EDI\RevisionEDI_I\RevisionEDI_I\x64\Debug\RevisionDEC.exe para escrita

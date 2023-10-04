@@ -1,5 +1,0 @@
-﻿  Revision.c
-E:\Funes\GitHub\EDI\RevisionEDI_I\RevisionEDI_I\Revision.c(168,26): warning C4047: '=': 'TList *' difere em níveis de indireção de 'int'
-E:\Funes\GitHub\EDI\RevisionEDI_I\RevisionEDI_I\Revision.c(175,30): warning C4047: '=': 'TList *' difere em níveis de indireção de 'int'
-E:\Funes\GitHub\EDI\RevisionEDI_I\RevisionEDI_I\Revision.c(198): warning C4715: 'putInPositionList': nem todos os caminhos de controle retornam um valor
-  RevisionEDI_I.vcxproj -> E:\Funes\GitHub\EDI\RevisionEDI_I\x64\Debug\RevisionEDI_I.exe
