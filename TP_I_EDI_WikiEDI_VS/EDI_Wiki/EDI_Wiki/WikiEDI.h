@@ -60,13 +60,13 @@ void readFilePage(const char* nomePage);
 
 //Função para Alocar a primeira pagina pagina, criar uma pagina na Memoria Alocada
 //NÂO SEI PQ NÂO PODE SER DIRETO EM POR NO FIM OU NO INICIO
-TPagina* firstPageAlloc();
+TPagina* bornPageAlloc();
 
 //Criar a primeira Pagina da lista;
 int startPageAlloc(TPagina* page, TNodoPage* info);
 
 //ciar a proxima pagina da lista duplamente encadeada
-int headPageAlloc(TPagina* page);
+int endPageAlloc(TPagina* page);
 
 //Função que retorna que nãotem pagina alocada
 int noPageAlloc(TPagina* page, TNodoPage* info);

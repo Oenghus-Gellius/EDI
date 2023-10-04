@@ -113,10 +113,15 @@ void readFilePage(const char* nomePage) {
 
 //função que vai pegar todas as alterações feitas na memoria 
 // alocada e reescrever no arquivo Pagina                         <=NÃO TERMINADO
-void writeFilePage(FILE *arqPage, TPagina *pageUpdate) { //<---- Função onde planejo conectar arquivo e meloria alocada
+void writeFilePage(FILE *arqPage, TPagina *pageUpdate, TNodoPage *nodoPageUpdate) { //<---- Função onde planejo conectar arquivo e meloria alocada
     TPagina page;
     TNodoPage nodoPage;
 
+    rewind(arqPage);                                    //SERA?
+
+    fwrite(&pageUpdate, sizeof(TPagina), 1, arqPage);
+
+    fwrite(&nodoPageUpdate, sizeof(TNodoPage), 1, arqPage);
 
 }
 
@@ -132,7 +137,7 @@ void DestroyerFilePage(const char* nomePage) {
 
 //Função para Alocar a primeira pagina pagina, criar uma pagina na Memoria Alocada
 //NÂO SEI PQ NÂO PODE SER DIRETO EM POR NO FIM OU NO INICIO
-TPagina* firstPageAlloc() {
+TPagina* bornPageAlloc() {
 
     TPagina *pageAlloc = (TPagina*)malloc(sizeof(TPagina));
 
@@ -192,7 +197,7 @@ int startPageAlloc(TPagina* page, TNodoPage* info) {
 }
 
 //ciar a proxima pagina da lista duplamente encadeada
-int headPageAlloc(TPagina* page, TNodoPage* info) {
+int endPageAlloc(TPagina* page, TNodoPage* info) {
     TNodoPage* nodoPageAlloc;
 
     char nomePage[5] = "EDI";

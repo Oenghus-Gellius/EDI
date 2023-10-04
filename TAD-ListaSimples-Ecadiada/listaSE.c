@@ -191,3 +191,5 @@ int getCorrente(lista l,TElemento *e){
         return 1;
     }
 }
+
+
