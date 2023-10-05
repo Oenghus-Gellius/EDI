@@ -1,11 +1,6 @@
 ﻿  Squad.c
-E:\Funes\GitHub\EDI\RevisionEDI_I\Josephus\Josephus\Squad.c(20,34): warning C4047: '=': 'int' difere em níveis de indireção de 'void *'
-E:\Funes\GitHub\EDI\RevisionEDI_I\Josephus\Josephus\Squad.c(33,38): warning C4013: 'strlen' indefinido; assumindo extern retornando int
-E:\Funes\GitHub\EDI\RevisionEDI_I\Josephus\Josephus\Squad.c(37,5): warning C4013: 'strcpy' indefinido; assumindo extern retornando int
-E:\Funes\GitHub\EDI\RevisionEDI_I\Josephus\Josephus\Squad.c(42,32): warning C4047: '=': 'int' difere em níveis de indireção de 'TNodo *'
-E:\Funes\GitHub\EDI\RevisionEDI_I\Josephus\Josephus\Squad.c(25,12): warning C4133: 'inicializando': tipos incompatíveis - de 'Tsquad *' para 'TNodo *'
-E:\Funes\GitHub\EDI\RevisionEDI_I\Josephus\Josephus\Squad.c(70,30): warning C4047: 'função': 'char **' difere em níveis de indireção de 'char *'
-E:\Funes\GitHub\EDI\RevisionEDI_I\Josephus\Josephus\Squad.c(70,30): warning C4024: 'firstSolSquad': tipos diferentes para parâmetro formal e real 2
-E:\Funes\GitHub\EDI\RevisionEDI_I\Josephus\Josephus\Squad.c(94,17): warning C4098: 'setSquad': função 'void' retornando um valor
-E:\Funes\GitHub\EDI\RevisionEDI_I\Josephus\Josephus\Squad.c(90,12): warning C4133: 'inicializando': tipos incompatíveis - de 'Tsquad *' para 'TNodo *'
+E:\Funes\GitHub\EDI\RevisionEDI_I\Josephus\Josephus\Squad.c(50,32): warning C4047: '=': 'int' difere em níveis de indireção de 'TNodo *'
+E:\Funes\GitHub\EDI\RevisionEDI_I\Josephus\Josephus\Squad.c(30,12): warning C4133: 'inicializando': tipos incompatíveis - de 'Tsquad *' para 'TNodo *'
+E:\Funes\GitHub\EDI\RevisionEDI_I\Josephus\Josephus\Squad.c(171,33): warning C4029: lista de parâmetros formais declarada diferente da definição
+E:\Funes\GitHub\EDI\RevisionEDI_I\Josephus\Josephus\Squad.c(172,12): warning C4101: 'ptrSol': variável local não referenciada
   Josephus.vcxproj -> E:\Funes\GitHub\EDI\RevisionEDI_I\Josephus\x64\Debug\Josephus.exe

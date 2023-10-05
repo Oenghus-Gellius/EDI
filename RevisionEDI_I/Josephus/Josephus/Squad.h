@@ -15,23 +15,31 @@ soldados ainda particicipantes do jogo.
 
 typedef struct Nodo {
     char *nome;
-    struct Nodo* next, * ant;
+    struct Nodo* next;//Lista simples encadeada circular
 }TNodo;
 
 typedef struct squad {
-    TNodo* inicio, * cursor;
+    TNodo* inicio, *fim, *cursor;
     int tamanho, posicaoCorrente;
 }Tsquad;
 
 
 Tsquad* criaSquad();
 
-int firstSolSquad(Tsquad* squad, char** nome);
+int firstSolSquad(Tsquad* squad, char* nome);
+
+int fullSquad(Tsquad* squad);
+
+int emptySquad(Tsquad* squad);
 
 int putEndSquad(Tsquad* squad, char* nome);
 
 void setSquad(Tsquad* squad, char** nomes, int qtd);
 
-void Josephus(Tsquad* squad);
+void removeSoldier(Tsquad* squad, int index);
+
+Tsquad *Josephus(Tsquad* squad, int tamanho);
+
+int sizeSquad(Tsquad* squad);
 
 void saidaSquad(Tsquad* squad);

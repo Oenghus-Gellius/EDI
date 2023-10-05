@@ -21,7 +21,7 @@ SLista* insereSoldadoNoCirc(SLista* lista, char* nome, int num);
 void imprimeSoldadosCirc(SLista* lista);
 int verificaQteSoldados(SLista* lista);
 SLista* executaJosephus(SLista* lista, int quantidade);
-
+/*
 int main(void) {
 
 	// =======================

@@ -1,85 +1,127 @@
+#define _CRT_SECURE_NO_WARNINGS
 
 #include "Squad.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 
 //Função costrutora da alocaçõa dinamica de dados
 Tsquad* criaSquad() {
-    Tsquad* squadCriado = (Tsquad*)malloc(sizeof(Tsquad));
-    if (squadCriado == NULL)
+    Tsquad* squad = (Tsquad*)malloc(sizeof(Tsquad));
+    if (squad == NULL)
     {
         printf("\nSquad não alocado\n");
-        return 0;
+        return NULL;
     }
-    squadCriado->tamanho = 0;
-    squadCriado->cursor = NULL;
-    squadCriado->inicio = NULL;
-    squadCriado->posicaoCorrente = NULL;
-    return squadCriado;
+    squad->tamanho = 0;
+    squad->cursor = NULL;
+    squad->inicio = NULL;
+    squad->fim = NULL;
+    squad->posicaoCorrente = 1;
+
+    return squad;
 }
 
-int firstSolSquad(Tsquad* squad, char** nome) {
+//ATENÇÃO
+int firstSolSquad(Tsquad* squad, char* nome) {
     TNodo* ptrSoldier = (Tsquad*)malloc(sizeof(Tsquad));
     if (ptrSoldier == NULL)
     {
-        printf("\nsoldado não alocado\n");
+        printf("\nPrimeiro soldado não alocado\n");
         return 0;
     }
-
+    printf("TAMANHO SQUAD %d\n", squad->tamanho);//TESTES
     // Aloque memória para o campo 'nome' e copie o nome
     ptrSoldier->nome = (char*)malloc(strlen(nome) + 1);
 
-    squad->tamanho++;
-    squad->inicio = ptrSoldier;
     strcpy(ptrSoldier->nome, nome);
+    //strcpy_s(ptrSoldier->nome, strlen(nome), nome);
+
+    squad->tamanho++;
+
+
 
     if (squad->tamanho == 1)//Se for o primeiro
     {
         squad->cursor = ptrSoldier;
         squad->posicaoCorrente = ptrSoldier;
         ptrSoldier->next = ptrSoldier;
-        ptrSoldier->ant = ptrSoldier;
+        squad->inicio = ptrSoldier;
+        squad->fim = ptrSoldier;
+        printf("TAMANHO SQUAD %d\n", squad->tamanho);//TESTES
     }
     else
     {
         ptrSoldier->next = squad->inicio;
-        ptrSoldier->ant = squad->inicio->ant;
-        squad->inicio->ant->next = ptrSoldier;
-        squad->inicio->ant = ptrSoldier;
+    }
+    squad->inicio = ptrSoldier;
+    return 1;
+}
+
+int fullSquad(Tsquad* squad) {
+    Tsquad* ptrSoldier = (Tsquad*)malloc(sizeof(Tsquad));
+    if (squad == NULL)
+    {
+        printf("\nSquad não alocado\n");
+        return 0;
+    }
+    free(squad);
+    return 1;
+}
+
+int emptySquad(Tsquad* squad) {
+    if (squad->tamanho == 0)
+    {
+        // print("\nSquad vazio!!!\n");
+        return 0;
     }
     return 1;
 }
 
 int putEndSquad(Tsquad *squad, char *nome) {
-    TNodo *ptrSoldier = (TNodo*)malloc(sizeof(TNodo));
+   
+    TNodo* ptrSoldier = (TNodo*)malloc(sizeof(TNodo));
     if (ptrSoldier == NULL)
     {
-        printf("\nsoldado não alocado\n");
+        printf("\nTNodo não alocado\n");
         return 0;
     }
 
-    //lista cheia
-
-
-    
-    if (squad->inicio == NULL)
+    if (ptrSoldier->nome == NULL)
     {
-        firstSolSquad(squad, nome);
+        printf("\nMemória para nome não alocada\n");
+        free(ptrSoldier);// Libera a memória alocada para TNodo se a alocação para nome falhar
+        return 0;
+    }
+    
+    if (squad->tamanho == 0 )//Se for o primeiro
+    {
+        firstSolSquad(squad, nome); 
     }
     else
     {
         // Aloca memória para o campo 'nome' e copie o nome
         ptrSoldier->nome = (char*)malloc(strlen(nome) + 1);
+        
+        TNodo* ptrfinder = squad->inicio;
+        TNodo* ptrBackFinder = squad->inicio;       
 
         strcpy(ptrSoldier->nome, nome);
+        //strcpy_s(ptrSoldier->nome, strlen(nome), nome);
 
-        ptrSoldier->ant = squad->inicio->ant;
-        ptrSoldier->next = squad->inicio;
-        squad->inicio->ant->next = ptrSoldier;
-        squad->inicio->ant = ptrSoldier;
+        for (int i = 1; i < squad->tamanho; i++)
+        {
+            ptrBackFinder = ptrfinder;
+            ptrfinder = ptrfinder->next;
+        }
+        ptrSoldier->next = ptrfinder->next;//conecta na frente e o bumbum?
+        ptrBackFinder->next = ptrSoldier;//Bumbm ligado
+        
+        squad->fim->next = ptrSoldier;
+        squad->fim = ptrSoldier;
         squad->tamanho++;
     }
     return 1;
@@ -87,56 +129,88 @@ int putEndSquad(Tsquad *squad, char *nome) {
 
 //seta o nome dos elementos do squadron, alocando dinamicamente
 void setSquad(Tsquad* squad, char **nomes, int qtd) {
-    TNodo* ptrSoldier = (Tsquad*)malloc(sizeof(Tsquad));
-    if (ptrSoldier == NULL)
-    {
-        printf("\nsoldado não alocado\n");
-        return 0;
-    }
+
     for (int i = 0; i < qtd; i++)
     {
         putEndSquad(squad, nomes[i]);
     }
 }
 
-void Josephus(Tsquad* squad) {
-    TNodo *ptrSol;
-    int luck;
+void removeSoldier(Tsquad *squad, int index) {
+    TNodo* ptrSoldier = squad->cursor;//Troquei inicio por cursor para não voltar no inicio
+    TNodo* ptrBackSoldier = ptrSoldier;
 
-    squad->cursor = squad->inicio;
-
-    while (squad->tamanho > 1)
+    //Posicionao cursor onde deve ser removido
+    for (int i = 1; i <= index; i++)//Aqui mudei para index(numero rolado)e não tamanho do squad
     {
-        luck = rand() % squad->tamanho;
-
-        printf("\nO roll foi %d ",luck);
-
-        for (int i = 1; i <= squad->tamanho; i++)
-        {
-            squad->cursor = squad->cursor->next;
-        }
-
-        printf("\nO militar %s Morreu\n", squad->cursor->nome);
-
-        //Função que remove um soldado por vez
-        ptrSol = squad->cursor;
-        ptrSol->next->ant = ptrSol->ant;
-        ptrSol->ant->next = ptrSol->next;
-
-        if (ptrSol == squad->inicio)
-        {
-            squad->inicio = squad->inicio->next;
-        }
-        free(ptrSol);
-
-        squad->tamanho--;
-
-        printf("\nSobraram.:\n");
-
-        saidaSquad(squad);       
+        ptrBackSoldier = ptrSoldier;
+        ptrSoldier = ptrSoldier->next;
     }
-    // Quando apenas um soldado sobrar, imprima o vencedor
-    printf("\nO militar %s sobreviveu e venceu!\n", squad->inicio->nome);
+    //Reconectando a lista
+    if (ptrSoldier == squad->inicio)//Se for o primeiro
+    {
+        squad->inicio = ptrSoldier->next;//squad->inicio = squad->next ?????
+    }
+    else//se for o ultimo
+    {
+        if (ptrSoldier == squad->fim)
+        {
+            ptrBackSoldier->next = squad->inicio;  // O último aponta para o início
+            squad->fim = ptrBackSoldier;  // Atualize squad->fim para o novo último
+        }
+        else
+        {
+            ptrBackSoldier->next = ptrSoldier->next;//conecta;
+        }
+    }
+    squad->tamanho--;
+    free(ptrSoldier);//Removendo
+}
+
+//recursiva
+Tsquad *Josephus(Tsquad* squad) {
+    TNodo *ptrSol;
+    int roll;
+
+    if (emptySquad(squad) == 0)
+    {
+        printf("\nSem soldados\n");
+    }
+
+    if (squad->tamanho == 1)//FINALIZA A RECURSÃO, caso base
+    {
+        // Quando apenas um soldado sobrar, imprima o vencedor
+        printf("\nO militar %s sobreviveu e VENCEU!\n", squad->inicio->nome);
+        return squad;
+    }
+
+    roll = rand() % squad->tamanho;
+
+    printf("\nO roll foi %d .:", roll);
+
+    TNodo* ptrSoldier = squad->cursor;
+
+    for (int i = 1; i <= roll; i++)
+    {
+        ptrSoldier = ptrSoldier->next;
+
+    }
+
+    printf("\nO militar %s Morreu\n", ptrSoldier->nome);
+
+    //Função que remove um soldado por vez
+    removeSoldier(squad, roll);
+    
+    printf("\nTAMANH0.: %d\n", squad->tamanho);
+
+    printf("\nSobraram.:\n");
+    saidaSquad(squad);      
+
+    return Josephus(squad);
+}
+
+int sizeSquad(Tsquad* squad) {
+    return squad->tamanho;
 }
 
 void saidaSquad(Tsquad* squad) {
@@ -151,34 +225,45 @@ void saidaSquad(Tsquad* squad) {
 }
 
 void simulation() {
-    Tsquad* squadAlpa = criaSquad();
-    char* nomes[] = { "Soldado 1", "Soldado 2", "Soldado 3", "Soldado 4", "Soldado 5", "Soldado 6", "Soldado 7", "Soldado 8","Soldado 9","Soldado 10" };
-    setSquad(squadAlpa, nomes, 10);
-    saidaSquad(squadAlpa);
+    Tsquad* squad = criaSquad();
+    char* nomes[] = { "Boizo", "Grunsk", "Neves", "Oenghus"};
+    int tamanho = 0;
+    
+    setSquad(squad, nomes, 4);
 
-    Josephus(squadAlpa);
+    saidaSquad(squad);
+
+    tamanho = sizeSquad(squad);
+
+    //Josephus(squad, tamanho);
 }
 
 void test() {
-    Tsquad* squadBeta = criaSquad();
-    char nome[] = { "Neves" };
-    char nome2[] = { "Grunsk" };
 
-    
-    putEndSquad(squadBeta, nome2);
+    Tsquad* squad = criaSquad();
+    char* nomeA[] = {"Grunsk"};
+    char* nomeB[] = {"Neves"};
+    char* nomeC[] = { "Oenghus" };
+    char* nomeD[] = { "Mouto" };
+    int tamanho = 0;
 
-    //firstSolSquad(squadBeta, nome);
-    
-    
+    putEndSquad(squad, *nomeA);
+    putEndSquad(squad, *nomeB);
+    firstSolSquad(squad, *nomeC);
+    firstSolSquad(squad, *nomeD);
 
-    saidaSquad(squadBeta);
+    saidaSquad(squad);
+
+    tamanho = sizeSquad(squad);
+
+    Josephus(squad);
 }
-/*
+
 int main() {
-    //test();
-    simulation();
+    test();
+    //simulation();
 
     return 0;
 }
-*/
+
 
