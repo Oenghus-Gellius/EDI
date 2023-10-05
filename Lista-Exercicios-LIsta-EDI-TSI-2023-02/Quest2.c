@@ -7,44 +7,54 @@
 //Função costrutora da alocaçõa dinamica de dados
 Tsquad* criaSquad(){
     Tsquad* squadCriado = (Tsquad*)malloc(sizeof(Tsquad));
-    if (squadCriado != NULL)
+    if (squadCriado == NULL)
     {
-        squadCriado->tamanho = 0;
-        squadCriado->cursor = NULL;
-        squadCriado->inicio = NULL;
-        squadCriado->posicaoCorrente = 1;
+        printf("\nSquad não alocado\n");
+        return 0;
     }
+    squadCriado->tamanho = 0;
+    squadCriado->cursor = NULL;
+    squadCriado->inicio = NULL;
+    squadCriado->posicaoCorrente = NULL;
     return squadCriado;
+}
+
+int firstSolSquad(Tsquad *squad, char *nome){
+TNodo *ptrSoldier = (Tsquad*)malloc(sizeof(Tsquad));
+    if (ptrSoldier == NULL)
+    {
+        printf("\nsoldado não alocado\n");
+        return 0;
+    }
+
+    squad->tamanho++;
+    squad->inicio = ptrSoldier;
+
+    if (squad->tamanho < 1)//Se for o primeiro
+    {
+        squad->cursor = ptrSoldier;
+        squad->posicaoCorrente = ptrSoldier;
+        squad->inicio->next = ptrSoldier;
+        squad->inicio->ant = ptrSoldier; 
+    }
+    else
+    {
+        
+
+        squad->inicio = ptrSoldier;
+        squad->inicio->next = squad->inicio;
+        squad->inicio->ant = squad->inicio->ant; 
+    }
+    return 1; 
 }
 
 //seta o nome dos elementos do squadron, alocando dinamicamente
 void setSquad(Tsquad* squad, char nome){
-    TNodo *ptrMilitar=(TNodo*)malloc(sizeof(TNodo));
-    if (ptrMilitar == NULL)
+TNodo *ptrSoldier = (Tsquad*)malloc(sizeof(Tsquad));
+    if (ptrSoldier == NULL)
     {
+        printf("\nsoldado não alocado\n");
         return 0;
-    }
-    else
-    {
-        strcpy(ptrMilitar->nome,nome);
-        squad->tamanho++;
-
-        //verificando se é o primeiro nodo da lista
-        if (squad->tamanho == 1)
-        {
-            ptrMilitar->ant = ptrMilitar;
-            ptrMilitar->next = ptrMilitar;
-        }
-        else
-        {
-            strcpy(ptrMilitar->nome,nome);
-            ptrMilitar->ant = squad->inicio->ant;
-            ptrMilitar->next = squad->inicio;
-            squad->inicio->ant->next = ptrMilitar;
-            squad->inicio->ant = ptrMilitar;
-            squad->tamanho++;
-            return 1;
-        } 
     }
 }
 
@@ -64,11 +74,30 @@ void Josephus(Tsquad* squadEmFuga){
 
 }
 
-int main(){
-    int tamanhoSquad = 10;
-    char* nomes[]={"Soldado 1", "Soldado 2", "Soldado 3", "Soldado 4", "Soldado 5", "Soldado 6", "Soldado 7", "Soldado 8"};
+void saidaSquad(Tsquad *squad){
+    TNodo* nodoSold = squad->inicio;
+    for (int i = 0; i < squad->tamanho; i++)
+    {
+        printf("%s\t", nodoSold->nome);
+    }
+    printf("\n");  
+}
 
+void simulation(Tsquad *squad){
     Tsquad* squadAlpa = criaSquad();
+    char* nomes[]={"Soldado 1", "Soldado 2", "Soldado 3", "Soldado 4", "Soldado 5", "Soldado 6", "Soldado 7", "Soldado 8","Soldado 9","Soldado 10"};
+
+}
+
+int main(){
+    Tsquad* squadBeta = criaSquad();
+    char nome[] = {"Neves"};
+
+    firstSolSquad(squadBeta, nome);
+    saidaSquad(squadBeta);
+
+
+
 
 
     return 0;
