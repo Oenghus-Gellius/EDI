@@ -12,17 +12,34 @@
  */
 
 
+
+
 /*
 Introdução.:
 
+Ideias.:
 
+Fazer um arquivo só com o nome dos colaboradores
+Fazer um arquivc com o log do que foi feito na Wiki
 */
+
+//Estrutura para manipular os dados no Arquivo
+typedef struct PageArq{
+	char nomePage;
+	int codColab;
+	int qtdColab;
+	char colabName;
+	char colabWiki;
+	int qtdLinks;
+	struct PageArq* links;
+}TPageArq;
+
 
 //Estrutura de nodos para uma lista encadeada simples de conteudos colaborativos;
 typedef struct NodoCont {
-	unsigned int nColab;//numero de restreio do colabarador
-	char nomeColab[MAX_TAM_STR];//nome do colaborador (nome unico) Fezer a verificação
-	char contWikiColab[MAX_TAM_STR];//conteudo do colaborador
+	unsigned int idColab;//numero de restreio do colabarador
+	char *nomeColab;//nome do colaborador (nome unico) Fezer a verificação
+	char *contWikiColab;//conteudo do colaborador
 	unsigned int sizeofContColab;//contador de caracteres por texto do colaborador
 	//struct NodoCont* nextColab;//nova colaboração 
 }TNodoCont;
@@ -37,17 +54,18 @@ typedef struct Conteudo {
 
 //Estrutura de nodos para encadear as paginas. Pretendo manter uma lista duplamente encadeada
 typedef struct Nodo {
-	char nomePage[MAX_TAM_STR];//nome da pagina da Wiki
-	//char linkPages[MAX_TAM_STR];//links entre paginas se houver
-	//TConteudo info;// Estrutura dentro de cada pagina para registrar colaborações
-	struct Nodo* nextPage, * backPage;//Nova pagina ou proxina e pagina anterior
+	int idPage;
+	char *nomePage;//nome da pagina da Wiki
+	//char *linkPages;//links entre paginas se houver
+	TConteudo info;// Estrutura dentro de cada pagina para registrar colaborações
+	struct Nodo* nextPage;//Nova pagina ou proxina e pagina anterior
 }TNodoPage;
 
 typedef struct Pagina {
 	int quantidade;//quantidade de paginas existentes
 	int posicaoCorrente;//marca posição na de pagina
-	char teste[MAX_TAM_STR];
-	TNodoPage* inicio, * cursor;//Marca primeira pagina e a pagina atual;
+	// char teste[MAX_TAM_STR];//TESTE PARA VER SE ESTÂO REALMENTE ESCREVENDO E CONECTANDO
+	TNodoPage* inicio, * cursor, *fim;//Marca primeira pagina e a pagina atual;
 }TPagina;
 
 //Funções usadas na Wiki
@@ -63,6 +81,7 @@ void openFilePage(const char* nomePage);
 //ler o conteudo de um arquivo/pagina ja criado
 void readFilePage(const char* nomePage);
 
+//Função que criar/atualiza o ARQUIVO de log de alterações  na Wiki<=====FAZER
 
 //FUNÇÕES DE ALOCAÇÃO----------------------------------------------------------------
 
@@ -85,11 +104,11 @@ int fullPageAlloc(TPagina* page);
 //Função que retorna o tamanho/quantidade de Paginas na Wiki
 int sizePageAlloc(TPagina* page);
 
+//Função que atualiza atravez de memoria alocada o log de alterações  na Wiki<=====FAZER
 
 //FUNÇÕES "FUNCIONAIS"----------------
 
 void menuApp1();
-
 
 #endif // WIKIEDI_H_INCLUDED
 

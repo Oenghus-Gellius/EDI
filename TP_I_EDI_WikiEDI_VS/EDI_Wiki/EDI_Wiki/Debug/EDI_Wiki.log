@@ -1,11 +1,26 @@
 ﻿  WikiEDI.c
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(118,15): warning C4101: 'nodoPage': variável local não referenciada
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(117,13): warning C4101: 'page': variável local não referenciada
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(151,29): warning C4047: '=': 'char' difere em níveis de indireção de 'char [2]'
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(173,24): warning C4047: '=': 'char' difere em níveis de indireção de 'char [2]'
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(195,51): warning C4029: lista de parâmetros formais declarada diferente da definição
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(224,32): warning C4029: lista de parâmetros formais declarada diferente da definição
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(286,16): warning C4047: 'inicializando': 'TNodoPage *' difere em níveis de indireção de 'int'
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(333,13): warning C4101: 'pagina': variável local não referenciada
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(332,11): warning C4101: 'file': variável local não referenciada
-  EDI_Wiki.vcxproj -> E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\Debug\EDI_Wiki.exe
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(14,33): warning C4028: parâmetro formal 1 diferente da declaração
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(14,65): warning C4029: lista de parâmetros formais declarada diferente da definição
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(19,23): warning C4047: 'função': 'const char *' difere em níveis de indireção de 'const char'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(19,23): warning C4024: 'fopen_s': tipos diferentes para parâmetro formal e real 2
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(23,16): warning C4477: 'printf': a cadeia de formato '%s' requer um argumento do tipo 'char *', mas um argumento variadic 1 tem o tipo 'int'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(24,27): warning C4047: 'função': 'const char *' difere em níveis de indireção de 'const char'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(24,27): warning C4024: 'fopen_s': tipos diferentes para parâmetro formal e real 2
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(28,21): warning C4098: 'creatorFilePage': função 'void' retornando um valor
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(67,17): warning C4477: 'printf': a cadeia de formato '%s' requer um argumento do tipo 'char *', mas um argumento variadic 1 tem o tipo 'int'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(92,28): error C2065: 'nodoPage': identificador não declarado
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(95,72): error C2065: 'nodoPage': identificador não declarado
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(95,73): error C2224: esquerda de '.nomePage' deve possuir tipo struct/union
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(95,16): warning C4473: 'printf' : não há argumentos suficientes transmitidos para a cadeia de caracteres de formato
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(95,16): message : espaços reservados e seus parâmetros esperam 1 argumentos variadic, mas 0 foram fornecidos
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(95,16): message : o argumento variadic 1 ausente é requerido pela cadeia de formato '%s'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(145,41): warning C4028: parâmetro formal 2 diferente da declaração
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(145,72): warning C4029: lista de parâmetros formais declarada diferente da definição
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(193,70): warning C4029: lista de parâmetros formais declarada diferente da definição
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(232,32): warning C4029: lista de parâmetros formais declarada diferente da definição
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(265,21): warning C4047: 'função': 'const char' difere em níveis de indireção de 'const char [4]'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(265,21): warning C4024: 'creatorFilePage': tipos diferentes para parâmetro formal e real 1
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(265,31): warning C4047: 'função': 'const char' difere em níveis de indireção de 'const char [8]'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(265,31): warning C4024: 'creatorFilePage': tipos diferentes para parâmetro formal e real 2
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(320,9): warning C4013: 'headPageAlloc' indefinido; assumindo extern retornando int
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki\WikiEDI.c(310,16): warning C4047: 'inicializando': 'TNodoPage *' difere em níveis de indireção de 'int'
