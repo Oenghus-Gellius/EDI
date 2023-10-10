@@ -25,11 +25,11 @@ Fazer um arquivc com o log do que foi feito na Wiki
 
 //Estrutura para manipular os dados no Arquivo
 typedef struct PageArq{
-	char nomePage;
+	char *nomePage;
 	int codColab;
 	int qtdColab;
-	char colabName;
-	char colabWiki;
+	char *colabName;
+	char *colabWiki;
 	int qtdLinks;
 	struct PageArq* links;
 }TPageArq;
@@ -68,12 +68,24 @@ typedef struct Pagina {
 	TNodoPage* inicio, * cursor, *fim;//Marca primeira pagina e a pagina atual;
 }TPagina;
 
+//Estrutura para organizar o arquivo de log da wiki
+typedef struct Log {
+	const int codError;
+	char* TipError;
+}Tlog;
+
+//Estrutura para organizar a lista de colaboradores
+typedef struct ColabList {
+	const int idColab;
+	char* nameColab;
+}TColabList;
+
 //Funções usadas na Wiki
 // 
 //FUNÇÕES DE MANIPULAÇÃO DE ARQUIVOS-----------------------
 
-//cria uma pagina/arquivo <---Incompleta
-void creatorFilePage(const char* nomePage);
+//cria uma pagina/arquivo 
+void creatorFilePage(const char* nomePage, const char* colabName);
 
 //abre uma pagina existente <---
 void openFilePage(const char* nomePage);
@@ -82,6 +94,12 @@ void openFilePage(const char* nomePage);
 void readFilePage(const char* nomePage);
 
 //Função que criar/atualiza o ARQUIVO de log de alterações  na Wiki<=====FAZER
+void writeFilePage(FILE* arqPage, TPagina* pageUpdate, const char* colabName);
+
+//Função para manipular o arquivo de log
+void openLogFile();
+
+
 
 //FUNÇÕES DE ALOCAÇÃO----------------------------------------------------------------
 

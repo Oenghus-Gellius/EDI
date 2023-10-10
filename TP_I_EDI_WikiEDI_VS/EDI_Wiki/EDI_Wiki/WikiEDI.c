@@ -11,7 +11,7 @@
 //FUNÇÕES DE MANIPULAÇÃO DE ARQUIVOS--------------------------------------------------
 
 //cria uma pagina/arquivo
-void creatorFilePage(const char nomePage, const char colabName) {
+void creatorFilePage(const char *nomePage, const char *colabName) {
     FILE* arqPage;
     TPageArq page;
 
@@ -20,7 +20,6 @@ void creatorFilePage(const char nomePage, const char colabName) {
     
     if (arqPage == NULL)
     {
-        printf("\nCriada Pagina - %s!!!\n", nomePage);
         fopen_s(&arqPage, nomePage, "r");
         if (arqPage == NULL)
         {
@@ -34,15 +33,28 @@ void creatorFilePage(const char nomePage, const char colabName) {
         return;
     }
 
+    // Alocar espaço para as strings e copiar os valores
+    page.colabName = strlen(colabName) + 1;
+    page.nomePage = strlen(nomePage) + 1;
+
     // Inicialize a estrutura TPageArq como necessário
     page.colabName = colabName;
     page.nomePage = nomePage;
+    page.links = NULL;
+
+    printf("\nCriada Pagina - %s!!!\n", page.nomePage);
+    printf("\nCriado por.: %s!!!\n", page.colabName);
+
     
     // Escreva a estrutura no arquivo
     fwrite(&page, sizeof(TPageArq), 1, arqPage);
 
     // Feche o arquivo
     fclose(arqPage);
+
+    // Liberar a memória alocada
+    free(page.colabName);
+    free(page.nomePage);
 }
 
 //abre uma pagina existente para leitura e escrita, a partir do inicio<---
@@ -62,9 +74,6 @@ void openFilePage(const char* nomePage) {
         rewind(arqOpen);
 
         fread(&page, sizeof(TPagina), 1, arqOpen);
-
-
-         printf("\nPagina %s aberta Função OPEN!!!\n",page.nomePage);
     }
 }
 
@@ -72,7 +81,6 @@ void openFilePage(const char* nomePage) {
 void readFilePage(const char* nomePage) {
     FILE* arqOpen;
     TPageArq page;
-
 
     fopen_s(&arqOpen, nomePage, "r");
 
@@ -84,32 +92,79 @@ void readFilePage(const char* nomePage) {
     else
     {
         rewind(arqOpen);
+        printf("Pagina de %s!!!\n", page.nomePage);
+        printf("Criada por %s!!!\n", page.colabName);
+        printf("\nColaboração .:!!!\n");
 
-        fread(&page, sizeof(TPagina), 1, arqOpen);
-
-
-        printf("\nPagina de %s aberta pela funçaõ LER!!!\n", page.nomePage);
+        while (fread(&page, sizeof(TPagina), 1, arqOpen) != 1)
+        {
+            printf("\n%s\n",page.colabWiki);
+            printf("Colaborador.: %s!!!\n", page.colabName);
+        }
+        if (page.links != 0)
+        {
+            printf("\nLinks.:");
+            for (int i = 0; i < page.qtdLinks; i++)
+            {
+                printf("%s\t",page.links);
+            }
+        }
     }
 }
 
 //função que vai pegar todas as alterações feitas na memoria 
-// alocada e reescrever no arquivo Pagina                         <=NÃO TERMINADO
-void writeFilePage(FILE *arqPage, TPagina *pageUpdate, TNodoPage *nodoPageUpdate) { //<---- Função onde planejo conectar arquivo e meloria alocada
-    TPagina page;
+// alocada e reescrever no arquivo Pagina            
+// Função onde planejo conectar arquivo e meloria alocada
+void writeFilePage(FILE *arqPage, TPagina *pageUpdate, const char* colabName){ 
 
-
-    rewind(arqPage);                                    //SERA?
+    rewind(arqPage);
 
     fwrite(&pageUpdate, sizeof(TPagina), 1, arqPage);
-
-    fwrite(&nodoPageUpdate, sizeof(TNodoPage), 1, arqPage);
-
 }
 
+//Função para manipular o arquivo de log
+void openLogFile() {
+    FILE* logFile;
+    Tlog log;
+
+    fopen_s(&log, logFile, "a+");
+
+    if (logFile == NULL)
+    {
+        printf("\nErro ao ABRIR o LOG!!!\n");
+        return;
+    }
+    else
+    {
+        rewind(logFile);
+
+        fread(&log, sizeof(Tlog), 1, logFile);
+    }
+}
+
+//Função para manipular o arquivo de colaboradores
+void OpenColabList(){
+    FILE* colabFile;
+    TColabList colabList;
+
+    fopen_s(&colabList, colabFile, "a+");
+
+    if (colabFile == NULL)
+    {
+        printf("\nErro ao ABRIR a lista de colaboradores!!!\n");
+        return;
+    }
+    else
+    {
+        rewind(colabFile);
+
+        fread(&colabList, sizeof(TColabList), 1, colabFile);
+    }
+}
 
 //Remove uma pagina, essa função vai ser compelxa pq não é só apagar, mas tem que conectar 
 //a sequencias das outras paginas.
-void DestroyerFilePage(const char* nomePage) {
+void DestroyerFilePage(const char* nomePage, const char* colabName) {
 
 }
 
@@ -225,7 +280,7 @@ int endPageAlloc(TPagina* page, char* nomePage, TNodoPage infoEnter) {
 }
 
 //Função que retorna que nãotem pagina alocada
-int noPageAlloc(TPagina *page) {
+int emptyPageAlloc(TPagina *page) {
     return page->quantidade == 0;
 }
 
@@ -252,17 +307,102 @@ int sizePageAlloc(TPagina* page) {
 
 //FUNÇÕES "FUNCIONAIS"----------------------------------------------------------------
 
+void retiraEnter(char* string) {
+    if (string[strlen(string) - 1] == '\n')
+        string[strlen(string) - 1] = '\0';
+}
+
+
+//Cadastro/login de colaborador
+int CadColabName() {
+    FILE* colabFile;
+    TColabList colabList;
+    openLogFile(colabFile);
+    int achou;
+    char* nameColab;
+    int cadColab;
+    int sair;
+
+    do
+    {
+        printf("\Login colaborador.: ");
+        setbuf(stdin, NULL);
+        fgets(nameColab, 50, stdin);
+        retiraEnter(nameColab);
+        setbuf(stdin, NULL);
+
+        achou = 0;
+        //Pesquisa no arquivo se é um colaborador cadastrado
+        while (fread(&colabList, sizeof(TColabList), 1, colabFile));
+        {
+            if (strcmp(colabList.nameColab, nameColab) == 0)
+            {
+                printf("\nUser.:%s  | Login feito com sucesso!\n",colabList.nameColab);
+                //USAR A FUNÇÂO DE ESCREVER NO ARQUIVO LOG
+                achou = 1;
+                break;
+            }
+        }
+        if (achou == 1)
+        {
+            printf("\nCadastro de colaborador não encotrado!!!");
+            //USAR A FUNÇÂO DE ESCREVER NO ARQUIVO LOG
+
+            
+
+
+        }
+
+        printf("\n1-Tentar novamente | 0-SAIR\n");
+    } while (sair != 0);
+}
+
+void menuEnter() {
+    const int menu;
+    char *conteudo;
+    const int Log;
+    const int checkColab;
+    printf("\n==================================================\n");
+    printf("\n===================EDI-WikiEDI====================\n");
+    printf("\n==================================================\n");
+    printf("\n1-Pesquisar | 2-Login Colaborador | 3-Sair.: \n");
+    scanf("%d", &menu);
+    do
+    {
+        switch (menu)
+        {
+        case 1:// Pesquisa pagina
+            printf("\nQual conteudo deseja pesquisar.:\n");//Insira o nome da pagina
+            setbuf(stdin, NULL);
+            fgets(conteudo, 10, stdin);
+            retiraEnter(conteudo);
+            setbuf(stdin, NULL);
+            readFilePage(conteudo);
+
+        case 2://Login colaborador
+            CadColabName();
+            break;
+
+        default:
+            break;
+        }
+    } while (menu !=3);
+}
 //Menu teste para as funções que manipula o Arquivo
-void menuApp1() {
+void menuColab() {
     const char nomePage[] = "EDI";
     const char colabA[] = "Oenghus";
     const char colabtextoA[] = "Teste da Desgraça!!!!";
+    const int menu;
 
-    creatorFilePage(nomePage, colabA);
+    switch (menu)
+    {
+    case 1: //Criar um Pagina da Wiki
+        //Insira o nome da pagina
+    default:
+        break;
+    }
 
-    // readFilePage(nomePage);
-
-    openFilePage(nomePage);
 
 
 
@@ -301,7 +441,7 @@ void menuApp2() {
     const char nomePage[] = "EDI";
     const char texto[] = "Teste da Desgraça!!!!";
 
-    TPagina *EDI = bornPageAlloc();
+    TPagina* EDI;
 
     TNodoPage* info = 7;
 
@@ -313,7 +453,7 @@ void menuApp2() {
     {
     case 1: //Criar um Pagina da Wiki
         //Insira o nome da pagina
-        headPageAlloc(EDI, info);
+
 
         //srtcpy(EDI->teste, texto);
 
@@ -339,18 +479,15 @@ void menuApp2() {
 }
 
 //Testa o funcionamento das funções e as interações entre elas
-void APPTest() {
-    FILE* file;
-    TPagina pagina;
+void APP() {
+    openLogFile();
+    fclose()
 
-    //menuApp1();
-
-    menuApp2();
 }
 
 int main() {
     setlocale(LC_ALL, "Portuguese");
-    APPTest();
+    APP();
 
     return 0;
 }
