@@ -1,6 +1,9 @@
 #ifndef WIKIEDI_H_INCLUDED
 #define WIKIEDI_H_INCLUDED
 
+#include <stdio.h>
+#include <stdlib.h>
+
 #define MAX_TAM_STR 100
 
 /*
@@ -34,6 +37,28 @@ typedef struct PageArq{
 	struct PageArq* links;
 }TPageArq;
 
+//Estrutura para gerenciar a lista de Paginas encadeada
+typedef struct NodePageFile {
+	int codPage;
+	char* namePage;
+}TNodePageFile;
+
+////=======================================
+
+//Estrutura para organizar o arquivo de log da wiki
+typedef struct Log {
+	const int codError;
+	char* TipError;
+}Tlog;
+
+//Estrutura para organizar a lista de colaboradores
+typedef struct ColabList {
+	const int idColab;
+	char* nameColab;
+}TColabList;
+
+//------------------------
+
 
 //Estrutura de nodos para uma lista encadeada simples de conteudos colaborativos;
 typedef struct NodoCont {
@@ -41,13 +66,13 @@ typedef struct NodoCont {
 	char *nomeColab;//nome do colaborador (nome unico) Fezer a verificação
 	char *contWikiColab;//conteudo do colaborador
 	unsigned int sizeofContColab;//contador de caracteres por texto do colaborador
-	//struct NodoCont* nextColab;//nova colaboração 
+	struct NodoCont* nextColab;//nova colaboração 
 }TNodoCont;
 
 typedef struct Conteudo {
 	int tamanhoColab;//ter o numero de colaborações totais por pagina
 	int posicaoCorrenteColab;//marcador da posição
-	//TNodoCont* inicioColab, * cursorColab;//busca colabarador especifico para manipular ssuas colaborações
+	TNodoCont* inicioColab, * cursorColab, *fimColab;//busca colabarador especifico para manipular ssuas colaborações
 }TConteudo;
 
 //----------------------------
@@ -67,18 +92,6 @@ typedef struct Pagina {
 	// char teste[MAX_TAM_STR];//TESTE PARA VER SE ESTÂO REALMENTE ESCREVENDO E CONECTANDO
 	TNodoPage* inicio, * cursor, *fim;//Marca primeira pagina e a pagina atual;
 }TPagina;
-
-//Estrutura para organizar o arquivo de log da wiki
-typedef struct Log {
-	const int codError;
-	char* TipError;
-}Tlog;
-
-//Estrutura para organizar a lista de colaboradores
-typedef struct ColabList {
-	const int idColab;
-	char* nameColab;
-}TColabList;
 
 //Funções usadas na Wiki
 // 
@@ -126,7 +139,18 @@ int sizePageAlloc(TPagina* page);
 
 //FUNÇÕES "FUNCIONAIS"----------------
 
-void menuApp1();
+//Função que retira o enter das strings
+void retiraEnter(char* string);
+
+//Fazer o teste se existe já colaborador cadastrado, recebe o nome pesquisado
+// retorna bool
+int checkColab(char* nameColab);
+
+//Cadastro/login de colaborador ATNCION: COMO REMOVER COLABORADOR?
+int modifyiColabName();
+
+//Menu de abertura do app, encaminha para a pesquisa, manipulação do arquivi colaborador
+void menuEnter()
 
 #endif // WIKIEDI_H_INCLUDED
 

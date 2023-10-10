@@ -55,10 +55,11 @@ void creatorFilePage(const char *nomePage, const char *colabName) {
     // Liberar a memória alocada
     free(page.colabName);
     free(page.nomePage);
+
 }
 
 //abre uma pagina existente para leitura e escrita, a partir do inicio<---
-void openFilePage(const char* nomePage) {
+int *openFilePage(const char* nomePage) {
     FILE* arqOpen;
     TPageArq page;
 
@@ -67,18 +68,19 @@ void openFilePage(const char* nomePage) {
     if (arqOpen == NULL)
     {
         printf("\nErro ao ABRIR Pagina!!!\n");
-        return;
+        return 0;
     }
     else
     {
         rewind(arqOpen);
 
         fread(&page, sizeof(TPagina), 1, arqOpen);
+        return 1;
     }
 }
 
 //ler o conteudo de um arquivo/pagina ja criado. Somente LEITURA
-void readFilePage(const char* nomePage) {
+int *readFilePage(const char* nomePage) {
     FILE* arqOpen;
     TPageArq page;
 
@@ -87,7 +89,7 @@ void readFilePage(const char* nomePage) {
     if (arqOpen == NULL)
     {
         printf("\nErro ao LER Pagina!!!\n");
-        return;
+        return 0;
     }
     else
     {
@@ -109,42 +111,87 @@ void readFilePage(const char* nomePage) {
                 printf("%s\t",page.links);
             }
         }
+        fclose(arqOpen);
+        return 1;
     }
 }
 
 //função que vai pegar todas as alterações feitas na memoria 
 // alocada e reescrever no arquivo Pagina            
-// Função onde planejo conectar arquivo e meloria alocada
-void writeFilePage(FILE *arqPage, TPagina *pageUpdate, const char* colabName){ 
+// Função onde planejo conectar arquivo e meloria alocada //<-Não finalizado
+void writeFilePage(FILE *arqPage, TPagina *pageUpdate, const char* colabName){
 
     rewind(arqPage);
 
-    fwrite(&pageUpdate, sizeof(TPagina), 1, arqPage);
+    fwrite(&pageUpdate, sizeof(TPageArq), 1, arqPage);
+}
+
+//Copia as informações do arquivo para a memoria alocada para Edição <=CONTINUAR AQUI!!!!
+TConteudo *copyFilePage(FILE* arqPage, TConteudo* conteudo) {
+    TPageArq pageFile;
+    TNodoCont* ptrColab;
+    
+
+    rewind(arqPage);
+
+    printf("Pagina de %s!!!\n", pageFile.nomePage);
+    printf("Criada por %s!!!\n", pageFile.colabName);
+
+    while (fread(&pageFile, sizeof(TPageArq), 1, arqPage))
+    {
+        ptrColab = endColabAlloc();
+    }
+
 }
 
 //Função para manipular o arquivo de log
-void openLogFile() {
-    FILE* logFile;
-    Tlog log;
+int* openLogFile(FILE* listPageFale) {
+    TNodePageFile nodePage;
 
-    fopen_s(&log, logFile, "a+");
+    listPageFile = fopen_s(&nodePage, listPageFile, "a+");
+    if (listPageFile == NULL)
+    {
+        printf("\nErro ao ABRIR o LOG!!!\n");
+        return 0;
+    }
+    else
+    {
+        rewind(listPageFile);
+
+        fread(&listPageFile, sizeof(TNodePageFile), 1, listPageFile);
+        return 1;
+    }
+}
+
+int EditListPage(FILE* listaPage) {
+    openLogFile();
+
+}
+
+//Função para abrir o arquivo de log
+int openLogFile(FILE* logFile) {
+     Tlog log;
+
+    logFile = fopen_s(&log, logFile, "a+");
 
     if (logFile == NULL)
     {
         printf("\nErro ao ABRIR o LOG!!!\n");
-        return;
+        return 0;
     }
     else
     {
         rewind(logFile);
 
         fread(&log, sizeof(Tlog), 1, logFile);
+        return 1;
     }
 }
 
-//Função para manipular o arquivo de colaboradores
-void OpenColabList(){
-    FILE* colabFile;
+//Função que modifica no arquivo logColab, entra
+
+//Função para abrir o arquivo de colaboradores
+int OpenColabList(FILE* colabFile){
     TColabList colabList;
 
     fopen_s(&colabList, colabFile, "a+");
@@ -152,13 +199,14 @@ void OpenColabList(){
     if (colabFile == NULL)
     {
         printf("\nErro ao ABRIR a lista de colaboradores!!!\n");
-        return;
+        return 0;
     }
     else
     {
         rewind(colabFile);
 
         fread(&colabList, sizeof(TColabList), 1, colabFile);
+        return 1;
     }
 }
 
@@ -171,246 +219,222 @@ void DestroyerFilePage(const char* nomePage, const char* colabName) {
 //FUNÇÕES DE ALOCAÇÃO----------------------------------------------------------------
 
 //Função para Alocar a primeira pagina pagina, criar uma pagina na Memoria Alocada
-TPagina* bornPageAlloc() {
+TConteudo* bornColabAlloc() {
 
-    TPagina *pageAlloc = (TPagina*)malloc(sizeof(TPagina));
+    TConteudo*colabAlloc = (TConteudo*)malloc(sizeof(TConteudo));
 
-    if (pageAlloc == NULL)
+    if (colabAlloc == NULL)
     {
         printf("\nMemoria não Alocada para A Pagina\n");
         return 0;
     }
     else
     {
-        pageAlloc->quantidade = 0;
-        pageAlloc->inicio = NULL;
-        pageAlloc->cursor = NULL;
-        pageAlloc->fim = NULL;
-        pageAlloc->posicaoCorrente = 0;
+        colabAlloc->tamanhoColab = 0;
+        colabAlloc->inicioColab = NULL;
+        colabAlloc->cursorColab = NULL;
+        colabAlloc->fimColab = NULL;
+        colabAlloc->posicaoCorrenteColab = 0;
 
-        return pageAlloc;
+        return colabAlloc;
     }
 }
 
 //Criar a primeira Pagina da lista;
-int startPageAlloc(TPagina* page, char* nomePage, TNodoPage infoEnter) {
+int firstColabAlloc(TConteudo* colab, char* nomeColab, TNodoCont infoEnter) {
 
     //Se não tem espaço apra alocar memorio
-    if (fullPageAlloc(page) == 0)
+    if (fullColabAlloc(colab) == 0)
     {
         printf("\nErro na alocação de memoria para o Nodo da pagina\n");
-        free(page);
+        free(colab);
         return 0;
     }
 
-    TNodoPage* ptrNodoPage = (TNodoPage*)malloc(sizeof(TNodoPage));
-    if (page == NULL)
+    TNodoCont* ptrNodoColab = (TNodoCont*)malloc(sizeof(TNodoCont));
+    if (ptrNodoColab == NULL)
     {
         printf("\nErro na alocação de memoria para o Nodo da pagina\n");
-        free(page);
+        free(ptrNodoColab);
         return 0;
     }
 
-    page->quantidade++;//É AQUI QUE A MAGICA ACONTECE!!!!! transfor a "born" em "start"
-    page->inicio = ptrNodoPage;
+    colab->tamanhoColab++;//É AQUI QUE A MAGICA ACONTECE!!!!! transfor a "born" em "start"
+    colab->inicioColab = ptrNodoColab;
 
     // Aloque memoria para o campo 'nome' e copie o nome
-    ptrNodoPage->nomePage = (char*)malloc(strlen(nomePage) + 1);
-    if (ptrNodoPage->nomePage == NULL) {
+    ptrNodoColab->nomeColab = (char*)malloc(strlen(nomeColab) + 1);
+    if (ptrNodoColab->nomeColab == NULL) {
         printf("\nErro na alocação de memória para o nome da página\n");
-        free(ptrNodoPage);
+        free(ptrNodoColab);
         return 0;
     }
 
-    strcpy_s(ptrNodoPage->nomePage, strlen(nomePage) + 1, nomePage); //Nome page
+    strcpy_s(ptrNodoColab->nomeColab, strlen(nomeColab) + 1, nomeColab); //Nome page
 
     //ptrNodoPage->info = infoEnter;//É ESSE O CAMINHO, mas ainda não está certo
 
-    if (page->quantidade == 1)
+    if (colab->tamanhoColab == 1)
     {
-        page->fim = ptrNodoPage;
-        page->cursor = ptrNodoPage;
-        ptrNodoPage->nextPage = ptrNodoPage;        
+        colab->fimColab = ptrNodoColab;
+        colab->cursorColab = ptrNodoColab;
+        ptrNodoColab->nextColab= ptrNodoColab;        
     }
     else
     {
-        ptrNodoPage->nextPage = page->inicio;
-        page->fim = ptrNodoPage;
+        ptrNodoColab->nextColab = colab->inicioColab;
+        colab->fimColab = ptrNodoColab;
     }
     return 1;
 }
 
 //ciar a proxima pagina da lista duplamente encadeada
-int endPageAlloc(TPagina* page, char* nomePage, TNodoPage infoEnter) {
-    TNodoPage* ptrNodoPage;
+int endColabAlloc(TConteudo* colab, char* nomeColab, TNodoCont infoEnter) {
+    TNodoCont* ptrNodoColab;
 
     //Se não tem espaço apra alocar memorio
-    if (fullPageAlloc(page) == 0)
+    if (fullColabAlloc(colab) == 0)
     {
-        printf("\nErro na alocação de memoria para o Nodo da pagina\n");
-        free(page);
+        printf("\nErro na alocação de memoria para o Nodo da colaboração\n");
+        free(colab);
         return 0;
     }
 
-    if (page->inicio == NULL)
+    if (colab->inicioColab == NULL)
     {
-        startPageAlloc(page, nomePage, infoEnter);
+        startPageAlloc(colab, nomeColab, infoEnter);
     }
     else
     {
-        ptrNodoPage = (TNodoPage*)malloc(sizeof(TNodoPage));
+        ptrNodoColab = (TNodoCont*)malloc(sizeof(TNodoCont));
 
         // Aloque memoria para o campo 'nome' e copie o nome
-        ptrNodoPage->nomePage = (char*)malloc(strlen(nomePage) + 1);
-        if (ptrNodoPage->nomePage == NULL) {
+        ptrNodoColab->nomeColab = (char*)malloc(strlen(nomeColab) + 1);
+        if (ptrNodoColab->nomeColab== NULL) {
             printf("\nErro na alocação de memória para o nome da página\n");
-            free(ptrNodoPage);
+            free(ptrNodoColab);
             return 0;
         }
 
-        strcpy_s(ptrNodoPage->nomePage, strlen(nomePage) + 1, nomePage); //Nome page
+        strcpy_s(ptrNodoColab->nomeColab, strlen(nomeColab) + 1, nomeColab); //Nome page
 
         //ptrNodoPage->info = infoEnter;//É ESSE O CAMINHO, mas ainda não está certo
-        ptrNodoPage->nextPage = page->inicio;
-        page->fim->nextPage = ptrNodoPage;
-        page->fim = ptrNodoPage;
-        page->quantidade++;
+        ptrNodoColab->nextColab= colab->inicioColab;
+        colab->fimColab->nextColab = ptrNodoColab;
+        colab->fimColab = ptrNodoColab;
+        colab->tamanhoColab;
     }
     return 1;
 }
 
 //Função que retorna que nãotem pagina alocada
-int emptyPageAlloc(TPagina *page) {
-    return page->quantidade == 0;
+int emptyColabAlloc(TConteudo *colab){
+    return colab->tamanhoColab == 0;
 }
 
 //Função com o objetivo de testar se ha espaço para a proxima pagina
-int fullPageAlloc(TPagina* page) {
-    TNodoPage* ptrTNodoPageAlloc = (TNodoPage*)malloc(sizeof(TNodoPage));
-    if (ptrTNodoPageAlloc == NULL)
+int fullColabAlloc(TConteudo* colab) {
+    TNodoCont* ptrNodoColab = (TNodoCont*)malloc(sizeof(TNodoCont));
+    if (ptrNodoColab == NULL)
     {
         printf("\nSem espaço na memoria para Alocar mais uma pagina\n");
         return 0;
     }
     else
     {
-        free(ptrTNodoPageAlloc);
+        free(ptrNodoColab);
         return 1;
     }
 
 }
 
 //Função que retorna o tamanho/quantidade de Paginas na Wiki
-int sizePageAlloc(TPagina* page) {
-    return page->quantidade;
+int sizeColabAlloc(TConteudo* colab) {
+    return colab->tamanhoColab;
 }
 
 //FUNÇÕES "FUNCIONAIS"----------------------------------------------------------------
 
+//Função que retira o enter das strings
 void retiraEnter(char* string) {
     if (string[strlen(string) - 1] == '\n')
         string[strlen(string) - 1] = '\0';
 }
 
-
-//Cadastro/login de colaborador
-int CadColabName() {
+//Fazer o teste se existe já colaborador cadastrado, recebe o nome pesquisado
+// retorna bool
+int checkColab(char* nameColab) {
     FILE* colabFile;
     TColabList colabList;
     openLogFile(colabFile);
-    int achou;
-    char* nameColab;
-    int cadColab;
-    int sair;
-
-    do
+    int achou = 0;
+    //Pesquisa no arquivo se é um colaborador cadastrado
+    while (fread(&colabList, sizeof(TColabList), 1, colabFile));
     {
-        printf("\Login colaborador.: ");
-        setbuf(stdin, NULL);
-        fgets(nameColab, 50, stdin);
-        retiraEnter(nameColab);
-        setbuf(stdin, NULL);
-
-        achou = 0;
-        //Pesquisa no arquivo se é um colaborador cadastrado
-        while (fread(&colabList, sizeof(TColabList), 1, colabFile));
+        if (strcmp(colabList.nameColab, nameColab) == 0)
         {
-            if (strcmp(colabList.nameColab, nameColab) == 0)
-            {
-                printf("\nUser.:%s  | Login feito com sucesso!\n",colabList.nameColab);
-                //USAR A FUNÇÂO DE ESCREVER NO ARQUIVO LOG
-                achou = 1;
-                break;
-            }
+            return 1;
         }
-        if (achou == 1)
-        {
-            printf("\nCadastro de colaborador não encotrado!!!");
-            //USAR A FUNÇÂO DE ESCREVER NO ARQUIVO LOG
-
-            
-
-
-        }
-
-        printf("\n1-Tentar novamente | 0-SAIR\n");
-    } while (sair != 0);
+    }
+    return 0;
 }
 
-void menuEnter() {
-    const int menu;
-    char *conteudo;
-    const int Log;
-    const int checkColab;
+//Menu para colaboradores
+void menuColab(char nameColab) {
+    TConteudo *page;
+    TNodoCont *nodoPage;
+
+    int menu;
+    char* nomePage;
+    int sair;
+
+    page = bornPageAlloc();
+
     printf("\n==================================================\n");
     printf("\n===================EDI-WikiEDI====================\n");
     printf("\n==================================================\n");
-    printf("\n1-Pesquisar | 2-Login Colaborador | 3-Sair.: \n");
+    printf("\n1-Criar pagina | 2-Editar(colaborar) pagina| 3-Imprimir Toda WikiEDI | 4-Sair.: \n");
     scanf("%d", &menu);
-    do
-    {
-        switch (menu)
-        {
-        case 1:// Pesquisa pagina
-            printf("\nQual conteudo deseja pesquisar.:\n");//Insira o nome da pagina
-            setbuf(stdin, NULL);
-            fgets(conteudo, 10, stdin);
-            retiraEnter(conteudo);
-            setbuf(stdin, NULL);
-            readFilePage(conteudo);
-
-        case 2://Login colaborador
-            CadColabName();
-            break;
-
-        default:
-            break;
-        }
-    } while (menu !=3);
-}
-//Menu teste para as funções que manipula o Arquivo
-void menuColab() {
-    const char nomePage[] = "EDI";
-    const char colabA[] = "Oenghus";
-    const char colabtextoA[] = "Teste da Desgraça!!!!";
-    const int menu;
 
     switch (menu)
     {
     case 1: //Criar um Pagina da Wiki
-        //Insira o nome da pagina
+        printf("\nColaborador-&s - Nome Pagina.: ",nameColab);//Insira o nome da pagina
+        setbuf(stdin, NULL);
+        fgets(nomePage, 50, stdin);
+        retiraEnter(nomePage);
+        setbuf(stdin, NULL);
+
+        creatorFilePage(nomePage, nameColab);
+        break;
+
+    case 2: //Editar(colaborar) pagina
+        do
+        {
+            printf("\nColaborador-&s - Nome Pagina.: ", nameColab);//Insira o nome da pagina
+            setbuf(stdin, NULL);
+            fgets(nomePage, 50, stdin);
+            retiraEnter(nomePage);
+            setbuf(stdin, NULL);
+
+            //Se encontrar o arquivo vai alocar na memoria para edição
+            if ((readFilePage(nomePage)) == 1)
+            {
+                openLogFile(nomePage);
+
+                copyFilePage(nomePage);
+
+
+            }
+
+        } while (sair != 3);
+        break;
     default:
         break;
     }
 
 
 
-
-
-
-
-    
-    
     /*
     int menu;
 
@@ -434,6 +458,124 @@ void menuColab() {
         break;
     }
     */
+}
+
+//Cadastro/login de colaborador ATNCION: COMO REMOVER COLABORADOR?
+char loginModifyiColabName() {
+    FILE* colabFile;
+    TColabList colabList;
+    openLogFile(colabFile);
+    int achou = 0;
+    char* nameColab;
+    int cadColab;
+    int sair;
+
+    do
+    {
+        printf("\Login colaborador.: ");
+        setbuf(stdin, NULL);
+        fgets(nameColab, 50, stdin);
+        retiraEnter(nameColab);
+        setbuf(stdin, NULL);
+
+        achou = checkColab(nameColab);
+        if (achou == 1)
+        {
+            printf("\nLogin DONE!!!");
+            //USAR A FUNÇÂO DE ESCREVER NO ARQUIVO LOG
+            //Leva para o menu Colaborador
+            menuColab(nameColab);//<--------------------menuColab
+        }
+        else
+        {
+            achou = 0;
+
+            printf("\nCadastro de colaborador não encotrado!!!");
+            //USAR A FUNÇÂO DE ESCREVER NO ARQUIVO LOG
+
+            printf("\n1-SIM | 0-NÃO\nDeseja cadastrar?.:");
+            scanf("%d", &cadColab);
+            while (cadColab != 0)
+            {
+                do
+                {
+                    printf("\Cadastro colaborador.: ");
+                    setbuf(stdin, NULL);
+                    fgets(nameColab, 50, stdin);
+                    retiraEnter(nameColab);
+                    setbuf(stdin, NULL);
+
+                    achou = checkColab(nameColab);
+
+                    if (achou = 1)
+                    {
+                        printf("\Colaborador já Cadastrado.: ");
+                        printf("\n1-SIM | 0-NÃO\nDeseja cadastrar?.: ");
+                        scanf("%d", &cadColab);
+                        //USAR A FUNÇÂO DE ESCREVER NO ARQUIVO LOG
+                    }
+                    else
+                    {
+                        printf("\Colaborador Cadastrado!!!!");
+                        //Função que modifica no arquivo logColab
+                        //USAR A FUNÇÂO DE ESCREVER NO ARQUIVO LOG  
+                        menuColab(nameColab);//<--------------------menuColab
+                    }
+                } while (cadColab != 0);            
+            }
+        }
+        printf("\n1-Tentar novamente | 0-SAIR\n");
+        scanf("%d", &sair);
+    } while (sair != 0);
+
+    fclose(colabFile);
+    return 0;
+}
+
+//Menu de abertura do app, encaminha para a pesquisa, manipulação do arquivi colaborador
+void menuEnter() {
+    const int menu;
+    char *conteudo;
+    const int Log;
+    const int checkColab;
+    const int sair;
+
+    printf("\n==================================================\n");
+    printf("\n===================EDI-WikiEDI====================\n");
+    printf("\n==================================================\n");
+    printf("\n1-Pesquisar | 2-Login/Cadastro Colaborador | 3-Imprimir Toda WikiEDI | 4-Sair.: \n");
+    scanf("%d", &menu);
+
+    do
+    {
+        switch (menu)
+        {
+        case 1:// Pesquisa pagina
+            do
+            {
+                printf("\nQual conteudo deseja pesquisar.:\n");//Insira o nome da pagina
+                setbuf(stdin, NULL);
+                fgets(conteudo, 10, stdin);
+                retiraEnter(conteudo);
+                setbuf(stdin, NULL);
+                readFilePage(conteudo);
+                printf("\n1-Tentar novamente | 0-SAIR\n");
+                scanf("%d", &sair);
+            } while (sair != 0);
+            break;
+
+        case 2://Login/Cadastro Colaborador
+            loginModifyiColabName();            
+            break;
+
+        case 3://Print toda A Wiki
+            //Função que Pinta toda a WikiEDI e não retorna nada
+            break;
+
+        default:
+            break;
+        }
+    } while (menu != 4);
 }
 
 //Menu teste para as funções bases que manipulam os dados alocados
@@ -481,7 +623,8 @@ void menuApp2() {
 //Testa o funcionamento das funções e as interações entre elas
 void APP() {
     openLogFile();
-    fclose()
+    menuEnter();
+
 
 }
 
