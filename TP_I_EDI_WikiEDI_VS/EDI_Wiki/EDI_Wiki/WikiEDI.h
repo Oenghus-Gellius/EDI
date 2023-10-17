@@ -170,5 +170,11 @@ void menuEnter()
 * 
 * Tenho muita dificuldade em entender pq tem que ter uma função para criar uma alocação de memoria
 * se for a primeira, depois da primeira é só acrecentar. Acho estranho rs
+* 
+* Depois de descobrir como deveria ser a entrada de arquivo/teste, tive que refazer qause todo
+* o trabalho, pois havia estruturado pensado em um painel com login menus, todos implmentados.
+* Ps. essa vem sendo umas das minhas grandes dificuldades no curso em geral, que é lidar com espantalhos
+* de situações reais, problemas reais que são tão simplificados que ainda não consigo ver 
+* sentido em criar solução para um problema que dialoga tão pouco com a pratica.
 */
 
