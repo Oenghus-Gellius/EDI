@@ -1,4 +1,4 @@
-#ifndef WIKIEDI_BETA_H_INCLUDED
+Ôªø#ifndef WIKIEDI_BETA_H_INCLUDED
 #define WIKIEDI_BETA_H_INCLUDED
 
 /*
@@ -13,53 +13,113 @@
 #include "testador.h"
 #include <stdio.h>
 
-//Comandos necessarios.:
+ //Estrutura de nodos para uma lista encadeada simples de conteudos colaborativos;
+typedef struct NodoCont {
+	unsigned int idColab;//numero de restreio do colabarador
+	char* nomeColab;//nome do colaborador (nome unico) Fezer a verificaÔøΩÔøΩo
+	char* contWikiColab;//conteudo do colaborador
+	unsigned int sizeofContColab;//contador de caracteres por texto do colaborador
+	struct NodoCont* nextColab;//nova colaboraÔøΩÔøΩo 
+}TNodoCont;
+
+typedef struct Conteudo {
+	int tamanhoColab;//ter o numero de colaboraÔøΩÔøΩes totais por pagina
+	int posicaoCorrenteColab;//marcador da posiÔøΩÔøΩo
+	TNodoCont* inicioColab, * cursorColab, * fimColab;//busca colabarador especifico para manipular ssuas colaboraÔøΩÔøΩes
+}TConteudo;
+
+//----------------------------
+
+ //Estrutura de nodos para encadear as paginas. lista simples
+typedef struct Nodo {
+	int idPage;
+	char* nomePage;//nome da pagina da Wiki
+	char *linkPages;//links entre paginas se houver
+	TConteudo info;// Estrutura dentro de cada pagina para registrar colaboraÔøΩÔøΩes
+	struct Nodo* nextPage;//Nova pagina ou proxina e pagina anterior
+}TNodoPage;
+
+typedef struct Pagina {
+	int tamanho;//quantidade de paginas existentes
+	int posicaoCorrente;//marca posi√ßao na de pagina
+	// char teste[MAX_TAM_STR];//TESTE PARA VER SE ESTÔøΩO REALMENTE ESCREVENDO E CONECTANDO
+	TNodoPage* inicio, * cursor, * fim;//Marca primeira pagina e a pagina atual;
+}TPagina;
+
+ //--------------------------------------Comandos necessarios----------------------
 
 /*INSEREPAGINA <nome_pagina><nome_arquivo> : 
- cria uma p·gina WikEDI com o nome e o arquivo especificados(devem ser ˙nicos).N„o È necess·rio criar o 
- arquivo neste momento(isto ser· feito na	impress„o da p·gina).*/
+ cria uma p√°gina WikEDI com o nome e o arquivo especificados(devem ser √∫nicos).
+ N√£o √© necess√°rio criar o  arquivo neste momento(isto ser√° feito na	impress√£o da p√°gina).*/
 int inserePage(const char* nomePagina, const char* nomeArquivo);
 
-/*RETIRAPAGINA <nome_pagina>: exclui a p·gina da WikED!, excluindo, portanto, a lista de contribuiÁıes
-e links. N„o È necess·rio excluir os arquivos de contribuiÁıes (apenas os nÛs das listas).*/
+/*RETIRAPAGINA <nome_pagina>: exclui a p√°gina da WikED!, excluindo, portanto, a lista de contribui√ß√µes
+e links. N√£o √© necess√°rio excluir os arquivos de contribui√ß√µes (apenas os n√≥s das listas).*/
 int destroyerPage(const char* nomePagina);
 
-/*INSEREEDITOR <nome_editor>: insere um editor com o nome especificado (deve ser ˙nico).*/
+/*INSEREEDITOR <nome_editor>: insere um editor com o nome especificado (deve ser √∫nico).*/
 int insereEditor(const char* nomeEditor);
 
-/*INSERECONTRIBUICAO <nome_pagina><nome_editor><nome_arquivo>: insere uma contribuiÁ„o de
-um dado editor para uma determinada p·gina. O trecho de texto deve estar editado no arquivo especificado.*/
+/*INSERECONTRIBUICAO <nome_pagina><nome_editor><nome_arquivo>: insere uma contribui√ß√£o de
+um dado editor para uma determinada p√°gina. O trecho de texto deve estar editado no arquivo especificado.*/
 int insereContribuicao(const char* nomePagina, const char* nomeEditor, const char* nomeArquivo);
 
 /*RETIRACONTRIBUICAO <nome_pagina><nome_editor><nome_arquivo>: retira uma dada
-contribuiÁ„o. Apenas o editor respons·vel pela contribuiÁ„o pode retir·-la. O histÛrico da contribuiÁ„o deve
+contribui√ß√£o. Apenas o editor respons√°vel pela contribui√ß√£o pode retir√°-la. O hist√≥rico da contribui√ß√£o deve
 continuar ativo.*/
 int retiraContribuicao(const char* nomePagina, const char* nomeEditor, const char* nomeArquivo);
 
-/*INSERELINK <pagina_origem><pagina_destino>: insere um link (nome do arquivo) para p·gina destino,
-na p·gina origem.*/
+/*INSERELINK <pagina_origem><pagina_destino>: insere um link (nome do arquivo) para p√°gina destino,
+na p√°gina origem.*/
 int insereLink(const char* nomePaginaOrigem, const char* nomePaginaDestino);
 
-/*RETIRALINK <pagina_origem><pagina_destino>: retira um link (nome do arquivo) da p·gina origem
-para uma p·gina destino.*/
+/*RETIRALINK <pagina_origem><pagina_destino>: retira um link (nome do arquivo) da p√°gina origem
+para uma p√°gina destino.*/
 int retiraLink(const char* nomePaginaOrigem, const char* nomePaginaDestino);
 
-/*CAMINHO <pagina_origem><pagina_destino>: verifica se h· caminho entre duas p·ginas (por meio das
+/*CAMINHO <pagina_origem><pagina_destino>: verifica se h√° caminho entre duas p√°ginas (por meio das
 listas de links). Escreve no arquivo de log (HA/NAO HA CAMINHO DA <pagina_origem> PARA <pagina_destino>)*/
 int caminhoLinks(const char* nomePaginaOrigem, const char* nomePaginaDestino);
 
-/*IMPRIMEPAGINA <nome_pagina>: gera o arquivo e imprime as informaÁıes da p·gina especificada.*/
+/*IMPRIMEPAGINA <nome_pagina>: gera o arquivo e imprime as informa√ß√µes da p√°gina especificada.*/
 void printPagina(const char* nomePagina);
 
-/*IMPRIMEWIKED: gera os arquivos e imprime todas as informaÁıes das p·ginas da WikEDI, como
+/*IMPRIMEWIKED: gera os arquivos e imprime todas as informa√ß√µes das p√°ginas da WikEDI, como
 especificado acima.*/
 void printWikiFull();
 
-/*FIM: determina a finalizaÁ„o do programa. Toda a memÛria alocada deve ser liberada.*/
+/*FIM: determina a finaliza√ß√£o do programa. Toda a mem√≥ria alocada deve ser liberada.*/
 void DestroyerAlloc();
 
+
 								//						./wikiedi TestOENGHUS.txt
-//----------------------------------------Fun«ıes Auxiliares-----------------
+
+//--------------------------------------fun√ß√µes auxiliares de Aloca√ß√£o Pagina----------------------
+
+//Cria a primeira pagina para aloca√ß√£o = construtor
+TPagina* bormPage();
+
+//Criar a primeira Pagina da lista ou "posiciona" na primeira coloca√ß√£o
+int firstPage(TPagina* nomePagina);
+
+//ciar a proxima pagina da lista encadeada
+int lastPage(TPagina* nomePagina);
+
+//FunÔøΩÔøΩo que retorna que nÔøΩotem pagina alocada
+int emptyPage(TPagina* nomePagina);
+
+//FunÔøΩÔøΩo com o objetivo de testar se ha espaÔøΩo para a proxima pagina
+int fullPage(TPagina* nomePagina);
+
+//FunÔøΩÔøΩo que retorna o tamanho/quantidade de Paginas na Wiki
+int quantityPages(TPagina* nomePagina);
+
+
+//destrutor (desaloca espa√ßo na memoria
+
+
+//----------------------------------------Fun√á√µes Auxiliares-----------------
+
 void retiraEnter(char* string);
 
 //Separar as palavras/comandos de uma string, recebe a stringFull e os ponterios para guardar
@@ -70,22 +130,38 @@ void separarComandoEArquivo(char* entrada, char* comando, char* nomeArquivo);
 //as palavras separadas para serem usandas pelo programa.
 void separarComandoE4Palavras(const char* entrada, char* comando, char* palavra1, char* palavra2, char* palavra3, char* palavra4);
 
-//Pesquiva funÁ„o e retorna a posiÁ„o da funÁ„o no vetor de funÁıes
-int pesquisaFuncion(char* comando);
-
-//FunÁ„o que vai abrir o arquivo teste para leitura        
+//Fun√ß√£o que vai abrir o arquivo teste para leitura        
 int openFileTester(char* nomeArquivo);
 
-//Essa funÁ„o tem o objetivo de passar por parametro o nome do arquico a ser aberto
+//Essa fun√ß√£o tem o objetivo de passar por parametro o nome do arquico a ser aberto
 //e retornar um ponteiro tipo FILE
-FILE* openFile(char * nomeArquivo);
+FILE* openFile(char* nomeArquivo);
 
-//FunÁ„o recebe o comando, pesquisar se È valido
+//Pesquiva fun√ß√£o e retorna a posi√ß√£o da fun√ß√£o no vetor de fun√ß√µes
+//lembrando que a primeira fun√ß√£o recebe(index +1) pois estou salvando o 0 para um qualquer
+//quest√£o de pesquisa no futuro, sonto que vou precisar.
+int pesquisaFuncion(char* comando);
+
+//Fun√ß√£o recebe o comando, pesquisar se √© valido
 // e executar o comando se for valido;
 void executer(char* nomeArqTeste);
 
-//FunÁ„o serve para fechar os arquivos para evitar que os aquivis fiquem abertos sem motivo
+//Fun√ß√£o serve para fechar os arquivos para evitar que os aquivis fiquem abertos sem motivo
 void closeArq(FILE* nomeArq);
 
 void printTESTE();
 #endif // WIKIEDI_BETA_H_INCLUDED
+
+//----------------------------------- FUN√á√ïES MANUPULA ARQUIVO--------------------
+
+/*Como sa√≠das do trabalho, al√©m dos arquivos com as p√°ginas da WikiEDI, ser√° pedido um arquivo de ‚Äúlog‚Äù
+caminho para poss√≠veis mensagens de erro e para informar se h√° caminho entre duas p√°ginas (por meio de
+links). No caso de mensagens de erro, por exemplo, se um editor tentar excluir uma contribui√ß√£o que n√£o
+tenha sido inserida por ele/ela, uma mensagem de erro deve ser gerada (e.g.: erro: editor n√£o tem direito de
+excluir esta contribui√ß√£o). Verifica√ß√µes similares devem ser feitas caso seja pedido para excluir uma p√°gina
+inexistente, ou um editor inexistente, etc. No caso de saber se h√° caminho entre duas p√°ginas, basta navegar
+nas listas de links para determinar se h√° caminho, ou n√£o entre as p√°ginas. No exemplo da figura 1, h√°
+caminhos das p√°ginas da SO para as p√°ginas de EDI e BD, mas n√£o h√° caminho inverso.*/
+//Essa fun√ß√£o tem o objetivo de abrir o log ao inicio do programa e resgistrar "todas as 
+//manipula√ß√µes do programa, fecha ao se fechar o programa salvado as altera√ß√µes.
+int logFile();

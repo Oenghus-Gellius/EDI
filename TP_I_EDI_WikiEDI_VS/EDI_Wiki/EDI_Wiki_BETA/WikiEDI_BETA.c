@@ -2,11 +2,124 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #define MAX_LINE_LENGTH 1000
 #define ENTRADA_DADOS 100
 
+//--------------------------------------Comandos necessarios----------------------
+int inserePage(const char* nomePagina, const char* nomeArquivo)
+{
+    int logReturn;
+    printTESTE();
+}
 
+//--------------------------------------funções auxiliares de Alocação Pagina----------------------
+
+TPagina* bormPage()
+{
+    TPagina* page = (TPagina*)malloc(sizeof(TPagina));
+    if (page != NULL)
+    {
+        page->inicio = NULL;
+        page->fim = NULL;
+        page->tamanho = 0;
+        page->cursor = NULL;
+        page->posicaoCorrente = 0;
+    }
+    return page;
+}
+
+int firstPage(TPagina* wikiPages)
+{
+    // fazer que a função fullPage retorne -1 se estiver cheia
+    if (fullPage(wikiPages) == -1)
+    {
+        printf("\nErro na alocaçao de memoria para a pagina - I'm at line %d\n", __LINE__);
+        free(wikiPages);//TA CERTO ISSO JOSE?
+        return 0;
+    }
+
+    TNodoPage* ptrNodoPage = (TNodoPage*)malloc(sizeof(TNodoPage));
+    if (ptrNodoPage == NULL)
+    {
+        printf("\nErro na alocaçao de memoria para a pagina - I'm at line %d\n", __LINE__);
+        return 0;
+    }
+    else
+    {
+        ptrNodoPage->nextPage = wikiPages->inicio;
+        wikiPages->inicio = ptrNodoPage;
+
+        wikiPages->tamanho++;
+
+        //verificando se é a primeira pagina
+        if (wikiPages->tamanho == 1)
+        {
+            wikiPages->cursor = ptrNodoPage;
+        }
+        return 1;
+    }
+}
+
+int lastPage(TPagina* wikiPages)
+{
+    // fazer que a função fullPage retorne -1 se estiver cheia
+    if (fullPage(wikiPages) == -1)
+    {
+        printf("\nErro na alocaçao de memoria para a pagina - I'm at line %d\n", __LINE__);
+        free(wikiPages);
+        return 0;
+    }
+
+    TNodoPage* ptrNodoPage = (TNodoPage*)malloc(sizeof(TNodoPage));
+    if (ptrNodoPage == NULL)
+    {
+        printf("\nErro na alocaçao de memoria para a pagina - I'm at line %d\n", __LINE__);
+        free(wikiPages); //TA CERTO ISSO JOSE?
+        return 0;
+    }
+    else
+    {
+        ptrNodoPage->nextPage = NULL;
+
+        if (wikiPages->inicio == NULL)
+        {
+            firstPage(wikiPages);
+        }
+        else
+        {
+            
+            wikiPages->fim->nextPage = ptrNodoPage;
+            wikiPages->fim = ptrNodoPage;
+            wikiPages->tamanho++;
+        }
+        return 1;
+    }
+}
+
+int emptyPage(TPagina* wikiPages)
+{
+    return !wikiPages->inicio;
+}
+
+int fullPage(TPagina* wikiPages)
+{
+    TNodoPage* ptrNodoPage = (TNodoPage*)malloc(sizeof(TNodoPage));
+    if (ptrNodoPage != NULL)
+    {
+        printf("\nErro na alocaçao de memoria para a pagina - I'm at line %d\n", __LINE__);
+        free(ptrNodoPage);
+        return 0;
+    }
+    return -1;
+}
+
+int quantityPages(TPagina* wikiPages)
+{
+    return wikiPages->tamanho;
+
+}
 
 //----------------------------------------FunÇões Auxiliares-----------------
 
@@ -41,6 +154,8 @@ void separarComandoEArquivo(char* entrada, char* comando, char* nomeArquivo) {
     }
 }
 
+
+// PARE AQUI ACHO QUE O ERRO ESTÁ No não refinamento dos dados de entrada
 void separarComandoE4Palavras(const char* entrada, char* comando, char* palavra1, char* palavra2, char* palavra3, char* palavra4) {
     int i = 0;
     char* context = NULL;
@@ -55,7 +170,7 @@ void separarComandoE4Palavras(const char* entrada, char* comando, char* palavra1
     // Tokenize a entrada usando espaços em branco como delimitadores
     char* token = strtok_s((char*)entrada, " ", &context);
 
-    while (token != NULL && i < 4) {
+    while (token != NULL && i < 5) {
         switch (i) {
         case 0:
             strncpy_s(comando, sizeof(comando), token, _TRUNCATE);
@@ -76,11 +191,7 @@ void separarComandoE4Palavras(const char* entrada, char* comando, char* palavra1
         token = strtok_s(NULL, " ", &context);
         i++;
     }
-}
-
-int pesquisaFuncion(char* comando) //<------- PAREI AQUI
-{
-    return 0;
+    printf("\nEntrada:%s - Comando:%s - palavra1:%s - palavra2:%s - palavra3:%s - palavra4:%s\n- I'm at line %d\n", entrada, comando, palavra1, palavra2, palavra3, palavra4, __LINE__);
 }
 
 int openFileTester(char* nomeArquivo)
@@ -107,10 +218,26 @@ FILE* openFile(char* nomeArquivo)
     return arqOpen;
 }
 
+int pesquisaFuncion(char* comando) //<------- PAREI AQUI
+{
+    char* vetorCommand[] = {"INSEREPAGINA","RETIRAPAGINA","INSEREEDITOR","INSERECONTRIBUICAO","RETIRACONTRIBUICAO","INSERELINK","RETIRALINK","CAMINHO","IMPRIMEPAGINA","IMPRIMEWIKED","FIM"};
+    int TotalCommand = sizeof(vetorCommand) / sizeof(vetorCommand[0]);
+    for (int index = 0; index < TotalCommand; index++)
+    {
+        if (strcmp(vetorCommand[index], comando) == 0)
+        {
+            return index + 1;
+        }
+    }
+    return -1;
+}
+
 void executer(char* nomeArqTeste)
 {
     FILE* arqOpen;
     char lineCommand[MAX_LINE_LENGTH];
+
+    TPagina *wikiPages = bormPage();//Inicia virtualmente a wiki
 
     int numFuncion = 0;
 
@@ -129,12 +256,7 @@ void executer(char* nomeArqTeste)
     {
         printf("%s", lineCommand);
 
-        char entrada[ENTRADA_DADOS];
-        char comando[ENTRADA_DADOS];
-        char palavra1[ENTRADA_DADOS];
-        char palavra2[ENTRADA_DADOS];
-        char palavra3[ENTRADA_DADOS];
-        char palavra4[ENTRADA_DADOS];
+        char entrada[ENTRADA_DADOS], comando[ENTRADA_DADOS], palavra1[ENTRADA_DADOS], palavra2[ENTRADA_DADOS], palavra3[ENTRADA_DADOS], palavra4[ENTRADA_DADOS];
 
         separarComandoE4Palavras(entrada, comando, palavra1, palavra2, palavra3, palavra4);
 
@@ -144,7 +266,7 @@ void executer(char* nomeArqTeste)
         switch (numFuncion)
         {
         case 1://INSEREPAGINA <nome_pagina><nome_arquivo>
-
+            printTESTE();
             break;
         default:
             printf("\nCOMANDO INEXISTENTE!!!\n");
@@ -162,5 +284,6 @@ void closeArq(FILE* nomeArq)
 
 void printTESTE()
 {
-	printf("\nTESTE DESGRAÇA\n");
+	printf("\nTESTE DESGRAÇA - I'm at line %d\n", __LINE__);
 }
+
