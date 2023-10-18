@@ -51,5 +51,7 @@ FIM
 
 int executeTest();
 
+void acrescentarAoArquivo();
+
 
 #endif //TESTADOR_H_INCLUDED

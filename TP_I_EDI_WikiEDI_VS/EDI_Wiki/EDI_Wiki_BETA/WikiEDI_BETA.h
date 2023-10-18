@@ -11,13 +11,14 @@
  ============================================================================
  */
 #include "testador.h"
+#include <stdio.h>
 
 //Comandos necessarios.:
 
 /*INSEREPAGINA <nome_pagina><nome_arquivo> : 
  cria uma página WikEDI com o nome e o arquivo especificados(devem ser únicos).Não é necessário criar o 
  arquivo neste momento(isto será feito na	impressão da página).*/
-int criapage(const char* nomePagina, const char* nomeArquivo);
+int inserePage(const char* nomePagina, const char* nomeArquivo);
 
 /*RETIRAPAGINA <nome_pagina>: exclui a página da WikED!, excluindo, portanto, a lista de contribuições
 e links. Não é necessário excluir os arquivos de contribuições (apenas os nós das listas).*/
@@ -57,17 +58,34 @@ void printWikiFull();
 /*FIM: determina a finalização do programa. Toda a memória alocada deve ser liberada.*/
 void DestroyerAlloc();
 
-
+								//						./wikiedi TestOENGHUS.txt
 //----------------------------------------FunÇões Auxiliares-----------------
 void retiraEnter(char* string);
 
-void separarComandoEArquivo(const char* entrada, char* comando, char* nomeArquivo);
+//Separar as palavras/comandos de uma string, recebe a stringFull e os ponterios para guardar
+//as palavras separadas para serem usandas pelo programa.
+void separarComandoEArquivo(char* entrada, char* comando, char* nomeArquivo);
 
+//Separar as palavras/comandos de uma string, recebe a stringFull e os ponterios para guardar
+//as palavras separadas para serem usandas pelo programa.
+void separarComandoE4Palavras(const char* entrada, char* comando, char* palavra1, char* palavra2, char* palavra3, char* palavra4);
 
+//Pesquiva função e retorna a posição da função no vetor de funções
+int pesquisaFuncion(char* comando);
 
+//Função que vai abrir o arquivo teste para leitura        
+int openFileTester(char* nomeArquivo);
 
+//Essa função tem o objetivo de passar por parametro o nome do arquico a ser aberto
+//e retornar um ponteiro tipo FILE
+FILE* openFile(char * nomeArquivo);
 
+//Função recebe o comando, pesquisar se é valido
+// e executar o comando se for valido;
+void executer(char* nomeArqTeste);
 
+//Função serve para fechar os arquivos para evitar que os aquivis fiquem abertos sem motivo
+void closeArq(FILE* nomeArq);
 
 void printTESTE();
 #endif // WIKIEDI_BETA_H_INCLUDED
