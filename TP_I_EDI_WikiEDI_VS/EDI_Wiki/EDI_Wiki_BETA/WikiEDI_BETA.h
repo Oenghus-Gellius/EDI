@@ -53,6 +53,10 @@ typedef struct Pagina {
 	TNodoPage* inicio, * cursor, * fim;//Marca primeira pagina e a pagina atual;
 }TPagina;
 
+typedef struct Log {
+	char* logMensagem;
+}TLog;
+
  //--------------------------------------Comandos necessarios----------------------
 
 /*INSEREPAGINA <nome_pagina><nome_arquivo> : 
@@ -115,7 +119,7 @@ int lastPage(TPagina* wikiPages, TInfoPage infoEnter);
 int removePage(TPagina* wikiPages, char *nomePage, TInfoPage *infoEnter);
 
 // PS. Ver se tem pagina repetida retorna 1 se for igual
-int finderPage(TPagina* wikiPages, char *nomePage, TInfoPage *infoEnter);
+int finderPage(TPagina* wikiPages, char *nomePage, TInfoPage **infoEnter);
 
 //Fun��o que retorna que n�otem pagina alocada
 int emptyPage(TPagina* wikiPages);

@@ -149,7 +149,7 @@ int removePage(TPagina* wikiPages, char* nomePage, TInfoPage *infoEnter)
     return 0;
 }
 
-int finderPage(TPagina* wikiPages, char *nomePage, TInfoPage* infoEnter)
+int finderPage(TPagina* wikiPages, char *nomePage, TInfoPage** infoEnter)
 {
     TNodoPage *ptrNodoPage;
 
@@ -159,9 +159,10 @@ int finderPage(TPagina* wikiPages, char *nomePage, TInfoPage* infoEnter)
     {
         if (strcmp(ptrNodoPage->infoP.nomePage, nomePage) == 0)
         {
-            infoEnter->nomePage = ptrNodoPage->infoP.nomePage;
+            infoEnter = ptrNodoPage->infoP.nomePage;
             return 1;
         }
+        ptrNodoPage = ptrNodoPage->nextPage;
     }
     return 0;
 }
@@ -293,7 +294,7 @@ void executer(char* nomeArqTeste)
     char entrada[ENTRADA_DADOS];
 
     TPagina* wikiPages = bornPage();//Inicia virtualmente a wiki
-    TInfoPage infoEnter;// = bornInfoPage();
+    TInfoPage infoEnter = bornInfoPage();
 
     int numFuncion = 0;
 
@@ -327,7 +328,8 @@ void executer(char* nomeArqTeste)
             }
         }
     }
-
+    
+    /*
     //------------PODE VIRAR FUNÇÃO----------------------
     lineCommand = (char*)malloc(ENTRADA_DADOS * sizeof(char));//Aloca o vetor de char da mensagem log
     if (lineCommand == NULL)
@@ -335,7 +337,7 @@ void executer(char* nomeArqTeste)
         printf("\nErro na alocaçao de memoria para o linha comando - I'm at line %d\n", __LINE__);
         return;
     }
-
+    */
     logMensagem = (char*)malloc(ENTRADA_DADOS * sizeof(char));//Aloca o vetor de char da mensagem log
     if (logMensagem == NULL)
     {
@@ -364,18 +366,11 @@ void executer(char* nomeArqTeste)
     //-----------------------------------LOOP-------------------------------------
     while (fgets(lineCommandArq, sizeof(lineCommandArq), arqOpen) != NULL)
     {
-        //retiraEnter(lineCommand);
-
-        
-
         // Inicialize o vetor de palavras
         for (int i = 0; i < MAX_VARIEVEIS; i++) {
             comandosLinha[i][0] = '\0';
         }
-
-        // Inicializa a string da mensagem do log
-        //logMensagem[0] = '\0';
-
+   
         // Copie a linha lida para a variável "entrada"
         strncpy_s(entrada, ENTRADA_DADOS, lineCommandArq, _TRUNCATE);
 
@@ -395,15 +390,12 @@ void executer(char* nomeArqTeste)
             if (logReturn == 1)//Pagina ja existe
             {
                 strcpy_s(logMensagem, ENTRADA_DADOS, "ERRO: PAGINA JÁ EXISTE", _TRUNCATE);
-                
-
                 logReturn = logEdit(arqLog, logMensagem);
-
             }
             else//Cria pagina
             {
-                logReturn = lastPage(wikiPages,infoEnter); //<------------PAREI AQUI - criar a função log
-            
+                logReturn = lastPage(wikiPages,infoEnter);
+
                 strcpy_s(logMensagem, ENTRADA_DADOS, "PAGINA CRIADA", _TRUNCATE);
 
                 logReturn = logEdit(arqLog, logMensagem);
@@ -413,14 +405,18 @@ void executer(char* nomeArqTeste)
            
             break;
         case 2://*RETIRAPAGINA <nome_pagina>: exclui a página da WikED!, 
-            //infoEnter.nomePage = comandosLinha[1];
-            strncpy_s(infoEnter.nomePage, ENTRADA_DADOS, comandosLinha[1], _TRUNCATE);
+            infoEnter.nomePage = comandosLinha[1];
+            //strncpy_s(infoEnter.nomePage, ENTRADA_DADOS, comandosLinha[1], _TRUNCATE);
 
             logReturn = removePage(wikiPages, infoEnter.nomePage, &infoEnter);
             if (logReturn == 1)//SUCESSO
             {
                 strcpy_s(logMensagem, ENTRADA_DADOS, "PAGINA REMOVIDA", _TRUNCATE);
-                //SALVA NO LOG O SOCESSO
+                logReturn = logEdit(arqLog, logMensagem);
+            }
+            else
+            {
+                strcpy_s(logMensagem, ENTRADA_DADOS, "PAGINA NÃO EXISTE", _TRUNCATE);
                 logReturn = logEdit(arqLog, logMensagem);
             }
 
@@ -432,7 +428,9 @@ void executer(char* nomeArqTeste)
         }
         //limpa o buff de lineCommand?
 
-    }
+    }//Fim While
+    fclose(arqLog);
+    fclose(arqOpen);
 }//fim Executer
 
 void closeArq(FILE* nomeArq)
@@ -454,18 +452,26 @@ int logEdit(FILE* arqLog, char* logMensagem) //<----------------PAREI AQUI
         printf("Erro: o arquivo de log não foi aberto corretamente.\n");
         return -1;  // ou algum outro valor de erro apropriado
     }
+
+    // Certifica-se de que logMensagem caiba no buffer de lineLog
+    if (strlen(logMensagem) >= ENTRADA_DADOS - 1) {
+        printf("Erro: a mensagem de log é muito longa para caber no buffer.\n");
+        return -1;
+    }
+
+    char lineInArq[ENTRADA_DADOS];
     char lineLog[ENTRADA_DADOS];
 
-    strncpy_s(lineLog, ENTRADA_DADOS, logMensagem, _TRUNCATE);
+    //strncpy_s(lineInArq, ENTRADA_DADOS, logMensagem, _TRUNCATE);
 
-    fseek(arqLog, 0, SEEK_END);
-    size_t elementosEscritos = fwrite(lineLog, sizeof(lineLog), 1, arqLog);
+    //fseek(arqLog, 0, SEEK_END);
 
-    if (elementosEscritos != 1) {
-        printf("Erro ao escrever no arquivo de log.\n");
-        return -1;  // ou algum outro valor de erro apropriado
-    }
-    printf("\nlogMsg - %s\n",logMensagem);
+    //size_t elementosEscritos = fwrite(&lineInArq, strlen(lineInArq), 1, arqLog);
+
+    // Escreva a mensagem no arquivo, seguida por uma quebra de linha
+    fprintf(arqLog, "%s\n", logMensagem);
+
+    printf("\nlogMsg - %s\n", logMensagem);
 
     return 1;
 }

@@ -32,7 +32,9 @@ int executeTest() {
 			printf("\nDigite o comando ""./wikiedi"" e o nome do arquivo textos de entrada.:\n");
 			printf("Comando.:");
 
-			fgets(entrada, 50, stdin); // <------TROCAR QUANDO TERMINADO
+			strncpy_s(entrada, ENTRADA_DADOS, "./wikiedi TestOENGHUS.txt", _TRUNCATE);// <------TROCAR QUANDO TERMINADO
+
+			//fgets(entrada, 50, stdin); //MUDARRRRRRRRRRRRRRRRRR
 			setvbuf(stdin, NULL, _IONBF, 0);
 			retiraEnter(entrada);
 
