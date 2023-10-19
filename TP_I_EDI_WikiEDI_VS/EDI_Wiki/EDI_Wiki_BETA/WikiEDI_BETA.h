@@ -13,6 +13,8 @@
 #include "testador.h"
 #include <stdio.h>
 
+#define ENTRADA_DADOS 100
+
  //Estrutura de nodos para uma lista encadeada simples de conteudos colaborativos;
 typedef struct NodoCont {
 	unsigned int idColab;//numero de restreio do colabarador
@@ -118,6 +120,7 @@ int quantityPages(TPagina* nomePagina);
 //destrutor (desaloca espaço na memoria
 
 
+								//						./wikiedi TestOENGHUS.txt
 //----------------------------------------FunÇões Auxiliares-----------------
 
 void retiraEnter(char* string);
@@ -128,7 +131,7 @@ void separarComandoEArquivo(char* entrada, char* comando, char* nomeArquivo);
 
 //Separar as palavras/comandos de uma string, recebe a stringFull e os ponterios para guardar
 //as palavras separadas para serem usandas pelo programa.
-void separarComandoE4Palavras(const char* entrada, char* comando, char* palavra1, char* palavra2, char* palavra3, char* palavra4);
+void separarComandoE4Palavras(const char* entrada, char** palavras);
 
 //Função que vai abrir o arquivo teste para leitura        
 int openFileTester(char* nomeArquivo);

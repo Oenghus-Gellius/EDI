@@ -5,14 +5,7 @@
 #include <stdlib.h>
 
 #define MAX_LINE_LENGTH 1000
-#define ENTRADA_DADOS 100
-
-//--------------------------------------Comandos necessarios----------------------
-int inserePage(const char* nomePagina, const char* nomeArquivo)
-{
-    int logReturn;
-    printTESTE();
-}
+#define MAX_VARIEVEIS 4
 
 //--------------------------------------funções auxiliares de Alocação Pagina----------------------
 
@@ -154,44 +147,39 @@ void separarComandoEArquivo(char* entrada, char* comando, char* nomeArquivo) {
     }
 }
 
-
-// PARE AQUI ACHO QUE O ERRO ESTÁ No não refinamento dos dados de entrada
-void separarComandoE4Palavras(const char* entrada, char* comando, char* palavra1, char* palavra2, char* palavra3, char* palavra4) {
+void separarComandoE4Palavras(const char* entrada, char** comandosLinha) {
     int i = 0;
-    char* context = NULL;
+    char comando[ENTRADA_DADOS];
+    int comando_len = 0;
 
-    // Inicializa as strings
-    comando[0] = '\0';
-    palavra1[0] = '\0';
-    palavra2[0] = '\0';
-    palavra3[0] = '\0';
-    palavra4[0] = '\0';
+    int k = 0;
 
-    // Tokenize a entrada usando espaços em branco como delimitadores
-    char* token = strtok_s((char*)entrada, " ", &context);
-
-    while (token != NULL && i < 5) {
-        switch (i) {
-        case 0:
-            strncpy_s(comando, sizeof(comando), token, _TRUNCATE);
-            break;
-        case 1:
-            strncpy_s(palavra1, sizeof(palavra1), token, _TRUNCATE);
-            break;
-        case 2:
-            strncpy_s(palavra2, sizeof(palavra2), token, _TRUNCATE);
-            break;
-        case 3:
-            strncpy_s(palavra3, sizeof(palavra3), token, _TRUNCATE);
-            break;
-        case 4:
-            strncpy_s(palavra4, sizeof(palavra4), token, _TRUNCATE);
-            break;
+    while (entrada[k] != '\0') {
+        if (entrada[k] == ' ' || entrada[k] == '\n' || entrada[k] == '\r') {
+            if (comando_len > 0) {
+                if (i < MAX_VARIEVEIS) { // Verifique se i está dentro dos limites do vetor comandosLinha
+                    strncpy_s(comandosLinha[i], ENTRADA_DADOS, entrada + k - comando_len, comando_len);
+                    comandosLinha[i][comando_len] = '\0';
+                }
+                i++;
+                comando_len = 0;
+            }
         }
-        token = strtok_s(NULL, " ", &context);
-        i++;
+        else {
+            comando_len++;
+        }
+        k++;
     }
-    printf("\nEntrada:%s - Comando:%s - palavra1:%s - palavra2:%s - palavra3:%s - palavra4:%s\n- I'm at line %d\n", entrada, comando, palavra1, palavra2, palavra3, palavra4, __LINE__);
+
+    // Se houver menos de 4 palavras, inicialize as posições restantes do vetor de palavras
+    if (comando_len > 0) {
+        if (i < MAX_VARIEVEIS) {
+            strncpy_s(comandosLinha[i], ENTRADA_DADOS, entrada + k - comando_len, comando_len);
+            comandosLinha[i][comando_len] = '\0';
+        }
+    }
+
+    //printf("\nEntrada:%s - Comando:%s - palavra1:%s - palavra2:%s - palavra3:%s - palavra4:%s - I'm at line %d\n", entrada, comando, comandosLinha[0], comandosLinha[1], comandosLinha[2], comandosLinha[3], __LINE__);
 }
 
 int openFileTester(char* nomeArquivo)
@@ -250,23 +238,51 @@ void executer(char* nomeArqTeste)
     
     rewind(arqOpen);
 
-    printf("\nIniciando a execução, Boa jornada!!!!\n");
+    printf("\nIniciando a execução, Boa Jornada!!!!\n");
 
-    while (fgets(lineCommand, MAX_LINE_LENGTH, arqOpen) != NULL) 
+    char** comandosLinha = (char**)malloc(5 * sizeof(char*));
+
+    for (int i = 0; i < MAX_VARIEVEIS; i++)
     {
-        printf("%s", lineCommand);
+        comandosLinha[i] = (char*)malloc(sizeof(ENTRADA_DADOS));
+        // Lidar com a falha na alocação de memória, se necessário
+        if (!comandosLinha[i]) {
+            // Lidar com a falha na alocação de memória, se necessário
+            for (int j = 0; j < i; j++) {
+                free(comandosLinha[j]);
+            }
+            free(comandosLinha);
+            // Encerrar ou retornar em caso de erro
+        }
+    }
 
-        char entrada[ENTRADA_DADOS], comando[ENTRADA_DADOS], palavra1[ENTRADA_DADOS], palavra2[ENTRADA_DADOS], palavra3[ENTRADA_DADOS], palavra4[ENTRADA_DADOS];
+    while (fgets(lineCommand, sizeof(lineCommand), arqOpen) != NULL)
+    {
+        char entrada[ENTRADA_DADOS];
 
-        separarComandoE4Palavras(entrada, comando, palavra1, palavra2, palavra3, palavra4);
+        retiraEnter(lineCommand);
 
-        numFuncion = pesquisaFuncion(comando); // < ---- - Fazer essas função parei aqui
+        // Inicialize o vetor de palavras
+        for (int i = 0; i < MAX_VARIEVEIS; i++) {
+            comandosLinha[i][0] = '\0';
+        }
 
+        // Copie a linha lida para a variável "entrada"
+        strncpy_s(entrada, ENTRADA_DADOS, lineCommand, _TRUNCATE);
+
+        separarComandoE4Palavras(entrada, comandosLinha);
+
+        numFuncion = pesquisaFuncion(comandosLinha[0]); 
 
         switch (numFuncion)
         {
-        case 1://INSEREPAGINA <nome_pagina><nome_arquivo>
+        case 1://INSEREPAGINA <nome_pagina><nome_arquivo> <------------PAREI AQUI
+            int logReturn;
+
+
+
             printTESTE();
+           
             break;
         default:
             printf("\nCOMANDO INEXISTENTE!!!\n");
@@ -274,7 +290,7 @@ void executer(char* nomeArqTeste)
         }
        
     }
-    printTESTE();
+
 }
 
 void closeArq(FILE* nomeArq)

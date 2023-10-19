@@ -10,12 +10,11 @@
 
 int executeTest() {
 	
-	char entrada[MAX_CHAR];
+	char entrada[MAX_CHAR];//{ "./wikiedi TestOENGHUS.txt" };// <------REMOVER QUANDO TERMINADO
 	char comando[MAX_CHAR];
 	char nomeArquivo[MAX_CHAR];
 
 	int sair;
-
 
 	do
 	{
@@ -29,9 +28,11 @@ int executeTest() {
 		{
 			//acrescentarAoArquivo();  // Chamando a função para acrescentar texto ao arquivo
 
+
 			printf("\nDigite o comando ""./wikiedi"" e o nome do arquivo textos de entrada.:\n");
 			printf("Comando.:");
-			fgets(entrada, 50, stdin);
+
+			fgets(entrada, 50, stdin); // <------TROCAR QUANDO TERMINADO
 			setvbuf(stdin, NULL, _IONBF, 0);
 			retiraEnter(entrada);
 

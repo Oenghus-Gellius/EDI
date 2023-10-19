@@ -1,5 +1,1 @@
 INSEREPAGINA EDI edi.txt
-INSEREPAGINA BD banco.txt
-INSEREPAGINA SO so.txt
-
-
