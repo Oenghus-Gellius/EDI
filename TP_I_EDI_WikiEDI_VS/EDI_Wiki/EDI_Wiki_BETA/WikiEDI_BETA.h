@@ -12,6 +12,7 @@
  */
 #include "testador.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 #define ENTRADA_DADOS 100
 
@@ -32,12 +33,16 @@ typedef struct Conteudo {
 
 //----------------------------
 
- //Estrutura de nodos para encadear as paginas. lista simples
-typedef struct Nodo {
+typedef struct InfoPage {
 	int idPage;
 	char* nomePage;//nome da pagina da Wiki
-	char *linkPages;//links entre paginas se houver
-	TConteudo info;// Estrutura dentro de cada pagina para registrar colabora��es
+	char* linkPages;//links entre paginas se houver
+	TConteudo infoC;// Estrutura dentro de cada pagina para registrar colabora��es
+}TInfoPage;
+
+ //Estrutura de nodos para encadear as paginas. lista simples
+typedef struct Nodo {
+	TInfoPage infoP;
 	struct Nodo* nextPage;//Nova pagina ou proxina e pagina anterior
 }TNodoPage;
 
@@ -99,24 +104,29 @@ void DestroyerAlloc();
 //--------------------------------------funções auxiliares de Alocação Pagina----------------------
 
 //Cria a primeira pagina para alocação = construtor
-TPagina* bormPage();
+TPagina* bornPage();
 
 //Criar a primeira Pagina da lista ou "posiciona" na primeira colocação
-int firstPage(TPagina* nomePagina);
+int firstPage(TPagina* wikiPages, TInfoPage infoEnter);
 
 //ciar a proxima pagina da lista encadeada
-int lastPage(TPagina* nomePagina);
+int lastPage(TPagina* wikiPages, TInfoPage infoEnter);
+
+int removePage(TPagina* wikiPages, char *nomePage, TInfoPage *infoEnter);
+
+// PS. Ver se tem pagina repetida retorna 1 se for igual
+int finderPage(TPagina* wikiPages, char *nomePage, TInfoPage *infoEnter);
 
 //Fun��o que retorna que n�otem pagina alocada
-int emptyPage(TPagina* nomePagina);
+int emptyPage(TPagina* wikiPages);
 
 //Fun��o com o objetivo de testar se ha espa�o para a proxima pagina
-int fullPage(TPagina* nomePagina);
+int fullPage(TPagina* wikiPages);
 
 //Fun��o que retorna o tamanho/quantidade de Paginas na Wiki
-int quantityPages(TPagina* nomePagina);
+int quantityPages(TPagina* wikiPages);
 
-
+void endPage(TPagina* wikiPagina);
 //destrutor (desaloca espaço na memoria
 
 
@@ -136,15 +146,12 @@ void separarComandoE4Palavras(const char* entrada, char** palavras);
 //Função que vai abrir o arquivo teste para leitura        
 int openFileTester(char* nomeArquivo);
 
-//Essa função tem o objetivo de passar por parametro o nome do arquico a ser aberto
-//e retornar um ponteiro tipo FILE
-FILE* openFile(char* nomeArquivo);
-
 //Pesquiva função e retorna a posição da função no vetor de funções
 //lembrando que a primeira função recebe(index +1) pois estou salvando o 0 para um qualquer
 //questão de pesquisa no futuro, sonto que vou precisar.
 int pesquisaFuncion(char* comando);
 
+//-------------------------------------------EXECUTER-----------------------
 //Função recebe o comando, pesquisar se é valido
 // e executar o comando se for valido;
 void executer(char* nomeArqTeste);
@@ -155,6 +162,7 @@ void closeArq(FILE* nomeArq);
 void printTESTE();
 #endif // WIKIEDI_BETA_H_INCLUDED
 
+//																./wikiedi TestOENGHUS.txt
 //----------------------------------- FUNÇÕES MANUPULA ARQUIVO--------------------
 
 /*Como saídas do trabalho, além dos arquivos com as páginas da WikiEDI, será pedido um arquivo de “log”
@@ -165,6 +173,12 @@ excluir esta contribuição). Verificações similares devem ser feitas caso sej
 inexistente, ou um editor inexistente, etc. No caso de saber se há caminho entre duas páginas, basta navegar
 nas listas de links para determinar se há caminho, ou não entre as páginas. No exemplo da figura 1, há
 caminhos das páginas da SO para as páginas de EDI e BD, mas não há caminho inverso.*/
+
+//Essa função tem o objetivo de passar por parametro o nome do arquico a ser aberto
+//e retornar um ponteiro tipo FILE
+//FILE* openFile(char* nomeArquivo);
+
+
 //Essa função tem o objetivo de abrir o log ao inicio do programa e resgistrar "todas as 
 //manipulações do programa, fecha ao se fechar o programa salvado as alterações.
-int logFile();
+int logEdit(FILE* arqLog, char *logMensagem);

@@ -1,6 +1,8 @@
 #ifndef TESTADOR_H_INCLUDED
 #define TESTADOR_BETA_H_INCLUDED
 
+#include <stdio.h>
+
 /*Execução do programa
 O programa testador deverá ser capaz de ler as instruções do arquivo texto de entrada e realizar as devidas
 operações na WikiEDI. O seu programa testador deverá ler os dados de entrada a partir de um arquivo, cujo

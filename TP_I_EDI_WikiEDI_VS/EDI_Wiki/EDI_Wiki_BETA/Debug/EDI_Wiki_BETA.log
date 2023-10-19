@@ -1,5 +1,6 @@
 ﻿  WikiEDI_BETA.c
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(13,9): warning C4101: 'logReturn': variável local não referenciada
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(159,10): warning C4101: 'comando': variável local não referenciada
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(15): warning C4716: 'inserePage': deve retornar um valor
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(138,34): warning C4047: '=': 'char' difere em níveis de indireção de 'char *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(227,10): warning C4101: 'comando': variável local não referenciada
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(407,71): warning C4020: 'strcpy_s': muitos parâmetros reais
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(300,10): warning C4101: 'lineLog': variável local não referenciada
   EDI_Wiki_BETA.vcxproj -> E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\Debug\EDI_Wiki_BETA.exe

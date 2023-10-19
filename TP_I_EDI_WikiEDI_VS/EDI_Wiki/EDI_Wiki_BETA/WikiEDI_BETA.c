@@ -9,7 +9,24 @@
 
 //--------------------------------------funções auxiliares de Alocação Pagina----------------------
 
-TPagina* bormPage()
+// Função para inicializar uma estrutura TInfoPage
+TInfoPage bornInfoPage() {
+    TInfoPage info;
+    info.idPage = 0;
+    info.nomePage = NULL; // Aloca e copia o nome
+    info.linkPages = NULL; // Aloca e copia os links
+
+    // Inicialize as informações do conteúdo (tamanho, posição, ponteiros) como necessário
+    info.infoC.tamanhoColab = 0;
+    info.infoC.posicaoCorrenteColab = 0;
+    info.infoC.inicioColab = NULL;
+    info.infoC.cursorColab = NULL;
+    info.infoC.fimColab = NULL;
+
+    return info;
+}
+
+TPagina* bornPage()
 {
     TPagina* page = (TPagina*)malloc(sizeof(TPagina));
     if (page != NULL)
@@ -23,7 +40,7 @@ TPagina* bormPage()
     return page;
 }
 
-int firstPage(TPagina* wikiPages)
+int firstPage(TPagina* wikiPages, TInfoPage infoEnter)
 {
     // fazer que a função fullPage retorne -1 se estiver cheia
     if (fullPage(wikiPages) == -1)
@@ -41,6 +58,7 @@ int firstPage(TPagina* wikiPages)
     }
     else
     {
+        ptrNodoPage->infoP.nomePage = infoEnter.nomePage;
         ptrNodoPage->nextPage = wikiPages->inicio;
         wikiPages->inicio = ptrNodoPage;
 
@@ -55,7 +73,7 @@ int firstPage(TPagina* wikiPages)
     }
 }
 
-int lastPage(TPagina* wikiPages)
+int lastPage(TPagina* wikiPages, TInfoPage infoEnter)
 {
     // fazer que a função fullPage retorne -1 se estiver cheia
     if (fullPage(wikiPages) == -1)
@@ -78,17 +96,74 @@ int lastPage(TPagina* wikiPages)
 
         if (wikiPages->inicio == NULL)
         {
-            firstPage(wikiPages);
+            firstPage(wikiPages, infoEnter);
         }
         else
         {
-            
+            strncpy_s(ptrNodoPage->infoP.nomePage, ENTRADA_DADOS, infoEnter.nomePage, _TRUNCATE);
+            //ptrNodoPage->infoP.nomePage = infoEnter.nomePage;
             wikiPages->fim->nextPage = ptrNodoPage;
             wikiPages->fim = ptrNodoPage;
             wikiPages->tamanho++;
         }
         return 1;
     }
+}
+
+int removePage(TPagina* wikiPages, char* nomePage, TInfoPage *infoEnter)
+{
+    TNodoPage *ptrNodoPage, *ptrBackNodePage;
+    ptrNodoPage = wikiPages->inicio;
+    ptrBackNodePage = NULL;
+
+    while (wikiPages != NULL)
+    {
+        if (strcmp(ptrNodoPage->infoP.nomePage, nomePage) == 0)
+        {
+            //Verifica se é o primeiro
+            if (ptrNodoPage == wikiPages->inicio)
+            {
+                wikiPages->inicio = wikiPages->inicio->nextPage;
+            }
+            else 
+                if (ptrNodoPage == wikiPages->fim)//remove o ultimo
+                {
+                    wikiPages->fim = ptrBackNodePage;
+                    wikiPages->fim->nextPage = NULL;
+                }
+                else
+                {
+                    ptrBackNodePage->nextPage = ptrNodoPage->nextPage;
+                }
+            *infoEnter->nomePage = ptrNodoPage->infoP.nomePage;
+            free(ptrNodoPage);
+            wikiPages->tamanho--;
+            return 1;
+        }
+        else
+        {
+            ptrBackNodePage = ptrNodoPage;
+            ptrNodoPage = ptrNodoPage->nextPage;
+        }
+    }
+    return 0;
+}
+
+int finderPage(TPagina* wikiPages, char *nomePage, TInfoPage* infoEnter)
+{
+    TNodoPage *ptrNodoPage;
+
+    ptrNodoPage = wikiPages->inicio;
+
+    while (ptrNodoPage != NULL)
+    {
+        if (strcmp(ptrNodoPage->infoP.nomePage, nomePage) == 0)
+        {
+            infoEnter->nomePage = ptrNodoPage->infoP.nomePage;
+            return 1;
+        }
+    }
+    return 0;
 }
 
 int emptyPage(TPagina* wikiPages)
@@ -99,13 +174,13 @@ int emptyPage(TPagina* wikiPages)
 int fullPage(TPagina* wikiPages)
 {
     TNodoPage* ptrNodoPage = (TNodoPage*)malloc(sizeof(TNodoPage));
-    if (ptrNodoPage != NULL)
+    if (ptrNodoPage == NULL)
     {
         printf("\nErro na alocaçao de memoria para a pagina - I'm at line %d\n", __LINE__);
-        free(ptrNodoPage);
-        return 0;
+        return -1;
     }
-    return -1;
+    free(ptrNodoPage);
+    return 0;
 }
 
 int quantityPages(TPagina* wikiPages)
@@ -193,19 +268,6 @@ int openFileTester(char* nomeArquivo)
     return 0;
 }
 
-//REVER ESSA FUNÇÃO <-------------------------------
-FILE* openFile(char* nomeArquivo)
-{
-    FILE* arqOpen;
-    errno_t err = fopen_s(&arqOpen, nomeArquivo, "r+");
-
-    if (err != 0) {
-        printf("\nERRO AO ABRIR ARQUIVO!!!\n");
-        return NULL;
-    }
-    return arqOpen;
-}
-
 int pesquisaFuncion(char* comando) //<------- PAREI AQUI
 {
     char* vetorCommand[] = {"INSEREPAGINA","RETIRAPAGINA","INSEREEDITOR","INSERECONTRIBUICAO","RETIRACONTRIBUICAO","INSERELINK","RETIRALINK","CAMINHO","IMPRIMEPAGINA","IMPRIMEWIKED","FIM"};
@@ -220,78 +282,158 @@ int pesquisaFuncion(char* comando) //<------- PAREI AQUI
     return -1;
 }
 
+//----------------------------PRINCIPAL----------------------------
 void executer(char* nomeArqTeste)
 {
     FILE* arqOpen;
-    char lineCommand[MAX_LINE_LENGTH];
+    FILE* arqLog;
+    
+    char lineCommandArq[ENTRADA_DADOS];
+    char *lineCommand;
+    char entrada[ENTRADA_DADOS];
 
-    TPagina *wikiPages = bormPage();//Inicia virtualmente a wiki
+    TPagina* wikiPages = bornPage();//Inicia virtualmente a wiki
+    TInfoPage infoEnter;// = bornInfoPage();
 
     int numFuncion = 0;
 
-    errno_t err = fopen_s(&arqOpen, nomeArqTeste, "r");
+    char lineLog[ENTRADA_DADOS];
+    char* logMensagem;
+    int logReturn;
 
+    char** comandosLinha = (char**)malloc(5 * sizeof(char*));//Aloca o vetor de comando 
+    if (comandosLinha == NULL)
+    {
+        printf("\nErro na alocaçao de memoria para o vetor comandosLinha - I'm at line %d\n", __LINE__);
+        return;
+    }
+    else
+    {
+        for (int i = 0; i < MAX_VARIEVEIS; i++)
+        {
+            comandosLinha[i] = (char*)malloc(sizeof(ENTRADA_DADOS));
+            // Lidar com a falha na alocação de memória, se necessário
+            if (comandosLinha[i] == NULL) 
+            {
+                // Lidar com a falha na alocação de memória, se necessário
+                for (int j = 0; j < i; j++) 
+                {
+                    free(comandosLinha[j]);
+                }
+                free(comandosLinha);
+                // Encerrar ou retornar em caso de erro
+                printf("\nErro na alocaçao de memoria para o vetor comandosLinha - I'm at line %d\n", __LINE__);
+                return;
+            }
+        }
+    }
+
+    //------------PODE VIRAR FUNÇÃO----------------------
+    lineCommand = (char*)malloc(ENTRADA_DADOS * sizeof(char));//Aloca o vetor de char da mensagem log
+    if (lineCommand == NULL)
+    {
+        printf("\nErro na alocaçao de memoria para o linha comando - I'm at line %d\n", __LINE__);
+        return;
+    }
+
+    logMensagem = (char*)malloc(ENTRADA_DADOS * sizeof(char));//Aloca o vetor de char da mensagem log
+    if (logMensagem == NULL)
+    {
+        printf("\nErro na alocaçao de memoria para o char log - I'm at line %d\n", __LINE__);
+        return;
+    }
+
+    //------------MEU SOUNHO ERA CONSGUIR FAZER DISSO UMA FUNÇAO---------
+    errno_t err = fopen_s(&arqOpen, nomeArqTeste, "r");//Abre o arquivo texte
     if (arqOpen == NULL && err != 0) {
         printf("Erro ao abrir o arquivo %s.\n", nomeArqTeste);
         return;
     }
-    
+
     rewind(arqOpen);
+
+    //------------MEU SOUNHO ERA CONSGUIR FAZER DISSO UMA FUNÇAO---------
+    errno_t err1 = fopen_s(&arqLog, "logWiki.txt", "a+");//Abre o arquivo log
+    if (arqLog == NULL && err1 != 0) {
+        printf("Erro ao abrir o arquivo logWiki.txt.- I'm at line %d\n", __LINE__);
+        return;
+    }
 
     printf("\nIniciando a execução, Boa Jornada!!!!\n");
 
-    char** comandosLinha = (char**)malloc(5 * sizeof(char*));
-
-    for (int i = 0; i < MAX_VARIEVEIS; i++)
+    //-----------------------------------LOOP-------------------------------------
+    while (fgets(lineCommandArq, sizeof(lineCommandArq), arqOpen) != NULL)
     {
-        comandosLinha[i] = (char*)malloc(sizeof(ENTRADA_DADOS));
-        // Lidar com a falha na alocação de memória, se necessário
-        if (!comandosLinha[i]) {
-            // Lidar com a falha na alocação de memória, se necessário
-            for (int j = 0; j < i; j++) {
-                free(comandosLinha[j]);
-            }
-            free(comandosLinha);
-            // Encerrar ou retornar em caso de erro
-        }
-    }
+        //retiraEnter(lineCommand);
 
-    while (fgets(lineCommand, sizeof(lineCommand), arqOpen) != NULL)
-    {
-        char entrada[ENTRADA_DADOS];
-
-        retiraEnter(lineCommand);
+        
 
         // Inicialize o vetor de palavras
         for (int i = 0; i < MAX_VARIEVEIS; i++) {
             comandosLinha[i][0] = '\0';
         }
 
+        // Inicializa a string da mensagem do log
+        //logMensagem[0] = '\0';
+
         // Copie a linha lida para a variável "entrada"
-        strncpy_s(entrada, ENTRADA_DADOS, lineCommand, _TRUNCATE);
+        strncpy_s(entrada, ENTRADA_DADOS, lineCommandArq, _TRUNCATE);
 
         separarComandoE4Palavras(entrada, comandosLinha);
 
         numFuncion = pesquisaFuncion(comandosLinha[0]); 
 
+        logReturn = 0;
+
         switch (numFuncion)
         {
-        case 1://INSEREPAGINA <nome_pagina><nome_arquivo> <------------PAREI AQUI
-            int logReturn;
+        case 1://INSEREPAGINA <nome_pagina><nome_arquivo> 
+            infoEnter.nomePage = comandosLinha[1];
+            //strncpy_s(infoEnter.nomePage, ENTRADA_DADOS, comandosLinha[1], _TRUNCATE);
+            
+            logReturn = finderPage(wikiPages, infoEnter.nomePage, &infoEnter);
+            if (logReturn == 1)//Pagina ja existe
+            {
+                strcpy_s(logMensagem, ENTRADA_DADOS, "ERRO: PAGINA JÁ EXISTE", _TRUNCATE);
+                
 
+                logReturn = logEdit(arqLog, logMensagem);
 
+            }
+            else//Cria pagina
+            {
+                logReturn = lastPage(wikiPages,infoEnter); //<------------PAREI AQUI - criar a função log
+            
+                strcpy_s(logMensagem, ENTRADA_DADOS, "PAGINA CRIADA", _TRUNCATE);
+
+                logReturn = logEdit(arqLog, logMensagem);
+            }
+
+            printf("\n %s - %s \n", comandosLinha[1], comandosLinha[2]);//RETIRAR
+           
+            break;
+        case 2://*RETIRAPAGINA <nome_pagina>: exclui a página da WikED!, 
+            //infoEnter.nomePage = comandosLinha[1];
+            strncpy_s(infoEnter.nomePage, ENTRADA_DADOS, comandosLinha[1], _TRUNCATE);
+
+            logReturn = removePage(wikiPages, infoEnter.nomePage, &infoEnter);
+            if (logReturn == 1)//SUCESSO
+            {
+                strcpy_s(logMensagem, ENTRADA_DADOS, "PAGINA REMOVIDA", _TRUNCATE);
+                //SALVA NO LOG O SOCESSO
+                logReturn = logEdit(arqLog, logMensagem);
+            }
 
             printTESTE();
-           
             break;
         default:
             printf("\nCOMANDO INEXISTENTE!!!\n");
             break;
         }
-       
-    }
+        //limpa o buff de lineCommand?
 
-}
+    }
+}//fim Executer
 
 void closeArq(FILE* nomeArq)
 {
@@ -303,3 +445,57 @@ void printTESTE()
 	printf("\nTESTE DESGRAÇA - I'm at line %d\n", __LINE__);
 }
 
+
+//---------------------------------- FUNÇÕES MANUPULA ARQUIVO--------------------
+
+int logEdit(FILE* arqLog, char* logMensagem) //<----------------PAREI AQUI
+{
+    if (arqLog == NULL) {
+        printf("Erro: o arquivo de log não foi aberto corretamente.\n");
+        return -1;  // ou algum outro valor de erro apropriado
+    }
+    char lineLog[ENTRADA_DADOS];
+
+    strncpy_s(lineLog, ENTRADA_DADOS, logMensagem, _TRUNCATE);
+
+    fseek(arqLog, 0, SEEK_END);
+    size_t elementosEscritos = fwrite(lineLog, sizeof(lineLog), 1, arqLog);
+
+    if (elementosEscritos != 1) {
+        printf("Erro ao escrever no arquivo de log.\n");
+        return -1;  // ou algum outro valor de erro apropriado
+    }
+    printf("\nlogMsg - %s\n",logMensagem);
+
+    return 1;
+}
+
+
+
+
+
+
+/*
+FILE* openFile(char* nomeArquivo)
+{
+    FILE* arqOpen;
+    errno_t err = fopen_s(&arqOpen, nomeArquivo, "a+");
+
+    if (err != 0) {
+
+        return NULL;
+    }
+    return arqOpen;
+}
+
+
+
+int openFile(const char* nomeArquivo, FILE** arquivo) {
+    if (fopen_s(arquivo, nomeArquivo, "a+") != 0) {
+        perror("Erro ao abrir o arquivo"); 
+        printf("\nERRO AO ABRIR ARQUIVO %s!!! I'm at line %d\n", nomeArquivo, __LINE__);
+        return -1;
+    }
+    return 0;
+}
+*/
