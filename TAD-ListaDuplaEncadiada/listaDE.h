@@ -1,5 +1,6 @@
 #ifndef LISTA_H_INCLUDED
 #define LISTA_H_INCLUDED
+
 typedef int TChave;
 typedef struct{
     TChave chave;

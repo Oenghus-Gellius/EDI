@@ -55,6 +55,7 @@ typedef struct Pagina {
 
 typedef struct Log {
 	char* logMensagem;
+	char* nomePage;
 }TLog;
 
  //--------------------------------------Comandos necessarios----------------------
