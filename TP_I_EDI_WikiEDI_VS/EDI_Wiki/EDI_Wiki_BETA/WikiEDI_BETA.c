@@ -9,23 +9,6 @@
 
 //--------------------------------------fun��es auxiliares de Aloca��o Pagina----------------------
 
-// Fun��o para inicializar uma estrutura TInfoPage
-TInfoPage bornInfoPage() {
-    TInfoPage info;
-    info.idPage = 0;
-    info.nomePage = NULL; // Aloca e copia o nome
-    info.linkPages = NULL; // Aloca e copia os links
-
-    // Inicialize as informa��es do conte�do (tamanho, posi��o, ponteiros) como necess�rio
-    info.infoC.tamanhoColab = 0;
-    info.infoC.posicaoCorrenteColab = 0;
-    info.infoC.inicioColab = NULL;
-    info.infoC.cursorColab = NULL;
-    info.infoC.fimColab = NULL;
-
-    return info;
-}
-
 TPagina* bornPage()
 {
     TPagina* page = (TPagina*)malloc(sizeof(TPagina));
@@ -34,7 +17,6 @@ TPagina* bornPage()
         page->inicio = NULL;
         page->fim = NULL;
         page->tamanho = 0;
-        page->cursor = NULL;
         page->posicaoCorrente = 0;
     }
     return page;
@@ -46,7 +28,7 @@ int firstPage(TPagina* wikiPages, TInfoPage infoEnter)
     if (fullPage(wikiPages) == -1)
     {
         printf("\nErro na aloca�ao de memoria para a pagina - I'm at line %d\n", __LINE__);
-        free(wikiPages);//TA CERTO ISSO JOSE?
+        free(wikiPages);
         return 0;
     }
 
@@ -58,16 +40,14 @@ int firstPage(TPagina* wikiPages, TInfoPage infoEnter)
     }
     else
     {
-        ptrNodoPage->infoP.nomePage = infoEnter.nomePage;
+        strncpy_s(ptrNodoPage->infoP.nomePage, ENTRADA_DADOS, infoEnter.nomePage, _TRUNCATE);
+        //ptrNodoPage->infoP.nomePage = infoEnter.nomePage;
         ptrNodoPage->nextPage = wikiPages->inicio;
         wikiPages->inicio = ptrNodoPage;
-
         wikiPages->tamanho++;
-
-        //verificando se � a primeira pagina
         if (wikiPages->tamanho == 1)
         {
-            wikiPages->cursor = ptrNodoPage;
+            wikiPages->fim = ptrNodoPage;
         }
         return 1;
     }
@@ -87,7 +67,7 @@ int lastPage(TPagina* wikiPages, TInfoPage infoEnter)
     if (ptrNodoPage == NULL)
     {
         printf("\nErro na aloca�ao de memoria para a pagina - I'm at line %d\n", __LINE__);
-        free(wikiPages); //TA CERTO ISSO JOSE?
+        free(wikiPages);
         return 0;
     }
     else
@@ -294,7 +274,7 @@ void executer(char* nomeArqTeste)
     char entrada[ENTRADA_DADOS];
 
     TPagina* wikiPages = bornPage();//Inicia virtualmente a wiki
-    TInfoPage infoEnter = bornInfoPage();
+    TInfoPage infoEnter; // = bornInfoPage();
 
     int numFuncion = 0;
 
@@ -383,8 +363,9 @@ void executer(char* nomeArqTeste)
         switch (numFuncion)
         {
         case 1://INSEREPAGINA <nome_pagina><nome_arquivo> 
-            infoEnter.nomePage = comandosLinha[1];
-            //strncpy_s(infoEnter.nomePage, ENTRADA_DADOS, comandosLinha[1], _TRUNCATE);
+            //infoEnter.nomePage = comandosLinha[1];
+
+            strncpy_s(infoEnter.nomePage, ENTRADA_DADOS, comandosLinha[1], _TRUNCATE);
 
             logReturn = finderPage(wikiPages, infoEnter.nomePage, &infoEnter);
             if (logReturn == 1)//Pagina ja existe
@@ -405,8 +386,8 @@ void executer(char* nomeArqTeste)
 
             break;
         case 2://*RETIRAPAGINA <nome_pagina>: exclui a p�gina da WikED!, 
-            infoEnter.nomePage = comandosLinha[1];
-            //strncpy_s(infoEnter.nomePage, ENTRADA_DADOS, comandosLinha[1], _TRUNCATE);
+            //infoEnter.nomePage = comandosLinha[1];
+            strncpy_s(infoEnter.nomePage, ENTRADA_DADOS, comandosLinha[1], _TRUNCATE);
 
             logReturn = removePage(wikiPages, infoEnter.nomePage, &infoEnter);
             if (logReturn == 1)//SUCESSO
@@ -422,6 +403,9 @@ void executer(char* nomeArqTeste)
 
             printTESTE();
             break;
+        case 3:/*INSEREEDITOR <nome_editor>: 
+                insere um editor com o nome especificado (deve ser único). <--------PAREI AQUI*/ 
+                
         default:
             printf("\nCOMANDO INEXISTENTE!!!\n");
             break;

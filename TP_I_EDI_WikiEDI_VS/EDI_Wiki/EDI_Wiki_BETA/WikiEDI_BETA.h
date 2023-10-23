@@ -34,9 +34,8 @@ typedef struct Conteudo {
 //----------------------------
 
 typedef struct InfoPage {
-	int idPage;
-	char* nomePage;//nome da pagina da Wiki
-	char* linkPages;//links entre paginas se houver
+	char nomePage[ENTRADA_DADOS];//nome da pagina da Wiki
+	char linkPages[ENTRADA_DADOS];//links entre paginas se houver
 	TConteudo infoC;// Estrutura dentro de cada pagina para registrar colabora��es
 }TInfoPage;
 
@@ -50,7 +49,7 @@ typedef struct Pagina {
 	int tamanho;//quantidade de paginas existentes
 	int posicaoCorrente;//marca posiçao na de pagina
 	// char teste[MAX_TAM_STR];//TESTE PARA VER SE EST�O REALMENTE ESCREVENDO E CONECTANDO
-	TNodoPage* inicio, * cursor, * fim;//Marca primeira pagina e a pagina atual;
+	TNodoPage* inicio, * fim;//Marca primeira pagina e a pagina atual;
 }TPagina;
 
 typedef struct Log {
