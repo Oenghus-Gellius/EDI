@@ -1,12 +1,15 @@
 #include "testador.h"
-
 #include "WikiEDI_BETA.h"
+#include "Links.h"
+#include "Log.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_CHAR 100
+#include <locale.h>
+
+
 
 int executeTest() {
 	
@@ -32,7 +35,7 @@ int executeTest() {
 			printf("\nDigite o comando ""./wikiedi"" e o nome do arquivo textos de entrada.:\n");
 			printf("Comando.:");
 
-			strncpy_s(entrada, ENTRADA_DADOS, "./wikiedi TestOENGHUS.txt", _TRUNCATE);// <------TROCAR QUANDO TERMINADO
+			strncpy_s(entrada, MAX_CHAR, "./wikiedi TestOENGHUS.txt", _TRUNCATE);// <------TROCAR QUANDO TERMINADO
 
 			//fgets(entrada, 50, stdin); //MUDARRRRRRRRRRRRRRRRRR
 			setvbuf(stdin, NULL, _IONBF, 0);
@@ -57,6 +60,7 @@ int executeTest() {
 			{
 				printf("\nComando invalido!!!!\n");
 			}
+			return 0;
 		}
 	} while (sair != 0);
 
@@ -65,6 +69,8 @@ int executeTest() {
 
 
 int main() {
+
+	setlocale(LC_ALL, "pt-BR");
 	return executeTest();
 }
 

@@ -1,13 +1,8 @@
-﻿#include "WikiEDI_BETA.h"
-//#include "Links.h"
-#include "testador.h"
-#include "Log.h"
+﻿#include "WikiEDI_GAMA.h"
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
-
 
 #define MAX_LINE_LENGTH 1000
 #define MAX_VARIEVEIS 4
@@ -15,17 +10,17 @@
 
 //--------------------------------------fun��es auxiliares de Aloca��o Pagina----------------------
 
-TPagina* bornPage()
-{
-    TPagina* page = (TPagina*)malloc(sizeof(TPagina));
-    if (page != NULL)
-    {
-        page->inicio = NULL;
+//TPagina* bornPage()
+//{
+   TPagina* page = (TPagina*)malloc(sizeof(TPagina)){ 
+   if (page != NULL)
+   {
+       page->inicio = NULL;
         page->fim = NULL;
-        page->cursor = NULL;
-        page->tamanho = 0;
-        page->posicaoCorrente = 0;
-    }
+       page->cursor = NULL;
+       page->tamanho = 0;
+       page->posicaoCorrente = 0;
+   }
     return page;
 }
 
@@ -34,7 +29,7 @@ int firstPage(TPagina* wikiPages, TInfoPage infoEnter)
     // fazer que a fun��o fullPage retorne -1 se estiver cheia
     if (fullPage(wikiPages) == -1)
     {
-        printf("\nErro na alocacao de memoria para a pagina - I'm at line %d\n", __LINE__);
+        printf("\nErro na aloca�ao de memoria para a pagina - I'm at line %d\n", __LINE__);
         free(wikiPages);
         return 0;
     }
@@ -42,7 +37,7 @@ int firstPage(TPagina* wikiPages, TInfoPage infoEnter)
     TNodoPage* ptrNodoPage = (TNodoPage*)malloc(sizeof(TNodoPage));
     if (ptrNodoPage == NULL)
     {
-        printf("\nErro na alocaao de memoria para a pagina - I'm at line %d\n", __LINE__);
+        printf("\nErro na aloca�ao de memoria para a pagina - I'm at line %d\n", __LINE__);
         return 0;
     }
     else
@@ -385,7 +380,7 @@ void executer(char* nomeArqTeste)
         switch (numFuncion)
         {
         case 1://INSEREPAGINA <nome_pagina><nome_arquivo> 
-  
+
             strncpy_s(infoEnter.nomePage, MAX_CHAR, comandosLinha[1], _TRUNCATE);
 
             logReturn = finderPage(wikiPages, infoEnter.nomePage, &infoEnter);
@@ -425,7 +420,7 @@ void executer(char* nomeArqTeste)
             }
             break;
         case 3://INSEREEDITOR <nome_editor>: 
-                //insere um editor com o nome especificado (deve ser único). 
+            //insere um editor com o nome especificado (deve ser único). 
             finder = 0;
             strncpy_s(infoEnter.nomePage, MAX_CHAR, comandosLinha[1], _TRUNCATE);
             //finder = finderEditor(editores, infoEnter.nomePage);
@@ -496,7 +491,7 @@ void executer(char* nomeArqTeste)
             finder = finderPage(wikiPages, infoEnter.nomePage, &infoEnter);//TEORICAMENTE AQUI VAI MUDAR O VALOR DE CURSOR
 
             if (finder == 1)//pagina encontrada
-            {           
+            {
                 ptrPageOrigem = wikiPages->cursor;//PEGA O VALOR DO CURSOR ATUAL GERADO NA LINHA DE CIMA
 
                 strncpy_s(ptrPageOrigem->infoP.linkPages.linkOrigem, MAX_CHAR, comandosLinha[1], _TRUNCATE);
@@ -551,7 +546,7 @@ void executer(char* nomeArqTeste)
             break;
         case 8:/*CAMINHO <pagina_origem><pagina_destino>: verifica se há caminho entre duas páginas (por meio das
                 listas de links). Escreve no arquivo de log (HA/NAO HA CAMINHO DA <pagina_origem> PARA <pagina_destino>)*/
-            
+
 
 
 

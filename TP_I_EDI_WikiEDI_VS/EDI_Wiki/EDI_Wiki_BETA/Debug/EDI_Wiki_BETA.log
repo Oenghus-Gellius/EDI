@@ -1,29 +1,65 @@
-﻿  WikiEDI_BETA.c
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(30,16): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(38,16): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(61,16): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
+﻿  Links.c
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\Links.h(56,40): warning C4028: parâmetro formal 1 diferente da declaração
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\Links.c(61,16): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\Links.c(69,16): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\Links.c(161,16): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\Links.c(177,29): warning C4028: parâmetro formal 1 diferente da declaração
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\Links.c(177,54): warning C4028: parâmetro formal 2 diferente da declaração
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\Links.c(179,13): warning C4133: 'inicializando': tipos incompatíveis - de 'TListaLinks *' para 'TNodoLink *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\Links.c(180,13): warning C4133: 'inicializando': tipos incompatíveis - de 'TListaLinks *' para 'TNodoLink *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\Links.c(185,29): warning C4028: parâmetro formal 1 diferente da declaração
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\Links.c(185,54): warning C4028: parâmetro formal 2 diferente da declaração
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\Links.c(191,22): warning C4133: 'função': tipos incompatíveis - de 'TNodoLink *' para 'TListaLinks *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\Links.c(191,32): warning C4133: 'função': tipos incompatíveis - de 'TNodoLink *' para 'TListaLinks *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\Links.c(187,16): warning C4133: 'inicializando': tipos incompatíveis - de 'TListaLinks *' para 'TNodoLink *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\Links.c(188,16): warning C4133: 'inicializando': tipos incompatíveis - de 'TListaLinks *' para 'TNodoLink *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\Links.c(205,16): warning C4133: 'inicializando': tipos incompatíveis - de 'TListaLinks *' para 'TNodoLink *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\Links.c(206,16): warning C4133: 'inicializando': tipos incompatíveis - de 'TListaLinks *' para 'TNodoLink *'
+  Log.c
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\Links.h(56,40): warning C4028: parâmetro formal 1 diferente da declaração
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\Log.c(25,10): warning C4101: 'lineInArq': variável local não referenciada
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\Log.c(26,10): warning C4101: 'lineLog': variável local não referenciada
+  WikiEDI_BETA.c
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\Links.h(56,40): warning C4028: parâmetro formal 1 diferente da declaração
 E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(69,16): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(118,34): warning C4047: '=': 'char' difere em níveis de indireção de 'char *'
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(142,23): warning C4047: '=': 'TInfoPage **' difere em níveis de indireção de 'char *'
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(160,16): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(208,10): warning C4101: 'comando': variável local não referenciada
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(288,16): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(306,24): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(324,16): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(344,12): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(370,67): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(370,67): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(373,54): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(373,82): warning C4020: 'strcpy_s': muitos parâmetros reais
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(380,71): warning C4020: 'strcpy_s': muitos parâmetros reais
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(395,73): warning C4020: 'strcpy_s': muitos parâmetros reais
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(400,54): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(400,77): warning C4020: 'strcpy_s': muitos parâmetros reais
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(281,10): warning C4101: 'lineLog': variável local não referenciada
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(273,11): warning C4101: 'lineCommand': variável local não referenciada
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(424,12): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(433,16): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(439,16): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(443,10): warning C4101: 'lineInArq': variável local não referenciada
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(444,10): warning C4101: 'lineLog': variável local não referenciada
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(77,16): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(129,34): warning C4047: '=': 'char' difere em níveis de indireção de 'char *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(171,16): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(219,10): warning C4101: 'comando': variável local não referenciada
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(310,16): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(328,24): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(346,16): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(366,12): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(391,67): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(391,67): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(394,49): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(394,77): warning C4020: 'strcpy_s': muitos parâmetros reais
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(401,66): warning C4020: 'strcpy_s': muitos parâmetros reais
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(418,68): warning C4020: 'strcpy_s': muitos parâmetros reais
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(423,49): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(423,72): warning C4020: 'strcpy_s': muitos parâmetros reais
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(434,74): warning C4020: 'strcpy_s': muitos parâmetros reais
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(441,70): warning C4020: 'strcpy_s': muitos parâmetros reais
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(449,64): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(449,64): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(457,75): warning C4020: 'strcpy_s': muitos parâmetros reais
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(466,64): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(466,64): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(477,80): warning C4020: 'strcpy_s': muitos parâmetros reais
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(482,79): warning C4020: 'strcpy_s': muitos parâmetros reais
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(488,75): warning C4020: 'strcpy_s': muitos parâmetros reais
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(496,64): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(496,64): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(506,68): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(506,68): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(539,64): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(539,64): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(545,64): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(545,64): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(292,10): warning C4101: 'lineLog': variável local não referenciada
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(284,11): warning C4101: 'lineCommand': variável local não referenciada
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(595,12): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
+  testador.c
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\Links.h(56,40): warning C4028: parâmetro formal 1 diferente da declaração
+  Gerando Código...
   EDI_Wiki_BETA.vcxproj -> E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\Debug\EDI_Wiki_BETA.exe

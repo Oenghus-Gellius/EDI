@@ -5,16 +5,11 @@
  ============================================================================
  Name        : WikiEDI
  Author      : Bolivar A. Dias Jr
- Version     : Version 2.0
+ Version     : Version 3.0
 
  https://github.com/Oenghus-Gellius/EDI/tree/main/TP_I_EDI_WikiEDI_VS/EDI_Wiki
  ============================================================================
  */
-//#include "testador.h"
-//#include "Links.h"
-
-//#include "Log.h"
-
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,22 +17,17 @@
 
 #define MAX_CHAR 100
 
-//----------------------------
+ //----------------------------
 
-//Infor colaboradores
+ //Infor colaboradores
 
 typedef char TColaboracion[MAX_CHAR];
-
-typedef struct Links {
-	char linkOrigem[MAX_CHAR];
-	char linkDestino[MAX_CHAR];
-}TLinks;
 
 //Vetor alocado
 typedef struct Editores {
 	char nomeEditor[MAX_CHAR];
 	TColaboracion colab;//Colaboração
-	struct Editores* inicio, *fim;
+	struct Editores* inicio, * fim;
 }TEditores;
 
 typedef struct InfoPage {
@@ -47,7 +37,7 @@ typedef struct InfoPage {
 }TInfoPage;
 
 
- //Estrutura de nodos para encadear as paginas. lista simples
+//Estrutura de nodos para encadear as paginas. lista simples
 typedef struct Nodo {
 	TInfoPage infoP;
 	struct Nodo* nextPage;//Nova pagina ou proxina e pagina anterior
@@ -56,10 +46,10 @@ typedef struct Nodo {
 typedef struct Pagina {
 	int tamanho;//quantidade de paginas existentes
 	int posicaoCorrente;//marca posiçao na de pagina
-	TNodoPage* inicio, * fim, *cursor;//Marca primeira pagina e a pagina atual;
+	TNodoPage* inicio, * fim, * cursor;//Marca primeira pagina e a pagina atual;
 }TPagina;
 
-							//						./wikiedi TestOENGHUS.txt
+//						./wikiedi TestOENGHUS.txt
 
 //--------------------------------------funções auxiliares de Alocação Pagina----------------------
 
@@ -72,10 +62,10 @@ int firstPage(TPagina* wikiPages, TInfoPage infoEnter);
 //ciar a proxima pagina da lista encadeada
 int lastPage(TPagina* wikiPages, TInfoPage infoEnter);
 
-int removePage(TPagina* wikiPages, char *nomePage, TInfoPage *infoEnter);
+int removePage(TPagina* wikiPages, char* nomePage, TInfoPage* infoEnter);
 
 // PS. Ver se tem pagina repetida retorna 1 se for igual
-int finderPage(TPagina* wikiPages, char *nomePage, TInfoPage **infoEnter);
+int finderPage(TPagina* wikiPages, char* nomePage, TInfoPage** infoEnter);
 
 //Fun��o que retorna que n�otem pagina alocada
 int emptyPage(TPagina* wikiPages);

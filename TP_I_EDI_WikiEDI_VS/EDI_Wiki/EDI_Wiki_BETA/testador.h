@@ -1,7 +1,5 @@
 #ifndef TESTADOR_H_INCLUDED
-#define TESTADOR_BETA_H_INCLUDED
-
-#include <stdio.h>
+#define TESTADOR_H_INCLUDED
 
 /*Execução do programa
 O programa testador deverá ser capaz de ler as instruções do arquivo texto de entrada e realizar as devidas
@@ -50,6 +48,11 @@ FIM
 */
 
 #include "WikiEDI_BETA.h"
+
+//#include "Links.h"
+#include "Log.h"
+
+#include <stdio.h>
 
 int executeTest();
 
