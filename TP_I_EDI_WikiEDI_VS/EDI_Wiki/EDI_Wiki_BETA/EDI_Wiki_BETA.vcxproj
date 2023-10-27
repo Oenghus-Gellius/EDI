@@ -128,12 +128,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Editores.h" />
     <ClInclude Include="Links.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="testador.h" />
     <ClInclude Include="WikiEDI_BETA.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Editores.c" />
     <ClCompile Include="Links.c" />
     <ClCompile Include="Log.c" />
     <ClCompile Include="testador.c" />

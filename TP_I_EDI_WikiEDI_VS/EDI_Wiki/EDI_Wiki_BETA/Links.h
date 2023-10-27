@@ -41,7 +41,7 @@ int lastLinks(TListaLinks* listaLinks, TLinks links);
 
 int removeLinks(TListaLinks* listaLinks, char* nomePage, TLinks* links);
 
-// PS. Ver se tem pagina repetida retorna 1 se for igual
+// Pesquisa na lista de Links
 int finderLinks(TListaLinks* listaLinks, char* nomePage, TInfoPage** links);
 
 //Fun��o que retorna que n�otem pagina alocada
@@ -55,11 +55,13 @@ int quantityLinks(TListaLinks* listaLinks);
 
 void destroyer(TListaLinks* wikiPagina);
 //destrutor (desaloca espaço na memoria
+// 
 //------------------------------
 
-int insereLink(TPagina* wikiOrigem, TPagina* wikiDestino);
+//Inseri link na pagina do wiki
+int insereLink(TListaLinks* wikiOrigem, TListaLinks* wikiDestino);
 	
-int retiraLink(TPagina* wikiOrigem, TPagina* wikiDestino);
+int retiraLink(TListaLinks* wikiOrigem, TListaLinks* wikiDestino);
 
 int finderLink(TListaLinks* wikiOrigem, TListaLinks* wikiDestino);
 

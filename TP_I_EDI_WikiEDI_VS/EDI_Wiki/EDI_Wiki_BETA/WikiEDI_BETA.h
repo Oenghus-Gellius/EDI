@@ -33,19 +33,30 @@ typedef struct Links {
 	char linkDestino[MAX_CHAR];
 }TLinks;
 
-//Vetor alocado
+typedef char TNomeEditor[MAX_CHAR];
+
+typedef struct ListaEditores {
+	TNomeEditor nomeEditor;
+	int tamanho;
+}TListaEditores;
+
+typedef struct NodoEditor {
+	char nomePage;
+	TNomeEditor nomeEditor;
+	TColaboracion colab;//Endereço do texto colaborativo
+	struct NodoEditor* nextEditor;
+}TNodoEditor;
+
 typedef struct Editores {
-	char nomeEditor[MAX_CHAR];
-	TColaboracion colab;//Colaboração
-	struct Editores* inicio, *fim;
+	int tamanho;
+	TNodoEditor* inicio, *fim;
 }TEditores;
+
 
 typedef struct InfoPage {
 	char nomePage[MAX_CHAR];//nome da pagina da Wiki
 	TLinks linkPages;//links entre paginas se houver
-	TEditores infoEdtores;
 }TInfoPage;
-
 
  //Estrutura de nodos para encadear as paginas. lista simples
 typedef struct Nodo {
@@ -116,11 +127,10 @@ int pesquisaFuncion(char* comando);
 // e executar o comando se for valido;
 void executer(char* nomeArqTeste);
 
+void printPageWikiArq(TPagina *wikiPages, char *nomePage);
+
 //Função serve para fechar os arquivos para evitar que os aquivis fiquem abertos sem motivo
 void closeArq(FILE* nomeArq);
-
-void printTESTE();
-
 
 #endif // WIKIEDI_BETA_H_INCLUDED
 

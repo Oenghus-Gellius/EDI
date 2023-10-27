@@ -7,8 +7,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-
-
 #define MAX_LINE_LENGTH 1000
 #define MAX_VARIEVEIS 4
 #define MAX_CHAR 100
@@ -49,14 +47,12 @@ int firstPage(TPagina* wikiPages, TInfoPage infoEnter)
     {
         strncpy_s(ptrNodoPage->infoP.nomePage, MAX_CHAR, infoEnter.nomePage, _TRUNCATE);
 
-        ptrNodoPage->nextPage = wikiPages->inicio;
+        ptrNodoPage->nextPage = NULL;
         wikiPages->inicio = ptrNodoPage;
         wikiPages->tamanho++;
-        if (wikiPages->tamanho == 1)
-        {
-            wikiPages->fim = NULL;
-            wikiPages->cursor = ptrNodoPage;
-        }
+        wikiPages->fim = ptrNodoPage;
+        wikiPages->cursor = ptrNodoPage;
+
         return 1;
     }
 }
@@ -86,17 +82,17 @@ int lastPage(TPagina* wikiPages, TInfoPage infoEnter)
         if (wikiPages->inicio == NULL)
         {
             firstPage(wikiPages, infoEnter);
+            free(ptrNodoPage);
         }
         else
         {
             strncpy_s(ptrNodoPage->infoP.nomePage, MAX_CHAR, infoEnter.nomePage, _TRUNCATE);
-            //ptrNodoPage->infoP.nomePage = infoEnter.nomePage;
 
-            ptrNodoPage->nextPage = ptrNodoPage;
-
+            wikiPages->fim->nextPage = ptrNodoPage;
             wikiPages->fim = ptrNodoPage;
             wikiPages->tamanho++;
         }
+
         return 1;
     }
 }
@@ -149,7 +145,7 @@ int finderPage(TPagina* wikiPages, char* nomePage, TInfoPage** infoEnter)
     {
         if (strcmp(ptrNodoPage->infoP.nomePage, nomePage) == 0)
         {
-            //infoEnter = ptrNodoPage->infoP.nomePage;
+            *infoEnter = &(ptrNodoPage->infoP);
             wikiPages->cursor = ptrNodoPage;//QUERO USARO CURSOR PARA TER O ENDEREÇO PESQUISARO PARA EDITAR A PAGINA
             return 1;
         }
@@ -262,7 +258,7 @@ int openFileTester(char* nomeArquivo)
 
 int pesquisaFuncion(char* comando) //<------- PAREI AQUI
 {
-    char* vetorCommand[] = { "INSEREPAGINA","RETIRAPAGINA","INSEREEDITOR","INSERECONTRIBUICAO","RETIRACONTRIBUICAO","INSERELINK","RETIRALINK","CAMINHO","IMPRIMEPAGINA","IMPRIMEWIKED","FIM" };
+    char* vetorCommand[] = { "INSEREPAGINA","RETIRAPAGINA","INSEREEDITOR","RETIRAEDITOR", "INSERECONTRIBUICAO","RETIRACONTRIBUICAO","INSERELINK","RETIRALINK","CAMINHO","IMPRIMEPAGINA","IMPRIMEWIKED","FIM" };
     int TotalCommand = sizeof(vetorCommand) / sizeof(vetorCommand[0]);
     for (int index = 0; index < TotalCommand; index++)
     {
@@ -275,6 +271,7 @@ int pesquisaFuncion(char* comando) //<------- PAREI AQUI
 }
 
 //----------------------------PRINCIPAL----------------------------
+
 void executer(char* nomeArqTeste)
 {
     FILE* arqOpen;
@@ -295,10 +292,13 @@ void executer(char* nomeArqTeste)
 
     int finder;
 
-    //TEditores *editores = criaListEditores(); <---Cria a lista de editores
+    //<---Cria a lista de editores
+    TEditores* listEditores = bornListEditores();
+    TNodoEditor infosEditEnter;
 
+    //LISTA LINKS
     TListaLinks* listaLinks = bornListLinks();//Cria lista de Links
-    TLinks links;
+    TLinks linksEnter;
 
     TNodoPage* ptrPageOrigem;
 
@@ -384,6 +384,7 @@ void executer(char* nomeArqTeste)
 
         switch (numFuncion)
         {
+
         case 1://INSEREPAGINA <nome_pagina><nome_arquivo> 
   
             strncpy_s(infoEnter.nomePage, MAX_CHAR, comandosLinha[1], _TRUNCATE);
@@ -406,6 +407,8 @@ void executer(char* nomeArqTeste)
             printf("\n %s - %s \n", comandosLinha[1], comandosLinha[2]);//RETIRAR
 
             break;
+
+
         case 2://*RETIRAPAGINA <nome_pagina>: exclui a p�gina da WikED!, 
 
             strncpy_s(infoEnter.nomePage, MAX_CHAR, comandosLinha[1], _TRUNCATE);
@@ -424,11 +427,13 @@ void executer(char* nomeArqTeste)
                 logReturn = logEdit(arqLog, logMensagem);
             }
             break;
+
+
         case 3://INSEREEDITOR <nome_editor>: 
                 //insere um editor com o nome especificado (deve ser único). 
             finder = 0;
-            strncpy_s(infoEnter.nomePage, MAX_CHAR, comandosLinha[1], _TRUNCATE);
-            //finder = finderEditor(editores, infoEnter.nomePage);
+            strncpy_s(infosEditEnter.nomeEditor, MAX_CHAR, comandosLinha[1], _TRUNCATE);
+            finder = finderEditores(listEditores, infosEditEnter.nomeEditor, &infosEditEnter);
             if (finder == 1)//NOME REPETIDO
             {
                 strcpy_s(logMensagem, MAX_CHAR, "EDITOR JÁ CADASTRADO", _TRUNCATE);
@@ -436,21 +441,67 @@ void executer(char* nomeArqTeste)
             }
             else//CADASTRADO EDITOR
             {
-                //logReturn = lastEditor(editores, comandosLinha[1]);
+                logReturn = lastEditores(listEditores, infosEditEnter);//Seta que o nome vai estar aqui?
+
+                //FAZER O CADASTRO NA LISTA E EDITORES E INSERIR AS COLABORAÇÔES
+
+                //PAREI AQUI!!!!!!!!!!!!!!!!!!#########################
+
 
                 strcpy_s(logMensagem, MAX_CHAR, "EDITOR CADASTRADO", _TRUNCATE);
                 logReturn = logEdit(arqLog, logMensagem);
             }
             break;
-        case 4://*INSERECONTRIBUICAO <nome_pagina><nome_editor><nome_arquivo>: insere uma contribuição de
+
+        case 4://RETIRAEDITOR <nome_editor>: 
+            //retira um editor com o nome especificado (deve ser único). 
+            finder = 0;
+            strncpy_s(infosEditEnter.nomeEditor, MAX_CHAR, comandosLinha[1], _TRUNCATE);
+            finder = finderEditores(listEditores, infosEditEnter.nomeEditor, &infosEditEnter);
+            if (finder == 1)//NOME REPETIDO
+            {
+
+                //BRABO RETIRAR TODAS AS CONTRIBUIÇões
+
+
+                strcpy_s(logMensagem, MAX_CHAR, "EDITOR REMOVIDOS", _TRUNCATE);
+                logReturn = logEdit(arqLog, logMensagem);
+            }
+            else// EDITOR NÃO EXISTE
+            {
+                strcpy_s(logMensagem, MAX_CHAR, "EDITOR NO EXISTE", _TRUNCATE);
+                logReturn = logEdit(arqLog, logMensagem);
+            }
+            break;
+
+
+        case 5://*INSERECONTRIBUICAO <nome_pagina><nome_editor><nome_arquivo>: insere uma contribuição de
             //um dado editor para uma determinada página.O trecho de texto deve estar editado no arquivo especificado.* /
             finder = 0;
             strncpy_s(infoEnter.nomePage, MAX_CHAR, comandosLinha[1], _TRUNCATE);
             finder = finderPage(wikiPages, infoEnter.nomePage, &infoEnter);
             if (finder == 1)//Pagina Encontrada
             {
-                wikiPages->cursor;//PONTEIRO PARA A PAGINA LOCALIZADA <--FALTA!!!!
+                strncpy_s(infosEditEnter.nomeEditor, MAX_CHAR, comandosLinha[2], _TRUNCATE);
+                finder = finderPage(wikiPages, infosEditEnter.nomeEditor, &infosEditEnter);
+                if (finder == 1)
+                {
+                    //Nome da pagina
+                    strncpy_s(infosEditEnter.nomePage, MAX_CHAR, comandosLinha[1], _TRUNCATE);
+                    //nome editor
+                    strncpy_s(infosEditEnter.nomeEditor, MAX_CHAR, comandosLinha[2], _TRUNCATE);
+                    //endereço colaboração
+                    strncpy_s(infosEditEnter.colab, MAX_CHAR, comandosLinha[3], _TRUNCATE);
 
+
+                    logReturn = lastEditores(listEditores, infosEditEnter);                    );//CRIAR A CONTRIBUIÇÃO
+                }
+                else
+                {
+                    strcpy_s(logMensagem, MAX_CHAR, "EDITOR NO CADASTRADO", _TRUNCATE);
+                    logReturn = logEdit(arqLog, logMensagem);
+                }
+                //wikiPages->cursor;//PONTEIRO PARA A PAGINA LOCALIZADA <--FALTA!!!
             }
             else//Pagina não encotrada
             {
@@ -458,7 +509,9 @@ void executer(char* nomeArqTeste)
                 logReturn = logEdit(arqLog, logMensagem);
             }
             break;
-        case 5:/*RETIRACONTRIBUICAO <nome_pagina><nome_editor><nome_arquivo>: retira uma dada
+
+
+        case 6:/*RETIRACONTRIBUICAO <nome_pagina><nome_editor><nome_arquivo>: retira uma dada
                 contribuição. Apenas o editor responsável pela contribuição pode retirá-la. O histórico da contribuição deve
                 continuar ativo.*/
             finder = 0;
@@ -489,9 +542,13 @@ void executer(char* nomeArqTeste)
                 logReturn = logEdit(arqLog, logMensagem);
             }
             break;
-        case 6:/*INSERELINK <pagina_origem><pagina_destino>: insere um link (nome do arquivo) para página destino,
+
+
+        case 7:/*INSERELINK <pagina_origem><pagina_destino>: insere um link (nome do arquivo) para página destino,
                 na página origem.*/
+
             strncpy_s(infoEnter.nomePage, MAX_CHAR, comandosLinha[1], _TRUNCATE);
+
             finder = 0;
             finder = finderPage(wikiPages, infoEnter.nomePage, &infoEnter);//TEORICAMENTE AQUI VAI MUDAR O VALOR DE CURSOR
 
@@ -511,60 +568,108 @@ void executer(char* nomeArqTeste)
 
                     strncpy_s(ptrPageOrigem->infoP.linkPages.linkDestino, MAX_CHAR, comandosLinha[2], _TRUNCATE);
 
-                    strncpy_s(links.linkOrigem, MAX_CHAR, comandosLinha[1], _TRUNCATE);
+                    strncpy_s(linksEnter.linkOrigem, MAX_CHAR, comandosLinha[1], _TRUNCATE);
 
-                    strncpy_s(links.linkDestino, MAX_CHAR, comandosLinha[2], _TRUNCATE);
+                    strncpy_s(linksEnter.linkDestino, MAX_CHAR, comandosLinha[2], _TRUNCATE);
 
+                    logReturn = insereLink(ptrPageOrigem, ptrPageDestino);//Coloca os links nas paginas
 
-                    logReturn = lastLinks(listaLinks, links);
+                    logReturn = lastLinks(listaLinks, linksEnter);//coloca os links na lista de links
+
+                    strcpy_s(logMensagem, MAX_CHAR, "LINK INSERIDO", _TRUNCATE);
+                    logReturn = logEdit(arqLog, logMensagem);
                 }
                 else
                 {
                     //PAGINA DE DESTINO NÃO EXISTE
+                    strcpy_s(logMensagem, MAX_CHAR, "PAGINA DE DESTINO No EXISTE", _TRUNCATE);
+                    logReturn = logEdit(arqLog, logMensagem);
                 }
             }
             else
             {
                 //NÃO EXISTE PAGINA
+                strcpy_s(logMensagem, MAX_CHAR, "PAGINA NO EXISTE", _TRUNCATE);
+                logReturn = logEdit(arqLog, logMensagem);
             }
-
-
             break;
-        case 7:/*RETIRALINK <pagina_origem><pagina_destino>: retira um link (nome do arquivo) da página origem
+
+
+        case 8:/*RETIRALINK <pagina_origem><pagina_destino>: retira um link (nome do arquivo) da página origem
                 para uma página destino.*/
-            finder = 0;
+
             strncpy_s(infoEnter.nomePage, MAX_CHAR, comandosLinha[1], _TRUNCATE);
 
-            //finderLink(TListaLinks * wikiOrigem, TListaLinks * wikiDestino);
-            finder = finderPage(wikiPages, infoEnter.nomePage, &infoEnter);//TEORICAMENTE AQUI VAI MUDAR O VALOR DE CURSOR
-
-            ptrPageOrigem = wikiPages->cursor;//PEGA O VALOR DO CURSOR ATUAL GERADO NA LINHA DE CIMA
-
             finder = 0;
-            strncpy_s(infoEnter.nomePage, MAX_CHAR, comandosLinha[2], _TRUNCATE);
             finder = finderPage(wikiPages, infoEnter.nomePage, &infoEnter);//TEORICAMENTE AQUI VAI MUDAR O VALOR DE CURSOR
 
-            ptrPageDestino = wikiPages->cursor;//PEGA O VALOR DO CURSOR ATUAL GERADO NA LINHA DE CIMA
+            if (finder == 1)//pagina encontrada
+            {
+                ptrPageOrigem = wikiPages->cursor;//PEGA O VALOR DO CURSOR ATUAL GERADO NA LINHA DE CIMA
 
-            //AQUI VAI EDITAR, RETIRAR O ENDEREÇO DA PAGINA DESTINO
+                strncpy_s(ptrPageOrigem->infoP.linkPages.linkOrigem, MAX_CHAR, comandosLinha[1], _TRUNCATE);
 
+                finder = 0;
+                strncpy_s(infoEnter.nomePage, MAX_CHAR, comandosLinha[2], _TRUNCATE);
+                finder = finderPage(wikiPages, infoEnter.nomePage, &infoEnter);//TEORICAMENTE AQUI VAI MUDAR O VALOR DE CURSO
+
+                if (finder == 1)//CAMINHO Destinho
+                {
+                    ptrPageDestino = wikiPages->cursor;
+
+
+
+
+
+                    strcpy_s(logMensagem, MAX_CHAR, "LINK INSERIDO", _TRUNCATE);
+                    logReturn = logEdit(arqLog, logMensagem);
+                }
+                else
+                {
+                    //PAGINA DE DESTINO NÃO EXISTE
+                    strcpy_s(logMensagem, MAX_CHAR, "PAGINA DE DESTINO No EXISTE", _TRUNCATE);
+                    logReturn = logEdit(arqLog, logMensagem);
+                }
+            }
+            else
+            {
+                //NÃO EXISTE PAGINA
+                strcpy_s(logMensagem, MAX_CHAR, "PAGINA NO EXISTE", _TRUNCATE);
+                logReturn = logEdit(arqLog, logMensagem);
+            }
             break;
-        case 8:/*CAMINHO <pagina_origem><pagina_destino>: verifica se há caminho entre duas páginas (por meio das
+        case 9:/*CAMINHO <pagina_origem><pagina_destino>: verifica se há caminho entre duas páginas (por meio das
                 listas de links). Escreve no arquivo de log (HA/NAO HA CAMINHO DA <pagina_origem> PARA <pagina_destino>)*/
             
 
+            break;
+        case 10:/*IMPRIMEPAGINA <nome_pagina>: gera o arquivo e imprime as informações da página especificada.*/
+
+            strncpy_s(infoEnter.nomePage, MAX_CHAR, comandosLinha[1], _TRUNCATE);
+
+            logReturn = finderPage(wikiPages, infoEnter.nomePage, &infoEnter);
+            if (logReturn == 1)//Pagina  existe
+            {
+                TInfoPage* ptrNodoPage = wikiPages->cursor;
 
 
+            }
+            else//PAGINA NO EXISTE
+            {
+
+                strcpy_s(logMensagem, MAX_CHAR, "PAGINA NO EXISTE", _TRUNCATE);
+
+                logReturn = logEdit(arqLog, logMensagem);
+            }
+
+            printf("\n %s - %s \n", comandosLinha[1], comandosLinha[2]);//RETIRAR
 
             break;
-        case 9:/*IMPRIMEPAGINA <nome_pagina>: gera o arquivo e imprime as informações da página especificada.*/
-
-            break;
-        case 10:/*IMPRIMEWIKED: gera os arquivos e imprime todas as informações das páginas da WikEDI, como
+        case 11:/*IMPRIMEWIKED: gera os arquivos e imprime todas as informações das páginas da WikEDI, como
 especificado acima.*/
 
             break;
-        case 11:/*FIM: determina a finalização do programa. Toda a memória alocada deve ser liberada.*/
+        case 12:/*FIM: determina a finalização do programa. Toda a memória alocada deve ser liberada.*/
             //DESALOCAR TODO QUE FALTAR;
 
             break;
@@ -585,17 +690,37 @@ especificado acima.*/
     //1-FREE NA LISTA DE EDITORES
 }//fim Executer
 
+void printPageWikiArq(TPagina *wikiPages, TNodoEditor* infosEdit)
+{
+    TInfoPage infoEnter;
+
+    int finder = 0;
+
+    if (finder == 1)
+    {
+        // Abra o arquivo para adicionar conteúdo
+        FILE* arquivo;
+        errno_t err = fopen_s(&arquivo, "nomePage", "w");
+        if (err != 0)
+        {
+            printf("Erro ao abrir o arquivo.\n");
+            return;
+        }
+    }
+    else//PAGINA NÃO EXISTE
+    {
+
+    }
+
+
+    
+
+}
+
 void closeArq(FILE* nomeArq)
 {
     fclose(nomeArq);
 }
-
-void printTESTE()
-{
-    printf("\nTESTE DESGRA�A - I'm at line %d\n", __LINE__);
-}
-
-
 
 
 //---------------------------------- FUN��ES MANUPULA ARQUIVO--------------------

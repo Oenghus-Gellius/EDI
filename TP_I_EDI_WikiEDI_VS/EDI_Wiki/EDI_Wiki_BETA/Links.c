@@ -42,13 +42,11 @@ int firstLinks(TListaLinks* TListaLinks, TLinks links)
         strncpy_s(ptrTNodoLinks->infoLink.linkOrigem, MAX_CHAR, links.linkOrigem, _TRUNCATE);
         strncpy_s(ptrTNodoLinks->infoLink.linkDestino, MAX_CHAR, links.linkDestino, _TRUNCATE);
 
-        ptrTNodoLinks->nexNodo = TListaLinks->inicio;
+        ptrTNodoLinks->nexNodo = NULL;
         TListaLinks->inicio = ptrTNodoLinks;
         TListaLinks->tamanho++;
-        if (TListaLinks->tamanho == 1)
-        {
-            TListaLinks->fim = NULL;
-        }
+
+        TListaLinks->fim = ptrTNodoLinks;
         return 1;
     }
 }
@@ -78,14 +76,14 @@ int lastLinks(TListaLinks* TListaLinks, TLinks links)
         if (TListaLinks->inicio == NULL)
         {
             firstLinks(TListaLinks, links);
+            free(ptrTNodoLinks);
         }
         else
         {
             strncpy_s(ptrTNodoLinks->infoLink.linkOrigem, MAX_CHAR, links.linkOrigem, _TRUNCATE);
             strncpy_s(ptrTNodoLinks->infoLink.linkDestino, MAX_CHAR, links.linkDestino, _TRUNCATE);
 
-            ptrTNodoLinks->nexNodo = ptrTNodoLinks;
-
+            TListaLinks->fim->nexNodo = ptrTNodoLinks;
             TListaLinks->fim = ptrTNodoLinks;
             TListaLinks->tamanho++;
         }
