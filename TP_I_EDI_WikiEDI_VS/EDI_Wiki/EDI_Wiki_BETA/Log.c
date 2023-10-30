@@ -22,19 +22,7 @@ int logEdit(FILE* arqLog, char* logMensagem) //<----------------PAREI AQUI
         return -1;
     }
 
-    char lineInArq[MAX_CHAR];
-    char lineLog[MAX_CHAR];
-
-    //strncpy_s(lineInArq, ENTRADA_DADOS, logMensagem, _TRUNCATE);
-
-    //fseek(arqLog, 0, SEEK_END);
-
-    //size_t elementosEscritos = fwrite(&lineInArq, strlen(lineInArq), 1, arqLog);
-
-    // Escreva a mensagem no arquivo, seguida por uma quebra de linha
     fprintf(arqLog, "%s\n", logMensagem);
-
-    printf("\nlogMsg - %s\n", logMensagem);
 
     return 1;
 }

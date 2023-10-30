@@ -35,15 +35,14 @@ typedef struct Links {
 
 typedef char TNomeEditor[MAX_CHAR];
 
-typedef struct ListaEditores {
-	TNomeEditor nomeEditor;
-	int tamanho;
-}TListaEditores;
-
-typedef struct NodoEditor {
-	char nomePage;
+typedef struct ConteudoEdit {
+	char nomePage[MAX_CHAR];
 	TNomeEditor nomeEditor;
 	TColaboracion colab;//Endereço do texto colaborativo
+}TConteudoEdit;
+
+typedef struct NodoEditor {
+	TConteudoEdit infoEdit;
 	struct NodoEditor* nextEditor;
 }TNodoEditor;
 
@@ -52,9 +51,9 @@ typedef struct Editores {
 	TNodoEditor* inicio, *fim;
 }TEditores;
 
-
 typedef struct InfoPage {
 	char nomePage[MAX_CHAR];//nome da pagina da Wiki
+	char nomeArqPage[MAX_CHAR];
 	TLinks linkPages;//links entre paginas se houver
 }TInfoPage;
 

@@ -10,21 +10,21 @@
 #include <stdlib.h>
 #include <string.h>
 
-//---------------------Lista de links
+//---------------------Lista de Colaborações
 
 //Cria a primeira pagina para alocação = construtor
 TEditores* bornListEditores();
 
 //Criar a primeira Pagina da lista ou "posiciona" na primeira colocação
-int firstEditores(TEditores* listColab, TNodoEditor infosEdit);
+int firstEditores(TEditores* listColab, TConteudoEdit infosEdit);
 
 //ciar a proxima pagina da lista encadeada
-int lastEditores(TEditores* listColab, TNodoEditor infosEdit);
+int lastEditores(TEditores* listColab, TConteudoEdit infosEdit);
 
-int removeEditores(TEditores* listColab, char* nomeEditor, TNodoEditor* infosEdit);
+int removeEditores(TEditores* listColab, char* nomeEditor, TConteudoEdit* infosEdit);
 
-// Pesquisa na lista de Links
-int finderEditores(TEditores* listColab, char* nomeEditor, TInfoPage** infosEdit);
+// Pesquisa na lista 
+int finderEditores(TEditores* listColab, char* nomeEditor, TConteudoEdit* infosEdit);
 
 //Fun��o que retorna que n�otem pagina alocada
 int emptyEditores(TEditores* listColab);
@@ -34,15 +34,5 @@ int fullEditores(TEditores* listColab);
 
 //Fun��o que retorna o tamanho/quantidade de Paginas na Wiki
 int quantityEditores(TEditores* listColab);
-
-
-//LISTA QUE ARMAZENA OS NOMES DOS COLABORADORES
-int listaEditores(TNomeEditor** listaEditores, char* nomeEditor);
-
-void destroyer(TEditores* listColab);
-//destrutor (desaloca espaço na memoria
-
-
-//------------------------------
 
 #endif 

@@ -1,7 +1,8 @@
 ﻿#include "WikiEDI_BETA.h"
 //#include "Links.h"
 #include "testador.h"
-#include "Log.h"
+//#include "Log.h"
+#include "Editores.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -45,7 +46,8 @@ int firstPage(TPagina* wikiPages, TInfoPage infoEnter)
     }
     else
     {
-        strncpy_s(ptrNodoPage->infoP.nomePage, MAX_CHAR, infoEnter.nomePage, _TRUNCATE);
+        ptrNodoPage->infoP = infoEnter;
+        //strncpy_s(ptrNodoPage->infoP.nomePage, MAX_CHAR, infoEnter.nomePage, _TRUNCATE);
 
         ptrNodoPage->nextPage = NULL;
         wikiPages->inicio = ptrNodoPage;
@@ -62,7 +64,7 @@ int lastPage(TPagina* wikiPages, TInfoPage infoEnter)
     // fazer que a fun��o fullPage retorne -1 se estiver cheia
     if (fullPage(wikiPages) == -1)
     {
-        printf("\nErro na aloca�ao de memoria para a pagina - I'm at line %d\n", __LINE__);
+        printf("\nErro na alocaao de memoria para a pagina - I'm at line %d\n", __LINE__);
         free(wikiPages);
         return 0;
     }
@@ -70,7 +72,7 @@ int lastPage(TPagina* wikiPages, TInfoPage infoEnter)
     TNodoPage* ptrNodoPage = (TNodoPage*)malloc(sizeof(TNodoPage));
     if (ptrNodoPage == NULL)
     {
-        printf("\nErro na aloca�ao de memoria para a pagina - I'm at line %d\n", __LINE__);
+        printf("\nErro na alocao de memoria para a pagina - I'm at line %d\n", __LINE__);
         free(wikiPages);
         return 0;
     }
@@ -86,7 +88,8 @@ int lastPage(TPagina* wikiPages, TInfoPage infoEnter)
         }
         else
         {
-            strncpy_s(ptrNodoPage->infoP.nomePage, MAX_CHAR, infoEnter.nomePage, _TRUNCATE);
+            ptrNodoPage->infoP = infoEnter;
+            //strncpy_s(ptrNodoPage->infoP.nomePage, MAX_CHAR, infoEnter.nomePage, _TRUNCATE);
 
             wikiPages->fim->nextPage = ptrNodoPage;
             wikiPages->fim = ptrNodoPage;
@@ -122,7 +125,7 @@ int removePage(TPagina* wikiPages, char* nomePage, TInfoPage* infoEnter)
                 {
                     ptrBackNodePage->nextPage = ptrNodoPage->nextPage;
                 }
-            *infoEnter->nomePage = ptrNodoPage->infoP.nomePage;
+            //*infoEnter->nomePage = ptrNodoPage->infoP.nomePage;
             wikiPages->tamanho--;
             return 1;
         }
@@ -164,7 +167,7 @@ int fullPage(TPagina* wikiPages)
     TNodoPage* ptrNodoPage = (TNodoPage*)malloc(sizeof(TNodoPage));
     if (ptrNodoPage == NULL)
     {
-        printf("\nErro na aloca�ao de memoria para a pagina - I'm at line %d\n", __LINE__);
+        printf("\nErro na alocaao de memoria para a pagina - I'm at line %d\n", __LINE__);
         return -1;
     }
     free(ptrNodoPage);
@@ -212,7 +215,7 @@ void separarComandoEArquivo(char* entrada, char* comando, char* nomeArquivo) {
 
 void separarComandoE4Palavras(const char* entrada, char** comandosLinha) {
     int i = 0;
-    char comando[MAX_CHAR];
+
     int comando_len = 0;
 
     int k = 0;
@@ -292,13 +295,19 @@ void executer(char* nomeArqTeste)
 
     int finder;
 
-    //<---Cria a lista de editores
-    TEditores* listEditores = bornListEditores();
-    TNodoEditor infosEditEnter;
+    //<---Cria a lista de edições
+    TEditores* listColab = bornListEditores();
+    //informações da lista de EDIÇÃO
+    TConteudoEdit infosEditEnter;
+
+    //Lista de editores
+    TEditores* listaEditores = bornListEditores();
+    //informações da lista de EDITORES
+    TConteudoEdit nomeEditorEnter;
 
     //LISTA LINKS
     TListaLinks* listaLinks = bornListLinks();//Cria lista de Links
-    TLinks linksEnter;
+    TLinksLista linksEnter;
 
     TNodoPage* ptrPageOrigem;
 
@@ -307,14 +316,14 @@ void executer(char* nomeArqTeste)
     char** comandosLinha = (char**)malloc(5 * sizeof(char*));//Aloca o vetor de comando 
     if (comandosLinha == NULL)
     {
-        printf("\nErro na aloca�ao de memoria para o vetor comandosLinha - I'm at line %d\n", __LINE__);
+        printf("\nErro na alocaao de memoria para o vetor comandosLinha - I'm at line %d\n", __LINE__);
         return;
     }
     else
     {
         for (int i = 0; i < MAX_VARIEVEIS; i++)
         {
-            comandosLinha[i] = (char*)malloc(sizeof(MAX_CHAR));
+            comandosLinha[i] = (char*)malloc(MAX_CHAR *sizeof(char));
             // Lidar com a falha na aloca��o de mem�ria, se necess�rio
             if (comandosLinha[i] == NULL)
             {
@@ -343,11 +352,11 @@ void executer(char* nomeArqTeste)
     logMensagem = (char*)malloc(MAX_CHAR * sizeof(char));//Aloca o vetor de char da mensagem log
     if (logMensagem == NULL)
     {
-        printf("\nErro na aloca�ao de memoria para o char log - I'm at line %d\n", __LINE__);
+        printf("\nErro na alocaao de memoria para o char log - I'm at line %d\n", __LINE__);
         return;
     }
 
-    //------------MEU SOUNHO ERA CONSGUIR FAZER DISSO UMA FUN�AO---------
+    //------------ABRE ARQUIVOS---------
     errno_t err = fopen_s(&arqOpen, nomeArqTeste, "r");//Abre o arquivo texte
     if (arqOpen == NULL && err != 0) {
         printf("Erro ao abrir o arquivo %s.\n", nomeArqTeste);
@@ -356,14 +365,14 @@ void executer(char* nomeArqTeste)
 
     rewind(arqOpen);
 
-    //------------MEU SOUNHO ERA CONSGUIR FAZER DISSO UMA FUN�AO---------
+
     errno_t err1 = fopen_s(&arqLog, "logWiki.txt", "a+");//Abre o arquivo log
     if (arqLog == NULL && err1 != 0) {
         printf("Erro ao abrir o arquivo logWiki.txt.- I'm at line %d\n", __LINE__);
         return;
     }
 
-    printf("\nIniciando a execu��o, Boa Jornada!!!!\n");
+    printf("\nIniciando a execuo, Boa Jornada!!!!\n");
 
     //-----------------------------------LOOP-------------------------------------
     while (fgets(lineCommandArq, sizeof(lineCommandArq), arqOpen) != NULL)
@@ -388,24 +397,19 @@ void executer(char* nomeArqTeste)
         case 1://INSEREPAGINA <nome_pagina><nome_arquivo> 
   
             strncpy_s(infoEnter.nomePage, MAX_CHAR, comandosLinha[1], _TRUNCATE);
+            strncpy_s(infoEnter.nomeArqPage, MAX_CHAR, comandosLinha[2], _TRUNCATE);
 
             logReturn = finderPage(wikiPages, infoEnter.nomePage, &infoEnter);
             if (logReturn == 1)//Pagina ja existe
             {
-                strcpy_s(logMensagem, MAX_CHAR, "ERRO: PAGINA J� EXISTE", _TRUNCATE);
-                logReturn = logEdit(arqLog, logMensagem);
+                fprintf(arqLog, "PAGINA %s JA EXISTE%s\n", comandosLinha[1]);
             }
             else//Cria pagina
             {
                 logReturn = lastPage(wikiPages, infoEnter);
 
-                strcpy_s(logMensagem, MAX_CHAR, "PAGINA CRIADA", _TRUNCATE);
-
-                logReturn = logEdit(arqLog, logMensagem);
+                fprintf(arqLog, "PAGINA %s CRIADA%s\n", comandosLinha[1]);
             }
-
-            printf("\n %s - %s \n", comandosLinha[1], comandosLinha[2]);//RETIRAR
-
             break;
 
 
@@ -418,13 +422,12 @@ void executer(char* nomeArqTeste)
             if (numFuncion == 1)//pagina encontrada
             {
                 logReturn = removePage(wikiPages, infoEnter.nomePage, &infoEnter);
-                strcpy_s(logMensagem, MAX_CHAR, "PAGINA REMOVIDA", _TRUNCATE);
-                logReturn = logEdit(arqLog, logMensagem);
+
+                fprintf(arqLog, "PAGINA REMOVIDA - %s\n", comandosLinha[1]);
             }
             else
             {
-                strcpy_s(logMensagem, MAX_CHAR, "PAGINA N�O EXISTE", _TRUNCATE);
-                logReturn = logEdit(arqLog, logMensagem);
+                fprintf(arqLog, "PAGINA NO EXISTE - %s\n", comandosLinha[1]);
             }
             break;
 
@@ -432,45 +435,44 @@ void executer(char* nomeArqTeste)
         case 3://INSEREEDITOR <nome_editor>: 
                 //insere um editor com o nome especificado (deve ser único). 
             finder = 0;
-            strncpy_s(infosEditEnter.nomeEditor, MAX_CHAR, comandosLinha[1], _TRUNCATE);
-            finder = finderEditores(listEditores, infosEditEnter.nomeEditor, &infosEditEnter);
+            strncpy_s(nomeEditorEnter.nomeEditor, MAX_CHAR, comandosLinha[1], _TRUNCATE);
+            finder = finderEditores(listaEditores, nomeEditorEnter.nomeEditor, &nomeEditorEnter);
             if (finder == 1)//NOME REPETIDO
             {
-                strcpy_s(logMensagem, MAX_CHAR, "EDITOR JÁ CADASTRADO", _TRUNCATE);
-                logReturn = logEdit(arqLog, logMensagem);
+                fprintf(arqLog, "EDITOR JÁ CADASTRADO - %s\n", comandosLinha[1]);
             }
             else//CADASTRADO EDITOR
             {
-                logReturn = lastEditores(listEditores, infosEditEnter);//Seta que o nome vai estar aqui?
+                strncpy_s(nomeEditorEnter.nomeEditor, MAX_CHAR, comandosLinha[1], _TRUNCATE);
 
-                //FAZER O CADASTRO NA LISTA E EDITORES E INSERIR AS COLABORAÇÔES
+                logReturn = lastEditores(listaEditores, nomeEditorEnter);//Seta que o nome vai estar aqui
 
-                //PAREI AQUI!!!!!!!!!!!!!!!!!!#########################
-
-
-                strcpy_s(logMensagem, MAX_CHAR, "EDITOR CADASTRADO", _TRUNCATE);
-                logReturn = logEdit(arqLog, logMensagem);
+                fprintf(arqLog, "EDITOR CADASTRADO - %s\n", comandosLinha[1]);
             }
             break;
 
         case 4://RETIRAEDITOR <nome_editor>: 
             //retira um editor com o nome especificado (deve ser único). 
             finder = 0;
-            strncpy_s(infosEditEnter.nomeEditor, MAX_CHAR, comandosLinha[1], _TRUNCATE);
-            finder = finderEditores(listEditores, infosEditEnter.nomeEditor, &infosEditEnter);
-            if (finder == 1)//NOME REPETIDO
+            strncpy_s(nomeEditorEnter.nomeEditor, MAX_CHAR, comandosLinha[1], _TRUNCATE);
+            finder = finderEditores(listaEditores, nomeEditorEnter.nomeEditor, &nomeEditorEnter);
+            if (finder == 1)//EDITOR Encotrado
             {
-
-                //BRABO RETIRAR TODAS AS CONTRIBUIÇões
-
-
-                strcpy_s(logMensagem, MAX_CHAR, "EDITOR REMOVIDOS", _TRUNCATE);
-                logReturn = logEdit(arqLog, logMensagem);
+                //remove TODAS AS COLABORAÇÕES DO EDITOR
+                logReturn = removeEditores(listaEditores, nomeEditorEnter.nomeEditor, &nomeEditorEnter);
+                TNodoEditor* ptrlistColab = listColab->inicio;
+                while (ptrlistColab != NULL)
+                {
+                    if (strcmp(ptrlistColab->infoEdit.nomeEditor , nomeEditorEnter.nomeEditor) == 0)
+                    {
+                        logReturn = removeEditores(listColab, nomeEditorEnter.nomeEditor, &infosEditEnter);
+                    }
+                }
+                fprintf(arqLog, "EDITOR REMOVIDO - %s\n", comandosLinha[1]);
             }
             else// EDITOR NÃO EXISTE
             {
-                strcpy_s(logMensagem, MAX_CHAR, "EDITOR NO EXISTE", _TRUNCATE);
-                logReturn = logEdit(arqLog, logMensagem);
+                fprintf(arqLog, "EDITOR NO EXISTE - %s\n", comandosLinha[1]);
             }
             break;
 
@@ -478,13 +480,15 @@ void executer(char* nomeArqTeste)
         case 5://*INSERECONTRIBUICAO <nome_pagina><nome_editor><nome_arquivo>: insere uma contribuição de
             //um dado editor para uma determinada página.O trecho de texto deve estar editado no arquivo especificado.* /
             finder = 0;
+
             strncpy_s(infoEnter.nomePage, MAX_CHAR, comandosLinha[1], _TRUNCATE);
             finder = finderPage(wikiPages, infoEnter.nomePage, &infoEnter);
             if (finder == 1)//Pagina Encontrada
             {
+
                 strncpy_s(infosEditEnter.nomeEditor, MAX_CHAR, comandosLinha[2], _TRUNCATE);
-                finder = finderPage(wikiPages, infosEditEnter.nomeEditor, &infosEditEnter);
-                if (finder == 1)
+                finder = finderEditores(listaEditores, infosEditEnter.nomeEditor, &nomeEditorEnter);
+                if (finder == 1)//
                 {
                     //Nome da pagina
                     strncpy_s(infosEditEnter.nomePage, MAX_CHAR, comandosLinha[1], _TRUNCATE);
@@ -492,21 +496,21 @@ void executer(char* nomeArqTeste)
                     strncpy_s(infosEditEnter.nomeEditor, MAX_CHAR, comandosLinha[2], _TRUNCATE);
                     //endereço colaboração
                     strncpy_s(infosEditEnter.colab, MAX_CHAR, comandosLinha[3], _TRUNCATE);
+                    
+                    logReturn = lastEditores(listColab, infosEditEnter);//CRIAR A CONTRIBUIÇÃO
 
-
-                    logReturn = lastEditores(listEditores, infosEditEnter);                    );//CRIAR A CONTRIBUIÇÃO
+                    fprintf(arqLog, "CONTRIBUICAO FEITAR COM SUCESSO - PAGINA.: %s - EDITOR.: %s \n",
+                        comandosLinha[1], comandosLinha[2]);
                 }
                 else
                 {
-                    strcpy_s(logMensagem, MAX_CHAR, "EDITOR NO CADASTRADO", _TRUNCATE);
-                    logReturn = logEdit(arqLog, logMensagem);
+                    fprintf(arqLog, "EDITOR NO EXISTE - %s\n", comandosLinha[2]);
                 }
                 //wikiPages->cursor;//PONTEIRO PARA A PAGINA LOCALIZADA <--FALTA!!!
             }
             else//Pagina não encotrada
             {
-                strcpy_s(logMensagem, MAX_CHAR, "PAGINA NÃO LOCALIZADA", _TRUNCATE);
-                logReturn = logEdit(arqLog, logMensagem);
+                fprintf(arqLog, "PAGINA NO EXISTE - %s\n", comandosLinha[1]);
             }
             break;
 
@@ -516,30 +520,33 @@ void executer(char* nomeArqTeste)
                 continuar ativo.*/
             finder = 0;
             strncpy_s(infoEnter.nomePage, MAX_CHAR, comandosLinha[1], _TRUNCATE);
-            finder = finderPage(wikiPages, infoEnter.nomePage, &infoEnter);
+            finder = finderPage(wikiPages, infoEnter.nomePage, &infosEditEnter);
             if (finder == 1)//Pagina Encontrada
             {
                 finder = 0;
-                strncpy_s(infoEnter.nomePage, MAX_CHAR, comandosLinha[2], _TRUNCATE);
-                //finder = finderEditor(editores, infoEnter.nomePage);
+                strncpy_s(infosEditEnter.nomeEditor, MAX_CHAR, comandosLinha[2], _TRUNCATE);
+                finder = finderEditores(listColab, infosEditEnter.nomeEditor, &infosEditEnter);
                 if (finder == 1)//NOME ENCONTRADO
                 {
+                    //finder = finderEditor(listColab, infosEditEnter.colab);
+                    if (finder == 0)//COlab encotrada
+                    {
+                        logReturn = removeEditores(listColab,infosEditEnter.colab, &nomeEditorEnter);
 
-                    wikiPages->cursor;//PONTEIRO PARA A PAGINA LOCALIZADA <--FALTA!!!!
+                        fprintf(arqLog, "CONTRIBUIÇÃO DE %s RETIRADA DA PAGINA %s\n", 
+                            comandosLinha[2], comandosLinha[1]);
 
-                    strcpy_s(logMensagem, MAX_CHAR, "CONTRIBUIÇÃO RETIRADA", _TRUNCATE);
-                    logReturn = logEdit(arqLog, logMensagem);
+                    }
+                    //wikiPages->cursor;//PONTEIRO PARA A PAGINA LOCALIZADA <--FALTA!!!!
                 }
                 else//EDITOR NÃO ALTORIZADO ALTERAR
                 {
-                    strcpy_s(logMensagem, MAX_CHAR, "EDITOR NÃO ALTORIZADO", _TRUNCATE);
-                    logReturn = logEdit(arqLog, logMensagem);
+                    fprintf(arqLog, "EDITOR -%s- NO ALTORUZADO A EDITAR \n", comandosLinha[2]);
                 }
             }
             else//Pagina não encotrada
             {
-                strcpy_s(logMensagem, MAX_CHAR, "PAGINA NÃO LOCALIZADA", _TRUNCATE);
-                logReturn = logEdit(arqLog, logMensagem);
+                fprintf(arqLog, "PAGINA NO EXISTE - %s\n", comandosLinha[1]);
             }
             break;
 
@@ -576,21 +583,20 @@ void executer(char* nomeArqTeste)
 
                     logReturn = lastLinks(listaLinks, linksEnter);//coloca os links na lista de links
 
+                    fprintf(arqLog, "LINK -%s- INSERIDO - PAGINA %s\n", comandosLinha[2],comandosLinha[1]);
                     strcpy_s(logMensagem, MAX_CHAR, "LINK INSERIDO", _TRUNCATE);
                     logReturn = logEdit(arqLog, logMensagem);
                 }
                 else
                 {
                     //PAGINA DE DESTINO NÃO EXISTE
-                    strcpy_s(logMensagem, MAX_CHAR, "PAGINA DE DESTINO No EXISTE", _TRUNCATE);
-                    logReturn = logEdit(arqLog, logMensagem);
+                    fprintf(arqLog, "PAGINA -%s- DESTINO No EXISTE\n", comandosLinha[2]);
                 }
             }
             else
             {
                 //NÃO EXISTE PAGINA
-                strcpy_s(logMensagem, MAX_CHAR, "PAGINA NO EXISTE", _TRUNCATE);
-                logReturn = logEdit(arqLog, logMensagem);
+                fprintf(arqLog, "PAGINA -%s- No EXISTE\n", comandosLinha[1]);
             }
             break;
 
@@ -617,30 +623,47 @@ void executer(char* nomeArqTeste)
                 {
                     ptrPageDestino = wikiPages->cursor;
 
-
-
-
-
-                    strcpy_s(logMensagem, MAX_CHAR, "LINK INSERIDO", _TRUNCATE);
-                    logReturn = logEdit(arqLog, logMensagem);
+                    fprintf(arqLog, "LINK -%s- REMOVIDO DA PAGINA %s\n", comandosLinha[2], comandosLinha[1]);
                 }
                 else
                 {
                     //PAGINA DE DESTINO NÃO EXISTE
-                    strcpy_s(logMensagem, MAX_CHAR, "PAGINA DE DESTINO No EXISTE", _TRUNCATE);
-                    logReturn = logEdit(arqLog, logMensagem);
+                    fprintf(arqLog, "PAGINA -%s- DE DESTINO NO EXISTE\n", comandosLinha[2]);
                 }
             }
             else
             {
                 //NÃO EXISTE PAGINA
-                strcpy_s(logMensagem, MAX_CHAR, "PAGINA NO EXISTE", _TRUNCATE);
-                logReturn = logEdit(arqLog, logMensagem);
+                fprintf(arqLog, "PAGINA -%s- No EXISTE\n", comandosLinha[1]);
             }
             break;
+
+            //PAREI AQUIs
         case 9:/*CAMINHO <pagina_origem><pagina_destino>: verifica se há caminho entre duas páginas (por meio das
                 listas de links). Escreve no arquivo de log (HA/NAO HA CAMINHO DA <pagina_origem> PARA <pagina_destino>)*/
-            
+            strncpy_s(infoEnter.nomePage, MAX_CHAR, comandosLinha[1], _TRUNCATE);
+
+            finder = 0;
+            finder = finderPage(wikiPages, infoEnter.nomePage, &infoEnter);//TEORICAMENTE AQUI VAI MUDAR O VALOR DE CURSOR
+            if (finder == 1)
+            {
+                finder = finderLinksOrig(listaLinks, comandosLinha[1], &linksEnter);
+                if (finder == 1)
+                {
+                    finder = finderLinksDest(listaLinks, comandosLinha[2], &linksEnter);
+                    if (finder == 1)
+                    {
+                        fprintf(arqLog, "CAMINHO ENTRE %s ORIGEM %s DESTINO\n", comandosLinha[1], comandosLinha[2]);
+
+                    }
+                }
+            }
+            else
+            {
+                fprintf(arqLog, "SEM CAMINHO ENTRE %s ORIGEM %s DESTINO\n", comandosLinha[1], comandosLinha[2]);
+
+            }
+
 
             break;
         case 10:/*IMPRIMEPAGINA <nome_pagina>: gera o arquivo e imprime as informações da página especificada.*/
@@ -650,19 +673,15 @@ void executer(char* nomeArqTeste)
             logReturn = finderPage(wikiPages, infoEnter.nomePage, &infoEnter);
             if (logReturn == 1)//Pagina  existe
             {
-                TInfoPage* ptrNodoPage = wikiPages->cursor;
-
+                TNodoPage* ptrNodoPage = wikiPages->cursor;
+                printPageWikiArq(wikiPages, listColab, listaLinks);
 
             }
             else//PAGINA NO EXISTE
             {
-
-                strcpy_s(logMensagem, MAX_CHAR, "PAGINA NO EXISTE", _TRUNCATE);
-
-                logReturn = logEdit(arqLog, logMensagem);
+                //NÃO EXISTE PAGINA
+                fprintf(arqLog, "PAGINA -%s- No EXISTE\n", comandosLinha[1]);
             }
-
-            printf("\n %s - %s \n", comandosLinha[1], comandosLinha[2]);//RETIRAR
 
             break;
         case 11:/*IMPRIMEWIKED: gera os arquivos e imprime todas as informações das páginas da WikEDI, como
@@ -690,62 +709,68 @@ especificado acima.*/
     //1-FREE NA LISTA DE EDITORES
 }//fim Executer
 
-void printPageWikiArq(TPagina *wikiPages, TNodoEditor* infosEdit)
+
+//----------------------------PAREI AQUIIIIIIIIIIIIIIIIIIIIII-------------------------
+
+void printPageWikiArq(TPagina *wikiPages, TEditores* listColab, TListaLinks* listaLinks)
 {
-    TInfoPage infoEnter;
+    TNodoPage* ptrNodoPage = wikiPages->cursor;
 
-    int finder = 0;
+    TNodoEditor* ptrNodoEditor = listColab->inicio;
 
-    if (finder == 1)
-    {
-        // Abra o arquivo para adicionar conteúdo
-        FILE* arquivo;
-        errno_t err = fopen_s(&arquivo, "nomePage", "w");
-        if (err != 0)
-        {
-            printf("Erro ao abrir o arquivo.\n");
-            return;
-        }
-    }
-    else//PAGINA NÃO EXISTE
-    {
-
-    }
-
-
+    TNodoLink* ptrNodoLinks = listaLinks->inicio;
     
 
+    char lineCommandArq[MAX_LINE_LENGTH];
+
+    // Abra o arquivo para adicionar conteúdo
+    FILE* arquivo;
+    errno_t err = fopen_s(&arquivo, ptrNodoPage->infoP.nomeArqPage, "w+");
+    if (err != 0)
+    {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
+
+    // Escreva o texto no arquivo
+    fprintf(arquivo, "%s\n", ptrNodoPage->infoP.nomePage);//Nome PAge
+    for (int i = 1; i <= listColab->tamanho; i++)//Lista de colaborações e Editores
+    {
+        if (strcmp(ptrNodoEditor->infoEdit.nomePage, wikiPages->cursor->infoP.nomePage) == 0)
+        {
+            FILE* arqcolab;
+            errno_t err = fopen_s(&arqcolab, ptrNodoEditor->infoEdit.colab, "r");
+            if (err != 0)
+            {
+                printf("Erro ao abrir o arquivo.\n");
+                return;
+            }
+            while (fgets(lineCommandArq, sizeof(lineCommandArq), arqcolab) != NULL){
+
+            fprintf(arquivo, "%s\n", lineCommandArq);//AQUI TEM QUE COPIAR O CONTEUDO DO ARQUIVO 
+            fprintf(arquivo, "%s", "Editor.: ");
+            fprintf(arquivo, "%s\n", ptrNodoEditor->infoEdit.nomeEditor);
+            }
+            if (i == listColab->tamanho)
+            {
+                fclose(arqcolab);
+            }
+        }
+    }
+    fprintf(arquivo, "%s", "Links.:");
+    for (int i = 0; i < listaLinks->tamanho; i++)
+    {
+        if (strcmp(ptrNodoLinks->infoLink.linkDestino, wikiPages->cursor->infoP.nomePage))
+        {
+            fprintf(arquivo, "%s\n", ptrNodoLinks->infoLink.linkDestino);
+        }
+    }
+
+    // Feche o arquivo
+    fclose(arquivo);
 }
 
 void closeArq(FILE* nomeArq)
 {
     fclose(nomeArq);
 }
-
-
-//---------------------------------- FUN��ES MANUPULA ARQUIVO--------------------
-
-/*
-FILE* openFile(char* nomeArquivo)
-{
-    FILE* arqOpen;
-    errno_t err = fopen_s(&arqOpen, nomeArquivo, "a+");
-
-    if (err != 0) {
-
-        return NULL;
-    }
-    return arqOpen;
-}
-
-
-
-int openFile(const char* nomeArquivo, FILE** arquivo) {
-    if (fopen_s(arquivo, nomeArquivo, "a+") != 0) {
-        perror("Erro ao abrir o arquivo");
-        printf("\nERRO AO ABRIR ARQUIVO %s!!! I'm at line %d\n", nomeArquivo, __LINE__);
-        return -1;
-    }
-    return 0;
-}
-*/

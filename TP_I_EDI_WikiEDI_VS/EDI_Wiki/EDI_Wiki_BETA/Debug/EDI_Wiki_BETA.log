@@ -1,56 +1,42 @@
-﻿  WikiEDI_BETA.c
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\Links.h(56,40): warning C4028: parâmetro formal 1 diferente da declaração
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(65,16): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(73,16): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(125,34): warning C4047: '=': 'char' difere em níveis de indireção de 'char *'
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(167,16): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(215,10): warning C4101: 'comando': variável local não referenciada
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(295,31): warning C4013: 'bornListEditores' indefinido; assumindo extern retornando int
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(309,16): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(327,24): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(345,16): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(365,12): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(391,67): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(391,67): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(394,49): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(394,77): warning C4020: 'strcpy_s': muitos parâmetros reais
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(401,66): warning C4020: 'strcpy_s': muitos parâmetros reais
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(420,68): warning C4020: 'strcpy_s': muitos parâmetros reais
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(425,49): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(425,72): warning C4020: 'strcpy_s': muitos parâmetros reais
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(435,22): warning C4013: 'finderEditores' indefinido; assumindo extern retornando int
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(438,74): warning C4020: 'strcpy_s': muitos parâmetros reais
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(443,29): warning C4013: 'lastEditores' indefinido; assumindo extern retornando int
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(445,70): warning C4020: 'strcpy_s': muitos parâmetros reais
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(461,69): warning C4020: 'strcpy_s': muitos parâmetros reais
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(466,69): warning C4020: 'strcpy_s': muitos parâmetros reais
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(475,64): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(475,64): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(483,75): warning C4020: 'strcpy_s': muitos parâmetros reais
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(494,64): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(494,64): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(505,80): warning C4020: 'strcpy_s': muitos parâmetros reais
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(510,79): warning C4020: 'strcpy_s': muitos parâmetros reais
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(516,75): warning C4020: 'strcpy_s': muitos parâmetros reais
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(528,64): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(528,64): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(538,68): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(538,68): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(550,44): warning C4133: 'função': tipos incompatíveis - de 'TNodoPage *' para 'TListaLinks *'
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(550,59): warning C4133: 'função': tipos incompatíveis - de 'TNodoPage *' para 'TListaLinks *'
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(554,70): warning C4020: 'strcpy_s': muitos parâmetros reais
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(560,84): warning C4020: 'strcpy_s': muitos parâmetros reais
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(567,69): warning C4020: 'strcpy_s': muitos parâmetros reais
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(579,64): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(579,64): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(589,68): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(589,68): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(599,70): warning C4020: 'strcpy_s': muitos parâmetros reais
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(605,84): warning C4020: 'strcpy_s': muitos parâmetros reais
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(612,69): warning C4020: 'strcpy_s': muitos parâmetros reais
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(295,16): warning C4047: 'inicializando': 'TEditores *' difere em níveis de indireção de 'int'
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(288,10): warning C4101: 'lineLog': variável local não referenciada
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(280,11): warning C4101: 'lineCommand': variável local não referenciada
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(655,46): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
-E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(655,46): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
+﻿  testador.c
+  WikiEDI_BETA.c
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(337,24): warning C4566: caractere representado por nome de caractere universal (UCN) '\uFFFD' não pode ser representado na página de código atual (1252)
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(402,67): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(402,67): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(405,33): warning C4473: 'fprintf' : não há argumentos suficientes transmitidos para a cadeia de caracteres de formato
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(405,33): message : espaços reservados e seus parâmetros esperam 2 argumentos variadic, mas 1 foram fornecidos
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(405,33): message : o argumento variadic 2 ausente é requerido pela cadeia de formato '%s'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(411,33): warning C4473: 'fprintf' : não há argumentos suficientes transmitidos para a cadeia de caracteres de formato
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(411,33): message : espaços reservados e seus parâmetros esperam 2 argumentos variadic, mas 1 foram fornecidos
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(411,33): message : o argumento variadic 2 ausente é requerido pela cadeia de formato '%s'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(485,64): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(485,64): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(523,64): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TConteudoEdit *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(523,64): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(560,64): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(560,64): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(570,68): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(570,68): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(582,44): warning C4133: 'função': tipos incompatíveis - de 'TNodoPage *' para 'TListaLinks *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(582,59): warning C4133: 'função': tipos incompatíveis - de 'TNodoPage *' para 'TListaLinks *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(587,70): warning C4020: 'strcpy_s': muitos parâmetros reais
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(610,64): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(610,64): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(620,68): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(620,68): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(647,64): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(647,64): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(650,72): warning C4047: 'função': 'TLinksLista **' difere em níveis de indireção de 'TLinksLista *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(650,72): warning C4024: 'finderLinksOrig': tipos diferentes para parâmetro formal e real 3
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(653,76): warning C4047: 'função': 'TLinksLista **' difere em níveis de indireção de 'TLinksLista *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(653,76): warning C4024: 'finderLinksDest': tipos diferentes para parâmetro formal e real 3
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(673,67): warning C4047: 'função': 'TInfoPage **' difere em níveis de indireção de 'TInfoPage *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(673,67): warning C4024: 'finderPage': tipos diferentes para parâmetro formal e real 3
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(677,45): warning C4133: 'função': tipos incompatíveis - de 'TEditores *' para 'char *'
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(677,56): warning C4020: 'printPageWikiArq': muitos parâmetros reais
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(292,10): warning C4101: 'lineLog': variável local não referenciada
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(284,11): warning C4101: 'lineCommand': variável local não referenciada
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(715,54): warning C4028: parâmetro formal 2 diferente da declaração
+E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\EDI_Wiki_BETA\WikiEDI_BETA.c(716,1): warning C4029: lista de parâmetros formais declarada diferente da definição
+  Gerando Código...
   EDI_Wiki_BETA.vcxproj -> E:\Funes\GitHub\EDI\TP_I_EDI_WikiEDI_VS\EDI_Wiki\Debug\EDI_Wiki_BETA.exe

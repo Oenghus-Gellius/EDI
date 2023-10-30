@@ -24,7 +24,6 @@ typedef struct NodoLink {
 
 typedef struct ListaLinks {
 	int tamanho;
-	TLinks infoLink;
 	TNodoLink* inicio, * fim;
 }TListaLinks;
 
@@ -34,15 +33,18 @@ typedef struct ListaLinks {
 TListaLinks* bornListLinks();
 
 //Criar a primeira Pagina da lista ou "posiciona" na primeira colocação
-int firstLinks(TListaLinks* listaLinks, TLinks links);
+int firstLinks(TListaLinks* listaLinks, TLinksLista links);
 
 //ciar a proxima pagina da lista encadeada
-int lastLinks(TListaLinks* listaLinks, TLinks links);
+int lastLinks(TListaLinks* listaLinks, TLinksLista links);
 
-int removeLinks(TListaLinks* listaLinks, char* nomePage, TLinks* links);
+int removeLinks(TListaLinks* listaLinks, char* nomeLink, TLinksLista* links);
 
 // Pesquisa na lista de Links
-int finderLinks(TListaLinks* listaLinks, char* nomePage, TInfoPage** links);
+int finderLinksOrig(TListaLinks* listaLinks, char* nomeLink, TLinksLista** links);
+
+// Pesquisa na lista de Links
+int finderLinksDest(TListaLinks* listaLinks, char* nomeLink, TLinksLista** links);
 
 //Fun��o que retorna que n�otem pagina alocada
 int emptyLinks(TListaLinks* listaLinks);
@@ -53,8 +55,6 @@ int fullLinks(TListaLinks* listaLinks);
 //Fun��o que retorna o tamanho/quantidade de Paginas na Wiki
 int quantityLinks(TListaLinks* listaLinks);
 
-void destroyer(TListaLinks* wikiPagina);
-//destrutor (desaloca espaço na memoria
 // 
 //------------------------------
 

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="WIKIEDI 4.0" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/WIKIEDI 4.0" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/WIKIEDI 4.0" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="Editores.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Editores.h" />
+		<Unit filename="Links.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Links.h" />
+		<Unit filename="WIKIEDI 4.0.cbp" />
+		<Unit filename="WikiEDI_BETA" />
+		<Unit filename="WikiEDI_BETA.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="WikiEDI_BETA.h" />
+		<Unit filename="c1.txt" />
+		<Unit filename="c3.txt" />
+		<Unit filename="edi.txt" />
+		<Unit filename="entrada.txt" />
+		<Unit filename="file.txt" />
+		<Unit filename="logWiki.txt" />
+		<Unit filename="testador" />
+		<Unit filename="vscode.rarZone.Identifier" />
+		<Unit filename="wikiedi" />
+		<Unit filename="wikiedi.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="wikiedi.h" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

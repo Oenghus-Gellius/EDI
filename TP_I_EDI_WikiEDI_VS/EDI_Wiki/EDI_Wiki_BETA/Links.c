@@ -1,7 +1,7 @@
 ﻿#include "Links.h"
 #include "WikiEDI_BETA.h"
 #include "testador.h"
-#include "Log.h"
+//#include "Log.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -21,13 +21,13 @@ TListaLinks* bornListLinks()
     return listLinks;
 }
 
-int firstLinks(TListaLinks* TListaLinks, TLinks links)
+firstLinks(TListaLinks* listaLinks, TLinksLista links)
 {
     // fazer que a fun��o fullLinks retorne -1 se estiver cheia
-    if (fullLinks(TListaLinks) == -1)
+    if (fullLinks(listaLinks) == -1)
     {
         printf("\nErro na alocacao de memoria para a pagina - I'm at line %d\n", __LINE__);
-        free(TListaLinks);
+        free(listaLinks);
         return 0;
     }
 
@@ -43,29 +43,29 @@ int firstLinks(TListaLinks* TListaLinks, TLinks links)
         strncpy_s(ptrTNodoLinks->infoLink.linkDestino, MAX_CHAR, links.linkDestino, _TRUNCATE);
 
         ptrTNodoLinks->nexNodo = NULL;
-        TListaLinks->inicio = ptrTNodoLinks;
-        TListaLinks->tamanho++;
+        listaLinks->inicio = ptrTNodoLinks;
+        listaLinks->tamanho++;
 
-        TListaLinks->fim = ptrTNodoLinks;
+        listaLinks->fim = ptrTNodoLinks;
         return 1;
     }
 }
 
-int lastLinks(TListaLinks* TListaLinks, TLinks links)
+int lastLinks(TListaLinks* listaLinks, TLinksLista links)
 {
     // fazer que a fun��o fullLinks retorne -1 se estiver cheia
-    if (fullLinks(TListaLinks) == -1)
+    if (fullLinks(listaLinks) == -1)
     {
-        printf("\nErro na aloca�ao de memoria para a pagina - I'm at line %d\n", __LINE__);
-        free(TListaLinks);
+        printf("\nErro na alocaao de memoria para a pagina - I'm at line %d\n", __LINE__);
+        free(listaLinks);
         return 0;
     }
 
     TNodoLink* ptrTNodoLinks = (TNodoLink*)malloc(sizeof(TNodoLink));
     if (ptrTNodoLinks == NULL)
     {
-        printf("\nErro na aloca�ao de memoria para a pagina - I'm at line %d\n", __LINE__);
-        free(TListaLinks);
+        printf("\nErro na alocaao de memoria para a pagina - I'm at line %d\n", __LINE__);
+        free(listaLinks);
         return 0;
     }
     else
@@ -73,9 +73,9 @@ int lastLinks(TListaLinks* TListaLinks, TLinks links)
         ptrTNodoLinks->nexNodo = NULL;
 
         //verificando se a lista está vazia
-        if (TListaLinks->inicio == NULL)
+        if (listaLinks->inicio == NULL)
         {
-            firstLinks(TListaLinks, links);
+            firstLinks(listaLinks, links);
             free(ptrTNodoLinks);
         }
         else
@@ -83,40 +83,40 @@ int lastLinks(TListaLinks* TListaLinks, TLinks links)
             strncpy_s(ptrTNodoLinks->infoLink.linkOrigem, MAX_CHAR, links.linkOrigem, _TRUNCATE);
             strncpy_s(ptrTNodoLinks->infoLink.linkDestino, MAX_CHAR, links.linkDestino, _TRUNCATE);
 
-            TListaLinks->fim->nexNodo = ptrTNodoLinks;
-            TListaLinks->fim = ptrTNodoLinks;
-            TListaLinks->tamanho++;
+            listaLinks->fim->nexNodo = ptrTNodoLinks;
+            listaLinks->fim = ptrTNodoLinks;
+            listaLinks->tamanho++;
         }
         return 1;
     }
 }
 
-int removeLinks(TListaLinks* TListaLinks, char* nomePage, TLinks* links)
+int removeLinks(TListaLinks* listaLinks, char* nomeLink, TLinksLista* links)
 {
     TNodoLink* ptrTNodoLinks, * ptrBackLinks;
-    ptrTNodoLinks = TListaLinks->inicio;
+    ptrTNodoLinks = listaLinks->inicio;
     ptrBackLinks = NULL;
 
-    while (TListaLinks != NULL)
+    while (listaLinks != NULL)
     {
-        if (strcmp(ptrTNodoLinks->infoLink.linkOrigem, nomePage) == 0)
+        if (strcmp(ptrTNodoLinks->infoLink.linkOrigem, nomeLink) == 0)
         {
             //Verifica se � o primeiro
-            if (ptrTNodoLinks == TListaLinks->inicio)
+            if (ptrTNodoLinks == listaLinks->inicio)
             {
-                TListaLinks->inicio = TListaLinks->inicio->nexNodo;
+                listaLinks->inicio = listaLinks->inicio->nexNodo;
             }
             else
-                if (ptrTNodoLinks == TListaLinks->fim)//remove o ultimo
+                if (ptrTNodoLinks == listaLinks->fim)//remove o ultimo
                 {
-                    TListaLinks->fim = ptrBackLinks;
-                    TListaLinks->fim->nexNodo = NULL;
+                    listaLinks->fim = ptrBackLinks;
+                    listaLinks->fim->nexNodo = NULL;
                 }
                 else
                 {
                     ptrBackLinks->nexNodo = ptrTNodoLinks->nexNodo;
                 }
-            TListaLinks->tamanho--;
+            listaLinks->tamanho--;
             return 1;
         }
         else
@@ -128,14 +128,32 @@ int removeLinks(TListaLinks* TListaLinks, char* nomePage, TLinks* links)
     return 0;
 }
 
-int finderLinks(TListaLinks* TListaLinks, char* nomePage, TInfoPage** links)
+int finderLinksOrig(TListaLinks* listaLinks, char* nomeLink, TLinksLista** links)
 {
     TNodoLink* ptrTNodoLinks;
-    ptrTNodoLinks = TListaLinks->inicio;
+    ptrTNodoLinks = listaLinks->inicio;
 
     while (ptrTNodoLinks != NULL)
     {
-        if (strcmp(ptrTNodoLinks->infoLink.linkOrigem, nomePage) == 0)
+        if (strcmp(ptrTNodoLinks->infoLink.linkOrigem, nomeLink) == 0)
+        {
+            //links = ptrTLinks->infoP.nomePage;
+            //TListaLinks->cursor = ptrTLinks;//QUERO USARO CURSOR PARA TER O ENDEREÇO PESQUISARO PARA EDITAR A PAGINA
+            return 1;
+        }
+        ptrTNodoLinks = ptrTNodoLinks->nexNodo;
+    }
+    return 0;
+}
+
+int finderLinksDest(TListaLinks* listaLinks, char* nomeLink, TLinksLista** links)
+{
+    TNodoLink* ptrTNodoLinks;
+    ptrTNodoLinks = listaLinks->inicio;
+
+    while (ptrTNodoLinks != NULL)
+    {
+        if (strcmp(ptrTNodoLinks->infoLink.linkDestino, nomeLink) == 0)
         {
             //links = ptrTLinks->infoP.nomePage;
             //TListaLinks->cursor = ptrTLinks;//QUERO USARO CURSOR PARA TER O ENDEREÇO PESQUISARO PARA EDITAR A PAGINA
@@ -156,7 +174,7 @@ int fullLinks(TListaLinks* TListaLinks)
     TNodoLink* ptrTNodoLinks = (TNodoLink*)malloc(sizeof(TNodoLink));
     if (ptrTNodoLinks == NULL)
     {
-        printf("\nErro na aloca�ao de memoria para a pagina - I'm at line %d\n", __LINE__);
+        printf("\nErro na alocaao de memoria para a pagina - I'm at line %d\n", __LINE__);
         return -1;
     }
     free(ptrTNodoLinks);
@@ -189,7 +207,7 @@ int retiraLink(TListaLinks* wikiOrigem, TListaLinks* wikiDestino)
 	finder = finderLink(ptrOrigem,ptrDestino);
 	if (finder == 1)//link encontrado
 	{
-		//REMOVER O LINK DA PAGInA
+		//REMOVER O LINK DA PAGInAdd
 	}
 	else//link não encontrado
 	{

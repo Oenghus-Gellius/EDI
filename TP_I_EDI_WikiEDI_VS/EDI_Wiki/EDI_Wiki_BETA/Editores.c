@@ -12,10 +12,10 @@ TEditores* bornListEditores()
     return listColab;
 }
 
-int firstEditores(TEditores* listColab, TNodoEditor infosEdit)
+int firstEditores(TEditores* listColab, TConteudoEdit infosEdit)
 {
     // fazer que a fun��o fullLinks retorne -1 se estiver cheia
-    if (fullLinks(listColab) == -1)
+    if (fullEditores(listColab) == -1)
     {
         printf("\nErro na alocacao de memoria para a pagina - I'm at line %d\n", __LINE__);
         free(listColab);
@@ -30,23 +30,24 @@ int firstEditores(TEditores* listColab, TNodoEditor infosEdit)
     }
     else
     {
+        ptrTNodoEditor->infoEdit = infosEdit;
+        //strncpy_s(ptrTNodoEditor, MAX_CHAR, infosEdit, _TRUNCATE);
 
 
         ptrTNodoEditor->nextEditor = NULL;
         listColab->inicio = ptrTNodoEditor;
         listColab->tamanho++;
-
         listColab->fim = ptrTNodoEditor;
         return 1;
     }
 }
 
-int lastEditores(TEditores* listColab, TNodoEditor infosEdit)
+int lastEditores(TEditores* listColab, TConteudoEdit infosEdit)
 {
     // fazer que a fun��o fullLinks retorne -1 se estiver cheia
-    if (fullLinks(listColab) == -1)
+    if (fullEditores(listColab) == -1)
     {
-        printf("\nErro na aloca�ao de memoria para a pagina - I'm at line %d\n", __LINE__);
+        printf("\nErro na alocaao de memoria para a pagina - I'm at line %d\n", __LINE__);
         free(listColab);
         return 0;
     }
@@ -54,7 +55,7 @@ int lastEditores(TEditores* listColab, TNodoEditor infosEdit)
     TNodoEditor* ptrTNodoEditor = (TNodoEditor*)malloc(sizeof(TNodoEditor));
     if (ptrTNodoEditor == NULL)
     {
-        printf("\nErro na aloca�ao de memoria para a pagina - I'm at line %d\n", __LINE__);
+        printf("\nErro na alocaao de memoria para a pagina - I'm at line %d\n", __LINE__);
         free(listColab);
         return 0;
     }
@@ -62,7 +63,7 @@ int lastEditores(TEditores* listColab, TNodoEditor infosEdit)
     {
         ptrTNodoEditor->nextEditor = NULL;
 
-        //verificando se a lista está vazia
+        //verificando se a TListaEditores está vazia
         if (listColab->inicio == NULL)
         {
             firstEditores(listColab, infosEdit);
@@ -70,6 +71,8 @@ int lastEditores(TEditores* listColab, TNodoEditor infosEdit)
         }
         else
         {
+            ptrTNodoEditor->infoEdit = infosEdit;
+            //strncpy_s(ptrTNodoEditor, MAX_CHAR, infosEdit, _TRUNCATE);
 
             listColab->fim->nextEditor = ptrTNodoEditor;
             listColab->fim = ptrTNodoEditor;
@@ -79,7 +82,7 @@ int lastEditores(TEditores* listColab, TNodoEditor infosEdit)
     }
 }
 
-int removeEditores(TEditores* listColab, char* nomeEditor, TNodoEditor* infosEdit)
+int removeEditores(TEditores* listColab, char* nomeEditor, TConteudoEdit* infosEdit)
 {
     TNodoEditor* ptrTNodoEditor, * ptrBackLinks;
     ptrTNodoEditor = listColab->inicio;
@@ -87,7 +90,7 @@ int removeEditores(TEditores* listColab, char* nomeEditor, TNodoEditor* infosEdi
 
     while (listColab != NULL)
     {
-        if (strcmp(ptrTNodoEditor->nomeEditor, nomeEditor) == 0)
+        if (strcmp(ptrTNodoEditor->infoEdit.nomeEditor, nomeEditor) == 0)
         {
             //Verifica se � o primeiro
             if (ptrTNodoEditor == listColab->inicio)
@@ -104,7 +107,9 @@ int removeEditores(TEditores* listColab, char* nomeEditor, TNodoEditor* infosEdi
                 {
                     ptrBackLinks->nextEditor = ptrTNodoEditor->nextEditor;
                 }
+            free(ptrTNodoEditor);
             listColab->tamanho--;
+
             return 1;
         }
         else
@@ -116,14 +121,14 @@ int removeEditores(TEditores* listColab, char* nomeEditor, TNodoEditor* infosEdi
     return 0;
 }
 
-int finderEditores(TEditores* listColab, char* nomeEditor, TInfoPage** infosEdit)
+int finderEditores(TEditores* listColab, char* nomeEditor, TConteudoEdit* infosEdit)
 {
     TNodoEditor* ptrTNodoEditor;
     ptrTNodoEditor = listColab->inicio;
 
     while (ptrTNodoEditor != NULL)
     {
-        if (strcmp(ptrTNodoEditor->nomeEditor, nomeEditor) == 0)
+        if (strcmp(ptrTNodoEditor->infoEdit.nomeEditor, nomeEditor) == 0)
         {
             //links = ptrTLinks->infoP.nomeEditor;
             //listColab->cursor = ptrTLinks;//QUERO USARO CURSOR PARA TER O ENDEREÇO PESQUISARO PARA EDITAR A PAGINA
@@ -144,7 +149,7 @@ int fullEditores(TEditores* listColab)
     TNodoEditor* ptrTNodoEditor = (TNodoEditor*)malloc(sizeof(TNodoEditor));
     if (ptrTNodoEditor == NULL)
     {
-        printf("\nErro na aloca�ao de memoria para a pagina - I'm at line %d\n", __LINE__);
+        printf("\nErro na alocaao de memoria para a pagina - I'm at line %d\n", __LINE__);
         return -1;
     }
     free(ptrTNodoEditor);
@@ -158,11 +163,14 @@ int quantityEditores(TEditores* listColab)
 
 }
 
-
-int listaEditores(TNomeEditor** listaEditores, char* nomeEditor)
-{
-    return 0;
+void freeEditores(TEditores* listColab) {
+    if (listColab) {
+        TNodoEditor* atual = listColab->inicio;
+        while (atual) {
+            TNodoEditor* proximo = atual->nextEditor;
+            free(atual);
+            atual = proximo;
+        }
+        free(listColab);
+    }
 }
-
-
-

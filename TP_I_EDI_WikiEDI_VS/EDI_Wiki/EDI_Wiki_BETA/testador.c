@@ -1,7 +1,7 @@
 #include "testador.h"
 #include "WikiEDI_BETA.h"
 #include "Links.h"
-#include "Log.h"
+//#include "Log.h"
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -1,0 +1,55 @@
+# depslib dependency file v1.0
+1584205420 source:e:\funes\github\edi\tp_i_edi_wikiedi_vs\wikiedi_4.0\wikiedi 4.0\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1698591836 source:e:\funes\github\edi\tp_i_edi_wikiedi_vs\wikiedi_4.0\wikiedi 4.0\wikiedi.c
+	"wikiedi.h"
+	"WikiEDI_BETA.h"
+	"Links.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<locale.h>
+
+1698591695 e:\funes\github\edi\tp_i_edi_wikiedi_vs\wikiedi_4.0\wikiedi 4.0\wikiedi.h
+
+1698619860 e:\funes\github\edi\tp_i_edi_wikiedi_vs\wikiedi_4.0\wikiedi 4.0\wikiedi_beta.h
+	"wikiedi.h"
+	"Links.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1698593490 e:\funes\github\edi\tp_i_edi_wikiedi_vs\wikiedi_4.0\wikiedi 4.0\links.h
+	"wikiedi.h"
+	"WikiEDI_BETA.h"
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+
+1698628640 source:e:\funes\github\edi\tp_i_edi_wikiedi_vs\wikiedi_4.0\wikiedi 4.0\wikiedi_beta.c
+	"wikiedi.h"
+	"WikiEDI_BETA.h"
+	"Editores.h"
+	"Links.h"
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+
+1698593530 e:\funes\github\edi\tp_i_edi_wikiedi_vs\wikiedi_4.0\wikiedi 4.0\editores.h
+	"Links.h"
+	"WikiEDI_BETA.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1698593347 source:e:\funes\github\edi\tp_i_edi_wikiedi_vs\wikiedi_4.0\wikiedi 4.0\editores.c
+	"Links.h"
+
+1698593494 source:e:\funes\github\edi\tp_i_edi_wikiedi_vs\wikiedi_4.0\wikiedi 4.0\links.c
+	"WikiEDI_BETA.h"
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+
