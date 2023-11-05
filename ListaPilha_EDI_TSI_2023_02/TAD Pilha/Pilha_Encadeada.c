@@ -2,69 +2,72 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-typedef struct Nodo {
-    TElemento info;
-    struct Nodo* prox;
-}TNodo;
 
-struct TPilha {
-    TNodo* topo;
-    int tamanho;
-};
-
-pilha criaPilha() {
-    pilha p = (pilha)malloc(sizeof(struct TPilha));
-    if (p) {//if(p!=NULL)
-        p->topo = NULL;
-        p->tamanho = 0;
-    }
-    return p;
-}
-void terminaPilha(pilha p) {
-    TNodo* ptr;
-    while (p->topo != NULL) {//while(p->topo)
-        ptr = p->topo;
-        p->topo = p->topo->prox;//p->topo=ptr->prox;//
-        free(ptr);
-    }
-    free(p);
+TPilha* criaPilha() {
+	TPilha* pilha = (TPilha*)malloc(sizeof(TPilha));
+	if (pilha == NULL)
+	{
+		printf("\nPilha no criada!!!\n");
+		return 0;
+	}
+	pilha->topo = NULL;
+	pilha->tamanho = 0;
+	return pilha;
 }
 
-int push(pilha p, TElemento e) {
-    TNodo* ptr = (TNodo*)malloc(sizeof(TNodo));
-
-    if (!ptr)//if(ptr==NULL
-        return 0;
-
-    ptr->info = e;
-    ptr->prox = p->topo;
-    p->topo = ptr;
-    p->tamanho++;
-    return 1;
+void terminaPilha(TPilha* pilha)
+{
+	TNodoPilha* ptrPilha;
+	while (pilha->topo != NULL)
+	{
+		ptrPilha = pilha->topo;
+		pilha->topo = pilha->topo->next;
+		free(ptrPilha);
+	}
+	free(pilha);
 }
 
-int pop(pilha p, TElemento* e) {
-    TNodo* ptr;
-    if (pilhaVazia(p) == 1)
-        return 0;
-    ptr = p->topo;
-    p->topo = p->topo->prox;
-    *e = ptr->info;
-    free(ptr);
-    p->tamanho--;
-    return 1;
+int push(TPilha* pilha, TElemento info) //Acrrscentar
+{
+	TNodoPilha* ptrPilha = (TNodoPilha*)malloc(sizeof(TNodoPilha));
+	if (ptrPilha == NULL)
+	{
+		return 0;
+	}
+	ptrPilha->info = info;
+	ptrPilha->next = pilha->topo;
+	pilha->topo = ptrPilha;
+	pilha->tamanho++;
+	return 1;
 }
-int pilhaCheia(pilha p) {
-    TNodo* ptr = (TNodo*)malloc(sizeof(TNodo));
-    if (ptr == NULL)//if(!ptr)
-        return 1;
 
-    free(ptr);
-    return 0;
+int pop(TPilha* pilha, TElemento* info) //Tirar
+{
+	TNodoPilha* ptrLista;
+	if (pilhaVazia(pilha) == 1)
+	{
+		return 0;
+	}
+	ptrLista = pilha->topo;
+	pilha->topo = pilha->topo->next;
+	*info = ptrLista->info;//Pra que?
+	free(ptrLista);
+	pilha->tamanho--;
+	return 1;
 }
-int pilhaVazia(pilha p) {
-    return p->tamanho == 0;//return !p->tamanho
+
+int pilhaCheia(TPilha* pilha) {
+	TNodoPilha* ptrPilha = (TNodoPilha*)malloc(sizeof(TNodoPilha));
+	if (ptrPilha == NULL)
+	{
+		return 1;
+	}
+	free(ptrPilha);
+	return 0;
 }
-int tamanhoPilha(pilha p) {
-    return p->tamanho;
+int pilhaVazia(TPilha* pilha) {
+	return pilha->tamanho = 0;
+}
+int tamanhoPilha(TPilha* pilha) {
+	return pilha->tamanho;
 }

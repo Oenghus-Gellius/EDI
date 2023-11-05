@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1699194732 source:e:\funes\github\edi\listapilha_edi_tsi_2023_02\quest1\pilha.c
+	"Pilha.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1698921864 e:\funes\github\edi\listapilha_edi_tsi_2023_02\quest1\pilha.h
+
