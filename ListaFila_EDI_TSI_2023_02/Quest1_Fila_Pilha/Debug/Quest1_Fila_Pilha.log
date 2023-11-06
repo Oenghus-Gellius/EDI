@@ -1,0 +1,10 @@
+﻿  Lista_Pilha_invert.c
+E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\Quest1_Fila_Pilha\Lista_Pilha_invert.c(67,19): warning C4133: '=': tipos incompatíveis - de 'TNodeLine *' para 'Node *'
+E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\Quest1_Fila_Pilha\Lista_Pilha_invert.c(81,3): warning C4033: 'dequeueLine' deve retornar um valor
+E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\Quest1_Fila_Pilha\Lista_Pilha_invert.c(84,14): warning C4133: '=': tipos incompatíveis - de 'Node *' para 'TNodeLine *'
+E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\Quest1_Fila_Pilha\Lista_Pilha_invert.c(103,13): warning C4133: 'inicializando': tipos incompatíveis - de 'TLine *' para 'TNodeLine *'
+E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\Quest1_Fila_Pilha\Lista_Pilha_invert.c(122,15): warning C4133: '=': tipos incompatíveis - de 'Node *' para 'TNodeLine *'
+E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\Quest1_Fila_Pilha\Lista_Pilha_invert.c(212,15): warning C4133: '=': tipos incompatíveis - de 'Node *' para 'TNodeLine *'
+E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\Quest1_Fila_Pilha\Lista_Pilha_invert.c(230,15): warning C4133: '=': tipos incompatíveis - de 'Node *' para 'TNodeLine *'
+E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\Quest1_Fila_Pilha\Lista_Pilha_invert.c(90): warning C4715: 'dequeueLine': nem todos os caminhos de controle retornam um valor
+  Quest1_Fila_Pilha.vcxproj -> E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\Debug\Quest1_Fila_Pilha.exe

@@ -1,7 +1,7 @@
 /*
-3) Uma palavra é um palíndromo se tem a mesma sequência de letras, quer seja lida da
+3) Uma palavra ï¿½ um palï¿½ndromo se tem a mesma sequï¿½ncia de letras, quer seja lida da
 esquerda para a direita ou da direita para a esquerda (exemplo: arara). Implemente uma
-função para verificar se uma palavra é um palíndromo usando o TAD pilha*/
+funï¿½ï¿½o para verificar se uma palavra ï¿½ um palï¿½ndromo usando o TAD pilha*/
 
 
 typedef struct Info {

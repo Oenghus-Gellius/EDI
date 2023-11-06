@@ -18,17 +18,11 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Line.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Line.c" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{1f54d8c5-0125-4b07-aea6-1fbf87c4ede6}</ProjectGuid>
-    <RootNamespace>TADFila</RootNamespace>
+    <ProjectGuid>{222ce146-eb44-4225-b7b7-5926fa712aae}</ProjectGuid>
+    <RootNamespace>Quest1FilaPilha</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -132,6 +126,12 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Lista_Pilha_invert.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Lista_Pilha_invert.c" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -15,12 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Line.h">
+    <ClInclude Include="Lista_Pilha_invert.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Line.c">
+    <ClCompile Include="Lista_Pilha_invert.c">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
   </ItemGroup>
