@@ -100,13 +100,13 @@ int tamanhoPilha(TPilha* pilha) {
 }
 
 char** vetAllocString(int tamanhoVet) {
-	char** vetAlloc = (char**)malloc(tamanhoVet * sizeof(char*)); // Aloque memória para o vetor de ponteiros
+	char** vetAlloc = (char**)malloc(tamanhoVet * sizeof(char*)); // Aloque memï¿½ria para o vetor de ponteiros
 
 	if (vetAlloc != NULL) {
 		for (int i = 0; i < tamanhoVet; i++) {
 			vetAlloc[i] = (char*)malloc(MAX_CHAR * sizeof(char));
 			if (vetAlloc[i] == NULL) {
-				// Lidar com a falha na alocação de memória, se necessário
+				// Lidar com a falha na alocaï¿½ï¿½o de memï¿½ria, se necessï¿½rio
 				for (int j = 0; j < i; j++) {
 					free(vetAlloc[j]);
 				}
@@ -119,13 +119,13 @@ char** vetAllocString(int tamanhoVet) {
 	return vetAlloc;
 }
 
-/*
+
 int main() {
 	TPilha* PilhaValkir = criaPilha();
 	TElemento infoEnter;
 	TElemento info;
 
-	char conteudo[MAX_WORDS][MAX_WORDS] = { "Brunhild", "Sigrun", "Hilde", "Gudrun", "Brynhildr", "Svava", "Herja", "Geiravör", "Ráðgríðr", "Reginleif", "Hervör alvitr", "Hjörþrimul", "Skuld", "Hildr", "Geirskögul", "Randgríðr", "Þögn", "Hlaðgunnr", "Sanngríðr", "Skögul" };
+	char conteudo[MAX_WORDS][MAX_WORDS] = { "Brunhild", "Sigrun", "Hilde", "Gudrun", "Brynhildr", "Svava", "Herja", "Geiravï¿½r", "Rï¿½ï¿½grï¿½ï¿½r", "Reginleif", "Hervï¿½r alvitr", "Hjï¿½rï¿½rimul", "Skuld", "Hildr", "Geirskï¿½gul", "Randgrï¿½ï¿½r", "ï¿½ï¿½gn", "Hlaï¿½gunnr", "Sanngrï¿½ï¿½r", "Skï¿½gul" };
 
 
 	int tamanhoConteudo = sizeof(conteudo) / sizeof(conteudo[0]);
@@ -163,4 +163,3 @@ int main() {
 
 	return 0;
 }
-*/

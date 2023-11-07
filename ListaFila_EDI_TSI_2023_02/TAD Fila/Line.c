@@ -1,37 +1,15 @@
 #include "Line.h"
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-//-------------------------Alocar INFO
 
-TInfo* createrInfo()
-{
-	TInfo* info = (TInfo*)malloc(sizeof(TInfo));
-	if (info == NULL)
-	{
-		return NULL;
-	}
-	return info;
-}
+//--------------------------Line
 
-void destroyerInfo(TInfo* info)
-{
-	free(info);
-}
 
-TKey getKey(TInfo* info)
-{
-	return info->key;
-}
 
-void setKey(TInfo* info, TKey key)
-{
-	info->key = key;
-}
-
-//-----------------------------LINE
-
-TLine* createrLine(){
+TLine* createrLine() {
 	TLine* line = (TLine*)malloc(sizeof(TLine));
 	if (line == NULL)
 	{
@@ -44,7 +22,7 @@ TLine* createrLine(){
 	return line;
 }
 
-int queueLine(TLine* line, TInfo info){
+int queueLine(TLine* line, TInfo info) {
 	if (fullLine(line) == 1)
 	{
 		return 0;
@@ -69,14 +47,13 @@ int queueLine(TLine* line, TInfo info){
 	return 1;
 }
 
-TInfo *dequeueLine(TLine* line)
+int dequeueLine(TLine* line, TInfo* info)
 {
 	TNodeLine* ptrNodeLine;
-	TInfo* info = createrInfo();
 
 	if (emptyLine(line) == 1)
 	{
-		return;
+		return 0;
 	}
 	ptrNodeLine = line->start;
 	line->start = line->start->next;
@@ -84,7 +61,7 @@ TInfo *dequeueLine(TLine* line)
 	line->size--;
 	free(ptrNodeLine);
 
-	return info;
+	return 1;
 }
 
 int emptyLine(TLine* line)
@@ -112,7 +89,7 @@ int sizeLine(TLine* line)
 	return line->size;
 }
 
-void destroyerLine(TLine* line){
+void destroyerLine(TLine* line) {
 	TNodeLine* ptrNodeLine;
 	while (line->start != NULL)
 	{
@@ -124,3 +101,72 @@ void destroyerLine(TLine* line){
 }
 
 
+
+//------------------------------STACK
+
+TStack* createrStack() {
+	TStack* stack = (TStack*)malloc(sizeof(TStack));
+	if (stack == NULL)
+	{
+		return NULL;
+	}
+	stack->size = 0;
+	stack->head = NULL;
+	return stack;
+}
+
+int pushStack(TStack* stack, TInfo info)
+{
+	TNodeStack* ptrNodeStack = (TNodeStack*)malloc(sizeof(TNodeStack));
+	if (ptrNodeStack == NULL)
+	{
+		return 0;
+	}
+	ptrNodeStack->info = info;
+	ptrNodeStack->next = stack->head;
+	stack->head = ptrNodeStack;
+	stack->size++;
+	return 1;
+}
+
+int popStack(TStack* stack, TInfo* info)
+{
+	if (emptyStack(stack))
+	{
+		return 0;
+	}
+	TNodeStack* ptrNodeStack = stack->head;
+
+	*info = ptrNodeStack->info;
+	stack->head = stack->head->next;
+	free(ptrNodeStack);
+	stack->size--;
+	return 1;
+}
+
+int emptyStack(TStack* stack) {
+	if (stack->size == 0)
+	{
+		return 1;
+	}
+	return 0;
+}
+
+int sizeStack(TStack* stack)
+{
+	return stack->size;
+}
+
+void destructyStack(TStack* stack)
+{
+	TNodeStack* ptrNodeStack;
+	while (stack->head != NULL)
+	{
+		ptrNodeStack = stack->head;
+		stack->head = stack->head->next;
+		free(ptrNodeStack);
+	}
+	free(stack);
+}
+
+//--------------------------

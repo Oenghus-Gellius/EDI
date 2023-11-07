@@ -9,14 +9,6 @@ typedef struct Info {
 	//demais componentes
 }TInfo;
 
-//-------------------------Alocar Elemento
-TInfo* createrInfo();
-
-TKey getKey(TInfo* info);
-void setKey(TInfo* info, TKey key);
-
-void destroyerInfo(TInfo* info);
-
 //-----------------------------FILA
 
 
@@ -33,7 +25,7 @@ typedef struct Line {
 TLine* createrLine();
 
 int queueLine(TLine* line, TInfo info);
-TInfo* dequeueLine(TLine* line);
+int dequeueLine(TLine* line, TInfo* info);
 
 int emptyLine(TLine* line);
 int fullLine(TLine* line);

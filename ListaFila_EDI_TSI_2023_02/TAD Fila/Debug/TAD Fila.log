@@ -1,9 +1,7 @@
 ﻿  Line.c
-E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\TAD Fila\Line.c(65,19): warning C4133: '=': tipos incompatíveis - de 'TNodeLine *' para 'Node *'
-E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\TAD Fila\Line.c(79,3): warning C4033: 'dequeueLine' deve retornar um valor
-E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\TAD Fila\Line.c(82,14): warning C4133: '=': tipos incompatíveis - de 'Node *' para 'TNodeLine *'
-E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\TAD Fila\Line.c(101,13): warning C4133: 'inicializando': tipos incompatíveis - de 'TLine *' para 'TNodeLine *'
-E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\TAD Fila\Line.c(120,15): warning C4133: '=': tipos incompatíveis - de 'Node *' para 'TNodeLine *'
-E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\TAD Fila\Line.c(88): warning C4715: 'dequeueLine': nem todos os caminhos de controle retornam um valor
+E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\TAD Fila\Line.c(37,19): warning C4133: '=': tipos incompatíveis - de 'TNodeLine *' para 'Node *'
+E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\TAD Fila\Line.c(53,14): warning C4133: '=': tipos incompatíveis - de 'Node *' para 'TNodeLine *'
+E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\TAD Fila\Line.c(72,13): warning C4133: 'inicializando': tipos incompatíveis - de 'TLine *' para 'TNodeLine *'
+E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\TAD Fila\Line.c(91,15): warning C4133: '=': tipos incompatíveis - de 'Node *' para 'TNodeLine *'
 MSVCRTD.lib(exe_main.obj) : error LNK2019: símbolo externo não resolvido, _main, referenciado na função "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ)
 E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\Debug\TAD Fila.exe : fatal error LNK1120: 1 externo não resolvidos

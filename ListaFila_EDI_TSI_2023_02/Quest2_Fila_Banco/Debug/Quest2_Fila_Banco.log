@@ -1,0 +1,7 @@
+﻿  Fila_Banco.c
+E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\Quest2_Fila_Banco\Fila_Banco.c(42,19): warning C4133: '=': tipos incompatíveis - de 'TNodeLine *' para 'Node *'
+E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\Quest2_Fila_Banco\Fila_Banco.c(58,14): warning C4133: '=': tipos incompatíveis - de 'Node *' para 'TNodeLine *'
+E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\Quest2_Fila_Banco\Fila_Banco.c(96,15): warning C4133: '=': tipos incompatíveis - de 'Node *' para 'TNodeLine *'
+E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\Quest2_Fila_Banco\Fila_Banco.c(109,15): warning C4133: '=': tipos incompatíveis - de 'Node *' para 'TNodeLine *'
+E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\Quest2_Fila_Banco\Fila_Banco.c(127,8): warning C4244: 'função': conversão de 'time_t' para 'unsigned int', possível perda de dados
+  Quest2_Fila_Banco.vcxproj -> E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\Debug\Quest2_Fila_Banco.exe

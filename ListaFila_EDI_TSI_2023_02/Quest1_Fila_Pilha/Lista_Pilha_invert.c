@@ -4,34 +4,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-//-------------------------Alocar INFO
-
-TInfo* createrInfo()
-{
-	TInfo* info = (TInfo*)malloc(sizeof(TInfo));
-	if (info == NULL)
-	{
-		return NULL;
-	}
-	return info;
-}
-
-void destroyerInfo(TInfo* info)
-{
-	free(info);
-}
-
-TKey getKey(TInfo* info)
-{
-	return info->key;
-}
-
-void setKey(TInfo* info, TKey key)
-{
-	info->key = key;
-}
 
 //--------------------------Line
+
+
 
 TLine* createrLine() {
 	TLine* line = (TLine*)malloc(sizeof(TLine));
@@ -71,14 +47,13 @@ int queueLine(TLine* line, TInfo info) {
 	return 1;
 }
 
-TInfo* dequeueLine(TLine* line)
+int dequeueLine(TLine* line, TInfo* info)
 {
 	TNodeLine* ptrNodeLine;
-	TInfo* info = createrInfo();
 
 	if (emptyLine(line) == 1)
 	{
-		return;
+		return 0;
 	}
 	ptrNodeLine = line->start;
 	line->start = line->start->next;
@@ -86,7 +61,7 @@ TInfo* dequeueLine(TLine* line)
 	line->size--;
 	free(ptrNodeLine);
 
-	return info;
+	return 1;
 }
 
 int emptyLine(TLine* line)
@@ -125,6 +100,8 @@ void destroyerLine(TLine* line) {
 	free(line);
 }
 
+
+
 //------------------------------STACK
 
 TStack* createrStack() {
@@ -149,7 +126,7 @@ int pushStack(TStack* stack, TInfo info)
 	ptrNodeStack->next = stack->head;
 	stack->head = ptrNodeStack;
 	stack->size++;
-	return 0;
+	return 1;
 }
 
 int popStack(TStack* stack, TInfo* info)
@@ -170,9 +147,9 @@ int popStack(TStack* stack, TInfo* info)
 int emptyStack(TStack* stack) {
 	if (stack->size == 0)
 	{
-		return 0;
+		return 1;
 	}
-	return 1;
+	return 0;
 }
 
 int sizeStack(TStack* stack)
@@ -197,26 +174,26 @@ void destructyStack(TStack* stack)
 
 //----------------------------
 void invertLine(TLine* line){
-	TStack* stack = (TStack*)malloc(sizeof(TStack));
-	if (stack == NULL)
-	{
-		return;
-	}
+	TStack* stack = createrStack();
 
 	TNodeLine* ptrNodeLine = line->start;
-	TInfo* infoUser = createrInfo();
+
 	while (ptrNodeLine != NULL)//Cria pilha
 	{
-		infoUser = dequeueLine(line);
-		pushStack(stack, *infoUser);
-		ptrNodeLine = ptrNodeLine->next;
+		TInfo info;
+		dequeueLine(line, &info);
+		pushStack(stack, info);
+		ptrNodeLine = line->start;
 	}
 
 	TNodeStack* ptrNodeStack = stack->head;
+
 	while (ptrNodeStack != NULL)//refez uma lista invertida
 	{
-		queueLine(line, ptrNodeStack->info);
-		ptrNodeStack = ptrNodeStack->next;
+		TInfo info;
+		popStack(stack, &info);
+		queueLine(line, info);
+		ptrNodeStack = stack->head;
 	}
 	destructyStack(stack);
 }
@@ -242,7 +219,6 @@ int main() {
 
 	for (int i = 0; i < sizeVet; i++)
 	{
-		infoEnter.num = num[i];
 		infoEnter.key = num[i];
 		queueLine(baseLine,infoEnter);
 	}

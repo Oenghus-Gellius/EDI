@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TAD Fila", "TAD Fila\TAD Fi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Quest1_Fila_Pilha", "Quest1_Fila_Pilha\Quest1_Fila_Pilha.vcxproj", "{222CE146-EB44-4225-B7B7-5926FA712AAE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Quest2_Fila_Banco", "Quest2_Fila_Banco\Quest2_Fila_Banco.vcxproj", "{D7FFF3C0-438D-4DC0-9A8D-74B8122D5391}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{222CE146-EB44-4225-B7B7-5926FA712AAE}.Release|x64.Build.0 = Release|x64
 		{222CE146-EB44-4225-B7B7-5926FA712AAE}.Release|x86.ActiveCfg = Release|Win32
 		{222CE146-EB44-4225-B7B7-5926FA712AAE}.Release|x86.Build.0 = Release|Win32
+		{D7FFF3C0-438D-4DC0-9A8D-74B8122D5391}.Debug|x64.ActiveCfg = Debug|x64
+		{D7FFF3C0-438D-4DC0-9A8D-74B8122D5391}.Debug|x64.Build.0 = Debug|x64
+		{D7FFF3C0-438D-4DC0-9A8D-74B8122D5391}.Debug|x86.ActiveCfg = Debug|Win32
+		{D7FFF3C0-438D-4DC0-9A8D-74B8122D5391}.Debug|x86.Build.0 = Debug|Win32
+		{D7FFF3C0-438D-4DC0-9A8D-74B8122D5391}.Release|x64.ActiveCfg = Release|x64
+		{D7FFF3C0-438D-4DC0-9A8D-74B8122D5391}.Release|x64.Build.0 = Release|x64
+		{D7FFF3C0-438D-4DC0-9A8D-74B8122D5391}.Release|x86.ActiveCfg = Release|Win32
+		{D7FFF3C0-438D-4DC0-9A8D-74B8122D5391}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
