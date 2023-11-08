@@ -1,0 +1,6 @@
+﻿  VetAllMethodos.c
+E:\Funes\GitHub\EDI\ListaOrdenacao_TSI_EDI_2023_02\Quest1_All_Methods\VetAllMethodos.c(132,8): warning C4133: '=': tipos incompatíveis - de 'NodeList *' para 'TList *'
+E:\Funes\GitHub\EDI\ListaOrdenacao_TSI_EDI_2023_02\Quest1_All_Methods\VetAllMethodos.c(198,16): warning C4133: 'função': tipos incompatíveis - de 'TVetList *' para 'TList *'
+E:\Funes\GitHub\EDI\ListaOrdenacao_TSI_EDI_2023_02\Quest1_All_Methods\VetAllMethodos.c(220,16): warning C4133: 'função': tipos incompatíveis - de 'TVetList *' para 'TList *'
+E:\Funes\GitHub\EDI\ListaOrdenacao_TSI_EDI_2023_02\Quest1_All_Methods\VetAllMethodos.c(235,15): warning C4133: 'função': tipos incompatíveis - de 'TVetList *' para 'TList *'
+  Quest1_All_Methods.vcxproj -> E:\Funes\GitHub\EDI\ListaOrdenacao_TSI_EDI_2023_02\Debug\Quest1_All_Methods.exe

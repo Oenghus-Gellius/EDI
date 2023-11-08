@@ -8,6 +8,7 @@ typedef struct Lista{
    TElemento elementos[MAX] ;
    int tamanho,cursor;
 }TLista;
+
 lista criaLista(){
     lista l =(lista)malloc(sizeof(TLista));
     if(l!=NULL)
