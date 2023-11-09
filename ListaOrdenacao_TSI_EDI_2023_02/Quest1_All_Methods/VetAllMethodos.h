@@ -63,4 +63,31 @@ int sizeVetList(TVetList* vetList);
 void DestroyerVet(TVetList *vetList);
 
 void printVetList(TVetList *vetList);
-//=================================
+
+//================================= ORDERING - crescent
+
+//=============================selectoinSort<---- Usa a função swap
+
+/*O selectoinSort trava em um elemento e compara ele com todos os elementos posterior a ele
+até achar seu menor, achando ele*/
+
+//Função com o objetivo de fazer a trocas dos elementos de um vetor,recebendo as chaves e trocando-as
+void swap(int* keyX, int* keyY);
+
+void selectonSortBase(TVetList* vetList, int size);
+
+void selectonSort(TVetList* vetList, int size);
+
+//=============================bubbleSort <---- Usa a função swap
+
+void bubbleSortBase(TVetList* vetList, int size);
+
+void bubbleSort(TVetList * vetList, int size);
+
+void bubbleSortStop(TVetList * vetList, int size);
+
+//============================InsertSort
+
+void insertSort(TVetList* vetList, int size);
+
+

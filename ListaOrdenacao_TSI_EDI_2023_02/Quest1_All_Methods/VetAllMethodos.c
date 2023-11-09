@@ -179,6 +179,7 @@ int insertPositionVetList(TVetList* vetList, int position, TInfo info)
 		else if (position == vetList->size)
 			{
 				vetList->VetInfo[vetList->size] = info;
+				vetList->size++;
 			}
 			else
 			{
@@ -186,7 +187,7 @@ int insertPositionVetList(TVetList* vetList, int position, TInfo info)
 				{
 					vetList->VetInfo[i] = vetList->VetInfo[i - 1];
 				}
-				vetList->size--;
+				vetList->size++;
 				return 1;
 			}
 	}
@@ -220,6 +221,14 @@ int finderInfoVetList(TVetList* vetList, TKey key, TInfo* info)
 	if (emptyList(vetList) == 1)
 	{
 		return 0;
+	}
+	for (int i = 0; i < vetList->size; i++)
+	{
+		if (vetList->VetInfo->key == key) 
+		{
+			*info = vetList->VetInfo[i];
+			return 1;
+		}
 	}
 
 	return 0;
@@ -255,8 +264,138 @@ void printVetList(TVetList* vetList)
 	{
 		printf("%d\t", vetList->VetInfo[i].key);
 	}
+	printf("\n");
 }
 
+
+//================================= ORDERING - crescent
+void swap(int* keyX, int* keyY)
+{
+	int temp = *keyX;
+	*keyX = *keyY;
+	*keyY = temp;
+}
+
+//=============================selectoinSort
+void selectonSortBase(TVetList* vetList, int size)//Passar size é redundante, pois já tem essa informação na struct vetList->size
+{
+	int i, k, baseIndex;
+	for (i = 0; i < size - 1; i++)
+	{
+		baseIndex = i;//o indexador do momentos
+		for (k = i + 1; k < size; k++)
+		{
+			if ( vetList->VetInfo[k].key < vetList->VetInfo[baseIndex].key)
+			{
+				baseIndex = k;
+			}
+		}
+		swap(&vetList->VetInfo[baseIndex].key, &vetList->VetInfo[i].key);
+	}
+}
+
+void selectonSort(TVetList* vetList, int size)
+{
+	int i, k, baseIndex;
+	for (i = 0; i < size - 1; i++)
+	{
+		baseIndex = i;
+		for (k = i + 1; k < size; k++)
+		{
+			if (vetList->VetInfo[k].key < vetList->VetInfo[baseIndex].key)
+			{
+				baseIndex = k;
+			}
+		}
+		if (baseIndex != i)//Faz a chamada da função swap para fazer a troca de kyes
+		{
+			swap(&vetList->VetInfo[baseIndex].key, &vetList->VetInfo[i].key);
+		}
+	}
+}
+
+//=============================bubbleSort
+
+void bubbleSortBase(TVetList* vetList, int size)
+{
+	int i, k;
+	for (i = 0; i < size - 1; i++)
+	{
+		for (k = 0; k < size - i - 1; k++)
+		{
+			if (vetList->VetInfo[k].key > vetList->VetInfo[k + 1].key)
+			{
+				swap(&vetList->VetInfo[k].key, &vetList->VetInfo[k + 1].key);
+			}
+		}
+	}
+}
+
+void bubbleSort(TVetList* vetList, int size)
+{
+	int i, k;
+	int swapped;
+	for (i = 0; i < size - 1; i++)
+	{
+		swapped = 0;
+		for (k = 0; k < size - i - 1; k++)//A cada passagem de "i" reduz o tamanho do vetor
+		{
+			if (vetList->VetInfo[k].key > vetList->VetInfo[k + 1].key)
+			{
+				swap(&vetList->VetInfo[k].key, &vetList->VetInfo[k + 1].key);
+				swapped = 1;
+			}
+		}
+		if (swapped == 0)
+		{
+			break;
+		}
+	}
+}
+
+void bubbleSortStop(TVetList* vetList, int size)
+{
+	int i;
+	int lastChange;
+	int	lastPosition = size - 1;
+
+	do
+	{
+		lastChange = 0;
+		for (i = 0; i < lastPosition - 1; i++)
+		{
+			if (vetList->VetInfo[i].key > vetList->VetInfo[i + 1].key)
+			{
+				swap(&vetList->VetInfo[i].key, &vetList->VetInfo[i + 1].key);
+				lastChange = i;
+			}
+		}
+		lastPosition = lastChange;
+	} while (lastPosition > 0);
+}
+
+
+//============================InsertSort
+
+void insertSort(TVetList* vetList, int size)
+{
+	int i, k;
+	int keyCompare;
+
+	for (i = 1; i < size; i++)
+	{
+		keyCompare = vetList->VetInfo[i].key;
+		k = i - 1;
+		while ((k >= 0) && (keyCompare < vetList->VetInfo[k].key))
+		{
+			vetList->VetInfo[k + 1].key = vetList->VetInfo[k].key;
+			k--;
+		}
+		vetList->VetInfo[k + 1].key = keyCompare;
+	}
+}
+
+//-----------------------------------------------------------MAIN
 
 int main() {
 	TVetList* vetList = createrVetList();
@@ -270,6 +409,15 @@ int main() {
 		info.key = vetNum[i];
 		insertVetList(vetList,info);
 	}
+	printVetList(vetList);
+
+	//selectonSortBase(vetList, vetList->size);
+	//selectonSort(vetList, vetList->size);
+	//bubbleSortBase(vetList, vetList->size);
+	//bubbleSort(vetList, vetList->size);
+	//bubbleSortStop(vetList, vetList->size);
+	insertSort(vetList, vetList->size);
+
 	printVetList(vetList);
 
 	return 0;
