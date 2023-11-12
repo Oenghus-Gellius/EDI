@@ -127,6 +127,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Quest2.h" />
+    <ClInclude Include="Quest3.h" />
     <ClInclude Include="VetAllMethodos.h" />
   </ItemGroup>
   <ItemGroup>

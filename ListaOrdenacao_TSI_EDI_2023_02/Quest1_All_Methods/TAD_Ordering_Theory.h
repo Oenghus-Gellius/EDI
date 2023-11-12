@@ -1,46 +1,9 @@
-/* THEORY
-
-========================== Complexidade O(n²): =============================
-
-Bubble Sort
-Insertion Sort
-Selection Sort
-
-- Complexidade O(n log n):
-
-Merge Sort
-Heap Sort
-- Complexidade O(n log n) em média, O(n²) no pior caso:
-
-Quick Sort
-
-======================== Estabilidade =========================
-
-- Estáveis:
-
-Bubble Sort (pode ser implementado para ser estável)
-Insertion Sort (é estável por natureza)
-Merge Sort (é estável por natureza)
-Tim Sort (é uma variação do Merge Sort e, portanto, é estável)
-Counting Sort (é estável)
-Radix Sort (é estável)
-
-- Instáveis:
-
-Selection Sort (geralmente instável)
-Quick Sort (pode ser estável ou instável, dependendo da implementação)
-
-
-1) Invente um vetor-exemplo de entrada para demostrar que ordenação por seleção é um
-método instável.*/
-
 #define MAX_VET 10
 
 typedef int TKey;
 
 typedef struct Info {
 	TKey key;
-	char caracter;
 }TInfo;
 
 typedef struct NodeList {
@@ -80,13 +43,13 @@ void destroyerList(TList* list);
 
 TVetList* createrVetList();
 
-int insertVetList(TVetList *vetList, TInfo info);
+int insertVetList(TVetList* vetList, TInfo info);
 
-int insertPositionVetList(TVetList *vetList, int position, TInfo info);
+int insertPositionVetList(TVetList* vetList, int position, TInfo info);
 
-int removeInfoVetList(TVetList *vetList, TKey key, TInfo *info);
+int removeInfoVetList(TVetList* vetList, TKey key, TInfo* info);
 
-int finderInfoVetList(TVetList *vetList, TKey key, TInfo *info);
+int finderInfoVetList(TVetList* vetList, TKey key, TInfo* info);
 
 int emptyVetList(TVetList* vetList);
 
@@ -94,9 +57,9 @@ int fullVetList(TVetList* vetList);
 
 int sizeVetList(TVetList* vetList);
 
-void DestroyerVet(TVetList *vetList);
+void DestroyerVet(TVetList* vetList);
 
-void printVetList(TVetList *vetList);
+void printVetList(TVetList* vetList);
 
 //================================= ORDERING - crescent
 
@@ -116,9 +79,9 @@ void selectionSort(TVetList* vetList, int size);
 
 void bubbleSortBase(TVetList* vetList, int size);
 
-void bubbleSort(TVetList * vetList, int size);
+void bubbleSort(TVetList* vetList, int size);
 
-void bubbleSortStop(TVetList * vetList, int size);
+void bubbleSortStop(TVetList* vetList, int size);
 
 //============================InsertSort
 
@@ -150,9 +113,3 @@ void mergeSort_Interleave(TInfo* vetList, int esq, int midlle, int dir);
 void buildHeap(TVetList* vetList, int position, int end);
 
 void heapSort(TVetList* vetList, int size);
-
-
-
-
-
-

@@ -1,4 +1,4 @@
-#include "VetAllMethodos.h"
+#include "TAD_Ordering_Theory.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -262,16 +262,16 @@ void printVetList(TVetList* vetList)
 {
 	for (int i = 0; i < vetList->size; i++)
 	{
-		printf("%d|%c\t", vetList->VetInfo[i].key, vetList->VetInfo[i].caracter);
+		printf("%d\t", vetList->VetInfo[i].key);
 	}
 	printf("\n");
 }
 
 
 //================================= ORDERING - crescent
-void swap(TInfo* keyX, TInfo* keyY)
+void swap(int* keyX, int* keyY)
 {
-	TInfo temp = *keyX;
+	int temp = *keyX;
 	*keyX = *keyY;
 	*keyY = temp;
 }
@@ -290,7 +290,7 @@ void selectionSortBase(TVetList* vetList, int size)//Passar size é redundante, p
 				baseIndex = k;
 			}
 		}
-		swap(&vetList->VetInfo[baseIndex], &vetList->VetInfo[i]);
+		swap(&vetList->VetInfo[baseIndex].key, &vetList->VetInfo[i].key);
 	}
 }
 
@@ -309,7 +309,7 @@ void selectionSort(TVetList* vetList, int size)
 		}
 		if (baseIndex != i)//Faz a chamada da função swap para fazer a troca de kyes
 		{
-			swap(&vetList->VetInfo[baseIndex], &vetList->VetInfo[i]);
+			swap(&vetList->VetInfo[baseIndex].key, &vetList->VetInfo[i].key);
 		}
 	}
 }
@@ -325,7 +325,7 @@ void bubbleSortBase(TVetList* vetList, int size)
 		{
 			if (vetList->VetInfo[k].key > vetList->VetInfo[k + 1].key)
 			{
-				swap(&vetList->VetInfo[k], &vetList->VetInfo[k + 1]);
+				swap(&vetList->VetInfo[k].key, &vetList->VetInfo[k + 1].key);
 			}
 		}
 	}
@@ -342,7 +342,7 @@ void bubbleSort(TVetList* vetList, int size)
 		{
 			if (vetList->VetInfo[k].key > vetList->VetInfo[k + 1].key)
 			{
-				swap(&vetList->VetInfo[k], &vetList->VetInfo[k + 1]);
+				swap(&vetList->VetInfo[k].key, &vetList->VetInfo[k + 1].key);
 				swapped = 1;
 			}
 		}
@@ -366,7 +366,7 @@ void bubbleSortStop(TVetList* vetList, int size)
 		{
 			if (vetList->VetInfo[i].key > vetList->VetInfo[i + 1].key)
 			{
-				swap(&vetList->VetInfo[i], &vetList->VetInfo[i + 1]);
+				swap(&vetList->VetInfo[i].key, &vetList->VetInfo[i + 1].key);
 				lastChange = i;
 			}
 		}
@@ -457,7 +457,7 @@ void partition(TVetList* vetList, int esq, int dir)
 		// Se i é menor ou igual a k, troca os elementos nas posições i e k
 		if (i <= k)
 		{
-			swap(&vetList->VetInfo[i], &vetList->VetInfo[k]);
+			swap(&vetList->VetInfo[i].key, &vetList->VetInfo[k].key);
 			i++;
 			k--;
 		}
@@ -508,7 +508,7 @@ void partitionInsert(TVetList* vetList, int esq, int dir)
 			}
 			if (i <= j)
 			{
-				swap(&vetList->VetInfo[i], &vetList->VetInfo[j]);
+				swap(&vetList->VetInfo[i].key, &vetList->VetInfo[j].key);
 				i++;
 				j--;
 			}
@@ -539,7 +539,7 @@ void mergeSort(TInfo* vetList, int size)
 void mergeSort_Order(TInfo* vetList, int esq, int dir)
 {
 	int middle;
-	if (esq >= dir)
+	if (esq == dir)
 	{
 		return;
 	}
@@ -549,53 +549,53 @@ void mergeSort_Order(TInfo* vetList, int esq, int dir)
 	mergeSort_Interleave(vetList, esq, middle, dir);
 }
 
-void mergeSort_Interleave(TVetList* vetList, int esq, int midlle, int dir)
+void mergeSort_Interleave(TInfo* vetList, int esq, int midlle, int dir)
 {
 	int i, j, k;
 	int count = 0;
-	int size_Esq = midlle - esq + 1;
-	int size_Dir = dir - midlle;
+	int size_E = midlle - esq + 1;
+	int size_D = dir - midlle;
 
-	TInfo* leftSide = (TInfo*)malloc(size_Esq * sizeof(TInfo));
-	TInfo* rightSide = (TInfo*)malloc(size_Dir * sizeof(TInfo));
+	TInfo* leftSide = (TInfo*)malloc(size_E * sizeof(TInfo));
+	TInfo* rightSide = (TInfo*)malloc(size_D * sizeof(TInfo));
 
 	// Copia os elementos da parte esquerda para o array leftSide
-	for (i = 0; i < size_Esq; i++)
+	for (i = 0; i < size_E; i++)
 	{
-		leftSide[i] = vetList->VetInfo[i + esq];
+		leftSide[i] = vetList[i + esq];
 	}
 
 	// Copia os elementos da parte direita para o array rightSide
-	for (i = 0; i < size_Dir; i++)
+	for (i = 0; i < size_D; i++)
 	{
-		rightSide[i] = vetList->VetInfo[i + midlle + 1];
+		rightSide[i] = vetList[i + midlle + 1];
 	}
 	i = 0;
 	j = 0;
 
-	while (i < size_Esq && j < size_Dir)
+	while (i < size_E && j < size_D)
 	{
 		if (leftSide[i].key < rightSide[j].key)
 		{
-			vetList->VetInfo[esq + count] = leftSide[i];
+			vetList[esq + count] = leftSide[i];
 			i++;
 		}
 		else
 		{
-			vetList->VetInfo[esq + count] = rightSide[j];
+			vetList[esq + count] = rightSide[j];
 			j++;
 		}
 		count++;
 	}
-	while (i < size_Esq)
+	while (i < size_E)
 	{
-		vetList->VetInfo[esq + count] = leftSide[i];
+		vetList[esq + count] = leftSide[i];
 		i++;
 		count++;
 	}
-	while (j < size_Dir)
+	while (j < size_D)
 	{
-		vetList->VetInfo[esq + count] = rightSide[j];
+		vetList[esq + count] = rightSide[j];
 		j++;
 		count++;
 	}
@@ -636,7 +636,7 @@ void buildHeap(TVetList* vetList, int position, int end)
 		// compara o maior filho com o pai
 		if (vetList->VetInfo[position].key < vetList->VetInfo[h].key)
 		{
-			swap(&vetList->VetInfo[h], &vetList->VetInfo[position]);
+			swap(&vetList->VetInfo[h].key, &vetList->VetInfo[position].key);
 			position = h;
 		}
 		else
@@ -662,52 +662,4 @@ void heapSort(TVetList* vetList, int size)
 		buildHeap(vetList, 0, i - 1);
 	}
 }
-//-----------------------------------------------------------MAIN
 
-int main() {
-	TVetList* vetList = createrVetList();
-	TInfo info;
-
-
-	int vetNum[] = { 18, 7, 13, 9, 10, 25, 30, 13, 40, 5 };
-	int VetIntOrd[] = {1, 2, 3, 4, 5, 6, 3, 8, 9, 10};
-	char vetChar[] = { 'A','B','C','D','E','F','G','H','I','J' };
-
-
-	for (int i = 0; i < MAX_VET; i++)
-	{
-		info.key = vetNum[i];
-		info.caracter = vetChar[i];
-		insertVetList(vetList,info);
-	}
-	printf("\nQuest1-START\n");
-	printVetList(vetList);
-
-	//selectionSortBase(vetList, vetList->size);
-	//selectionSort(vetList, vetList->size);
-	//bubbleSortBase(vetList, vetList->size);
-	//bubbleSort(vetList, vetList->size);
-	//bubbleSortStop(vetList, vetList->size);
-	//insertSort(vetList, vetList->size);
-	//shellSort(vetList, vetList->size);
-	//quickSort(vetList, vetList->size);
-	//quickSortInsert(vetList, vetList->size);
-	
-	mergeSort(vetList, vetList->size); //<---ERRO
-
-	//heapSort(vetList, vetList->size);
-
-	printVetList(vetList);
-	printf("\nQuest1-END\n");
-
-	printf("\nQuest1-START\n");
-	
-	char world1[] = { "ABABABA" };
-	char world2[] = { "QUICKSORT" };
-
-	printf("\nQuest1-END\n");
-
-
-
-	return 0;
-}
