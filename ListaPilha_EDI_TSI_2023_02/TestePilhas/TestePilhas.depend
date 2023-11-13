@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1699882822 source:e:\funes\github\edi\listapilha_edi_tsi_2023_02\testepilhas\main.c
+	"main.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1699882824 e:\funes\github\edi\listapilha_edi_tsi_2023_02\testepilhas\main.h
+

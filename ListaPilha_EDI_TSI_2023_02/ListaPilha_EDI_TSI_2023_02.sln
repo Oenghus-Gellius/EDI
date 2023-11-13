@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Quest6_Pilhas_Iguais", "Que
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Quest7_Organiza_Impar_Par", "Quest7_Organiza_Impar_Par\Quest7_Organiza_Impar_Par.vcxproj", "{FA32AA51-3A96-4106-BD38-EC67C7C8A9C4}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Quest4_Estacionamento", "Quest4_Estacionamento\Quest4_Estacionamento.vcxproj", "{7CF344A2-4816-4FFE-B838-7C2EED1A96E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -61,6 +63,14 @@ Global
 		{FA32AA51-3A96-4106-BD38-EC67C7C8A9C4}.Release|x64.Build.0 = Release|x64
 		{FA32AA51-3A96-4106-BD38-EC67C7C8A9C4}.Release|x86.ActiveCfg = Release|Win32
 		{FA32AA51-3A96-4106-BD38-EC67C7C8A9C4}.Release|x86.Build.0 = Release|Win32
+		{7CF344A2-4816-4FFE-B838-7C2EED1A96E5}.Debug|x64.ActiveCfg = Debug|x64
+		{7CF344A2-4816-4FFE-B838-7C2EED1A96E5}.Debug|x64.Build.0 = Debug|x64
+		{7CF344A2-4816-4FFE-B838-7C2EED1A96E5}.Debug|x86.ActiveCfg = Debug|Win32
+		{7CF344A2-4816-4FFE-B838-7C2EED1A96E5}.Debug|x86.Build.0 = Debug|Win32
+		{7CF344A2-4816-4FFE-B838-7C2EED1A96E5}.Release|x64.ActiveCfg = Release|x64
+		{7CF344A2-4816-4FFE-B838-7C2EED1A96E5}.Release|x64.Build.0 = Release|x64
+		{7CF344A2-4816-4FFE-B838-7C2EED1A96E5}.Release|x86.ActiveCfg = Release|Win32
+		{7CF344A2-4816-4FFE-B838-7C2EED1A96E5}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
