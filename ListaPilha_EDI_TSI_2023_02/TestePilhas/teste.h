@@ -1,29 +1,28 @@
 /*4) Considere que um estacionamento seja composto por uma única entrada capaz de
 guardar uma quantidade infinita de carros. Como só existe apenas uma entrada/saída no
-estacionamento. 
+estacionamento.
 
 Se chegar um cliente para retirar um carro que não seja o mais
 próximo da saída, todos os carros bloqueando seu caminho sairão do estacionamento. O
 carro do cliente será retirado do estacionamento, e os outros carros voltarão a ocupar a
-mesma sequência inicial. 
+mesma sequência inicial.
 
-Escreva um programa que processe um conjunto de chegadas e saídas, identificadas, 
-respectivamente, pelas letras E e S, e o número da placa do carro. 
-
-O programa deve imprimir uma mensagem sempre que um carro chegar ou sair.
+Escreva um programa que processe um conjunto de chegadas e saídas, identificadas,
+respectivamente, pelas letras E e S, e o número da placa do
+carro. O programa deve imprimir uma mensagem sempre que um carro chegar ou sair.
 
 Quando um carro sair do estacionamento, a mensagem deverá incluir o número de vezes
 em que o carro foi manobrado para fora do estacionamento para permitir que os outros
 carros saíssem.*/
 
-#define CHAR_PLATE 6
+#define CHAR_PLATE 7
 
 typedef int TKey;
-//typedef char TCarPlate[CHAR_PLATE];
+typedef char TCarPlate[CHAR_PLATE];
 
 typedef struct Info {
 	TKey key;
-	int carPlate;
+	TCarPlate carPlate;
 	int movement;
 	char status;
 }TInfo;

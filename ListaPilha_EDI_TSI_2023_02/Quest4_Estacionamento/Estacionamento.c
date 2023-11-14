@@ -1,8 +1,11 @@
 #include "Estacionamento.h"
 
+#define  _CRT_SECURE_NO_WARNINGS
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 
 TList* createrList()
 {
@@ -216,10 +219,18 @@ void destructyStack(TStack* stack)
 
 void printStack(TStack* stack)
 {
+	if (emptyStack(stack)) {
+		printf("Stack is empty.\n");
+		return;
+	}
+
 	TNodeStack* ptrNodeStack = stack->head;
 	while (ptrNodeStack != NULL)
 	{
-		printf("%d\t", ptrNodeStack->info.key);
+		printf("Key %d-", ptrNodeStack->info.key);
+		printf("Status.: %c -", ptrNodeStack->info.status);
+		printf("Plate.:%d |", ptrNodeStack->info.carPlate);
+		printf("Movement: %d\n", ptrNodeStack->info.movement);
 		ptrNodeStack = ptrNodeStack->next;
 	}
 	printf("\n");
@@ -231,51 +242,55 @@ void printStack(TStack* stack)
 
 //-----------------
 int main() {
-	TStack* garageStack = createrStack();
-	TInfo carInfoGarage;
-	TInfo carInfoRemove;
-	int garageQtd = 10;
-
-	TKey carRemove = 7;
-	carInfoRemove.key = carRemove;
-
-	for (int i = 0; i < garageQtd; i++)
-	{
-		carInfoGarage.key = i;
-		pushStack(garageStack, carInfoGarage);
-	}
-
-	printStack(garageStack);
-
-	ValetParking4You(garageStack, carInfoRemove);
-
-	destructyStack(garageStack);
-
-	return 0;
+	return dayTest();
 }
 
 void ValetParking4You(TStack* carStack, TInfo infoCar)
 {
 	TStack* tempStack = createrStack();
+
+	TInfo carInfo;
+
 	int In, out;
 
 	int finder = 0;
-	printf("\nValet Parking 4 You!!!\n");
+	
 
 	while (carStack != NULL && finder == 0)
 	{
-		pushStack(tempStack, carStack->head->info);
-		popStack(carStack, &carStack->head->info);
+
+		//Contar as movimentações
+		carStack->head->info.movement++;
 		
-		if (infoCar.key == carStack->head->info.key)
+		if (infoCar.carPlate == carStack->head->info.carPlate)
 		{
-			popStack(carStack, &carStack->head->info);//<-REMOVENDO EFETIVAMENTE DA PILHA
-			printf("\nCar remove  %d\t", infoCar.key);
+
+			carStack->head->info.status = 'S';
+
+			popStack(carStack, &carInfo);//<-REMOVENDO EFETIVAMENTE DA PILHA
+			
+			printf("\nCar remove.:\n");
+			printf("Key %d-", carInfo.key);
+			printf("Status.: %c -", carInfo.status);
+			printf("Plate.:%d |", carInfo.carPlate);
+			printf("Movement: %d\n", carInfo.movement);
+
+			
 			finder = 1;
+		}
+		if (carStack->size != NULL)
+		{
+			pushStack(tempStack, carStack->head->info);
+			popStack(carStack, &carStack->head->info);
 		}
 	}
 
-	while (tempStack->head != NULL)
+	if (finder == 0)
+	{
+		printf("\nCar not finder!!!\n");
+	}
+
+	while (tempStack->head != NULL)//Volta para a garagem
 	{
 		pushStack(carStack, tempStack->head->info);
 		popStack(tempStack, &tempStack->head->info);
@@ -285,3 +300,66 @@ void ValetParking4You(TStack* carStack, TInfo infoCar)
 	printf("\nCar in park.:\n");
 	printStack(carStack);
 }
+
+
+int dayTest()
+{
+	TStack* garageStack = createrStack();
+	TInfo carInfoGarage;
+
+	TKey keyday = 1;
+	int garageQtdNow = 0;
+
+	//TCarPlate carEnterPlate[] = { "ABC-123", "XYZ-789", "QWE-456", "HJK-321", "LMN-654", "PQR-987", "STU-654", "VWX-321", "YZA-789", "HQK-341" };
+	int carEnterPlate[] = { 987123, 987789, 987456, 987321, 987654, 987987, 987654, 987721, 987789, 987341};
+
+	printf("\nValet Parking 4 You!!!\n\n");
+
+	//Se entrar não chama função movimentação pq entra no topo da pilha
+
+	for (int i = 0; i < 10; i++)
+	{
+		carInfoGarage.key = keyday;
+		carInfoGarage.carPlate = carEnterPlate[i];
+		carInfoGarage.movement = 0;
+		carInfoGarage.status = 'E';
+		pushStack(garageStack, carInfoGarage);
+		keyday++;
+	}
+
+	printStack(garageStack);
+
+	TInfo carOut;
+
+	//Sai 1 carro
+	carInfoGarage.carPlate = 987321;// key 8
+	carOut = carInfoGarage;
+
+	ValetParking4You(garageStack, carOut);
+
+	//Sai 2 carro
+	carInfoGarage.carPlate = 987123;// key 
+	carOut = carInfoGarage;
+
+	ValetParking4You(garageStack, carOut);
+
+	//Entra um carro
+	carInfoGarage.key = keyday;
+	carInfoGarage.carPlate = 5678245;
+	carInfoGarage.movement = 0;
+	carInfoGarage.status = 'E';
+	pushStack(garageStack, carInfoGarage);
+	keyday++;
+
+	//Sai 3 carro
+	carInfoGarage.carPlate = 987456;// key 
+	carOut = carInfoGarage;
+
+	ValetParking4You(garageStack, carOut);
+
+
+	destructyStack(garageStack);
+
+	return EXIT_SUCCESS;
+}
+
