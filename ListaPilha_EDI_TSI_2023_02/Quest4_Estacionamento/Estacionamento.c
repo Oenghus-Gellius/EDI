@@ -262,26 +262,24 @@ void ValetParking4You(TStack* carStack, TInfo infoCar)
 		//Contar as movimentações
 		carStack->head->info.movement++;
 		
-		if (infoCar.carPlate == carStack->head->info.carPlate)
+		if (infoCar.carPlate != carStack->head->info.carPlate)
 		{
-
+			pushStack(tempStack, carStack->head->info);
+			popStack(carStack, &carStack->head->info);
+		}
+		else
+		{
 			carStack->head->info.status = 'S';
 
 			popStack(carStack, &carInfo);//<-REMOVENDO EFETIVAMENTE DA PILHA
-			
+
 			printf("\nCar remove.:\n");
 			printf("Key %d-", carInfo.key);
 			printf("Status.: %c -", carInfo.status);
 			printf("Plate.:%d |", carInfo.carPlate);
 			printf("Movement: %d\n", carInfo.movement);
 
-			
 			finder = 1;
-		}
-		if (carStack->size != NULL)
-		{
-			pushStack(tempStack, carStack->head->info);
-			popStack(carStack, &carStack->head->info);
 		}
 	}
 
@@ -355,8 +353,13 @@ int dayTest()
 	carInfoGarage.carPlate = 987456;// key 
 	carOut = carInfoGarage;
 
-	ValetParking4You(garageStack, carOut);
+	//Sai 4 carro )BS.: é o carro 11
+	carInfoGarage.carPlate = 5678245;// key 
+	carOut = carInfoGarage;
 
+	
+
+	ValetParking4You(garageStack, carOut);
 
 	destructyStack(garageStack);
 

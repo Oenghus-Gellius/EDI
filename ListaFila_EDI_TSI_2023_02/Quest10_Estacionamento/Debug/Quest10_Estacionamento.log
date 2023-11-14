@@ -1,0 +1,7 @@
+﻿  EstacionamentoSulNorte.c
+E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\Quest10_Estacionamento\EstacionamentoSulNorte.c(43,19): warning C4133: '=': tipos incompatíveis - de 'TNodeLine *' para 'Node *'
+E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\Quest10_Estacionamento\EstacionamentoSulNorte.c(59,14): warning C4133: '=': tipos incompatíveis - de 'Node *' para 'TNodeLine *'
+E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\Quest10_Estacionamento\EstacionamentoSulNorte.c(97,15): warning C4133: '=': tipos incompatíveis - de 'Node *' para 'TNodeLine *'
+E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\Quest10_Estacionamento\EstacionamentoSulNorte.c(113,15): warning C4133: '=': tipos incompatíveis - de 'Node *' para 'TNodeLine *'
+E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\Quest10_Estacionamento\EstacionamentoSulNorte.c(122,9): warning C4013: 'dayTest' indefinido; assumindo extern retornando int
+  Quest10_Estacionamento.vcxproj -> E:\Funes\GitHub\EDI\ListaFila_EDI_TSI_2023_02\Debug\Quest10_Estacionamento.exe
