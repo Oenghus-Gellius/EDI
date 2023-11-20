@@ -3,4 +3,3 @@
 4x5 de inteiros.
 */
 
-int sumMatrix(int matrix[][5], int lin, int col, int linIndex, int colIndex);

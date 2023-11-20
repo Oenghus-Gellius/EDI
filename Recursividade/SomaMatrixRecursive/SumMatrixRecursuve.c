@@ -31,7 +31,7 @@ int main() {
 	return 0;
 }
 
-int sumMatrix(int matrix[][5], int lin, int col,int linIndex, int colIndex, int* soma) {
+int sumMatrix(int matrix[][5], int lin, int col,int linIndex, int colIndex) {
 	if (lin == linIndex)
 	{
 		return 0;
@@ -40,12 +40,11 @@ int sumMatrix(int matrix[][5], int lin, int col,int linIndex, int colIndex, int*
 	{
 		if (col == colIndex)
 		{
-			return soma;
+			return sumMatrix(matrix, lin, col, linIndex + 1, colIndex);
 		}
 		else
 		{
-			soma = soma + sumMatrix(matrix, lin, col, linIndex + 1, 0, soma);
-			return soma;
+			return matrix[linIndex][colIndex] + sumMatrix(matrix, lin, col, linIndex, colIndex + 1);
 		}
 	}
 }
