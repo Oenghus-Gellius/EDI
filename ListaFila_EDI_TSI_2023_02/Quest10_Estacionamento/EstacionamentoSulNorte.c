@@ -33,7 +33,7 @@ int queueLine(TLine* line, TInfo info) {
 		return 0;
 	}
 	ptrNodeLine->info = info;
-	ptrNodeLine->next = NULL;
+	ptrNodeLine->next = NULL;//SE QUER CIRCULAR Ã‰ SÃ“ APONTAR PARA A 
 	if (line->size == 0)//O Primeiro da fila
 	{
 		line->start = ptrNodeLine;
@@ -137,7 +137,7 @@ void ValetParking4You(TLine* garageLine, TInfo carInfo)
 		while (garageLine->start != NULL)
 		{
 			garageLine->start->info.movement++;
-			//contador de movimentações
+			//contador de movimentaï¿½ï¿½es
 			if (garageLine->start->info.carPlate != carInfo.carPlate)
 			{
 				queueLine(garageLineTemp, garageLine->start->info);

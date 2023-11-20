@@ -126,6 +126,15 @@ void insertSort(TVetList* vetList, int size);
 
 //==============================Shellsort
 
+/*O Shellsort, também conhecido como método de ordenação por incrementos decrescentes, 
+é um algoritmo de ordenação que aprimora o método de inserção, realizando comparações e trocas 
+em intervalos específicos chamados de "lacunas" ou "incrementos". O algoritmo utiliza uma 
+sequência de lacunas que, tipicamente, são escolhidas como uma série de potências de dois.
+
+A ideia principal do Shellsort é ordenar subconjuntos da lista original, começando com intervalos 
+grandes e diminuindo gradualmente esses intervalos até que a lista esteja praticamente ordenada. 
+Então, o algoritmo realiza uma etapa final de ordenação por inserção para garantir que a lista 
+esteja completamente ordenada.*/
 void shellSort(TVetList* vetList, int size);
 
 //==============================QuickSort / Partition <-------Usando a função swap

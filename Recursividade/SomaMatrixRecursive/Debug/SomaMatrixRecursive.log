@@ -1,0 +1,6 @@
+﻿  SumMatrixRecursuve.c
+E:\Funes\GitHub\EDI\Recursividade\SomaMatrixRecursive\SumMatrixRecursuve.c(27,43): warning C4020: 'sumMatrix': muitos parâmetros reais
+E:\Funes\GitHub\EDI\Recursividade\SomaMatrixRecursive\SumMatrixRecursuve.c(34,88): warning C4029: lista de parâmetros formais declarada diferente da definição
+E:\Funes\GitHub\EDI\Recursividade\SomaMatrixRecursive\SumMatrixRecursuve.c(43,4): warning C4047: 'return': 'int' difere em níveis de indireção de 'int *'
+E:\Funes\GitHub\EDI\Recursividade\SomaMatrixRecursive\SumMatrixRecursuve.c(48,4): warning C4047: 'return': 'int' difere em níveis de indireção de 'int *'
+  SomaMatrixRecursive.vcxproj -> E:\Funes\GitHub\EDI\Recursividade\Debug\SomaMatrixRecursive.exe

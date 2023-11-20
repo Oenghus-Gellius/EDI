@@ -689,11 +689,11 @@ int main() {
 	//bubbleSort(vetList, vetList->size);
 	//bubbleSortStop(vetList, vetList->size);
 	//insertSort(vetList, vetList->size);
-	//shellSort(vetList, vetList->size);
+	shellSort(vetList, vetList->size);
 	//quickSort(vetList, vetList->size);
 	//quickSortInsert(vetList, vetList->size);
 	
-	mergeSort(vetList, vetList->size); //<---ERRO
+	//mergeSort(vetList, vetList->size); //<---ERRO
 
 	//heapSort(vetList, vetList->size);
 
