@@ -36,9 +36,9 @@ int insertList(TList* list, TInfo info)
 	{
 		list->start = ptrNodeList;
 	}
-	else
+	else//Se for o ultimo
 	{
-		list->end->next = ptrNodeList;
+		list->end->next = ptrNodeList;//Conecta o "penultino ao que vai entra no final"
 	}
 	list->end = ptrNodeList;
 	list->size++;
@@ -59,15 +59,15 @@ int removeList(TList* list, TKey key, TInfo* info)
 			{
 				list->start = list->start->next;
 			}
-			else if (ptrNodeList == list->end)
+			else if (ptrNodeList == list->end)//Se for o ultimo
 			{
 				list->end = ptrBackNodeList;
 				list->end->next = NULL;
 			}
-			else
-			{
-				ptrBackNodeList->next = ptrNodeList->next;
-			}
+				else
+				{
+					ptrBackNodeList->next = ptrNodeList->next;
+				}
 			*info = ptrNodeList->info;
 			free(ptrNodeList);
 			list->size--;
@@ -277,7 +277,7 @@ void swap(TInfo* keyX, TInfo* keyY)
 }
 
 //=============================selectoinSort
-void selectionSortBase(TVetList* vetList, int size)//Passar size é redundante, pois já tem essa informação na struct vetList->size
+void selectionSortBase(TVetList* vetList, int size)//Passar size ï¿½ redundante, pois jï¿½ tem essa informaï¿½ï¿½o na struct vetList->size
 {
 	int i, k, baseIndex;
 	for (i = 0; i < size - 1; i++)
@@ -307,7 +307,7 @@ void selectionSort(TVetList* vetList, int size)
 				baseIndex = k;
 			}
 		}
-		if (baseIndex != i)//Faz a chamada da função swap para fazer a troca de kyes
+		if (baseIndex != i)//Faz a chamada da funï¿½ï¿½o swap para fazer a troca de kyes
 		{
 			swap(&vetList->VetInfo[baseIndex], &vetList->VetInfo[i]);
 		}
@@ -439,22 +439,22 @@ void partition(TVetList* vetList, int esq, int dir)
 	i = esq;
 	k = dir;
 
-	// Seleciona o elemento do meio como pivô
+	// Seleciona o elemento do meio como pivï¿½
 	pivot = vetList->VetInfo[(esq + dir) / 2];
 
 	do
 	{
-		// Encontra um elemento à esquerda que é maior ou igual ao pivô
+		// Encontra um elemento ï¿½ esquerda que ï¿½ maior ou igual ao pivï¿½
 		while (vetList->VetInfo[i].key < pivot.key)
 		{
 			i++;
 		}
-		// Encontra um elemento à direita que é menor ou igual ao pivô
+		// Encontra um elemento ï¿½ direita que ï¿½ menor ou igual ao pivï¿½
 		while (vetList->VetInfo[k].key > pivot.key)
 		{
 			k--;
 		}
-		// Se i é menor ou igual a k, troca os elementos nas posições i e k
+		// Se i ï¿½ menor ou igual a k, troca os elementos nas posiï¿½ï¿½es i e k
 		if (i <= k)
 		{
 			swap(&vetList->VetInfo[i], &vetList->VetInfo[k]);
@@ -480,10 +480,10 @@ void quickSort(TVetList* vetList, int size)
 
 void partitionInsert(TVetList* vetList, int esq, int dir)
 {
-	int size = dir - esq + 1;  // Corrigir cálculo do tamanho
+	int size = dir - esq + 1;  // Corrigir cï¿½lculo do tamanho
 	if (size > 200)
 	{
-		insertSort(vetList, esq, dir);  // Chamar insertSort com os índices corretos
+		insertSort(vetList, esq, dir);  // Chamar insertSort com os ï¿½ndices corretos
 	}
 	else
 	{
